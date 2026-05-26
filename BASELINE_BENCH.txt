@@ -1,0 +1,87 @@
+BenchmarkOneNode-12    	raft2026/05/26 16:42:15 INFO: 1 switched to configuration voters=(1)
+BenchmarkOneNode-12    	raft2026/05/26 16:42:21 INFO: 1 switched to configuration voters=(1)
+BenchmarkOneNode-12    	raft2026/05/26 16:42:26 INFO: 1 switched to configuration voters=(1)
+BenchmarkStatus/members=1/Status-12  	10191847	       335.0 ns/op	    1032 B/op	       8 allocs/op
+BenchmarkStatus/members=1/Status-12  	10318105	       340.9 ns/op	    1032 B/op	       8 allocs/op
+BenchmarkStatus/members=1/Status-12  	10940638	       344.8 ns/op	    1032 B/op	       8 allocs/op
+BenchmarkStatus/members=1/Status-example-12         	 9026972	       423.9 ns/op	    1032 B/op	       8 allocs/op
+BenchmarkStatus/members=1/Status-example-12         	 8544660	       399.6 ns/op	    1032 B/op	       8 allocs/op
+BenchmarkStatus/members=1/Status-example-12         	 9172465	       402.0 ns/op	    1032 B/op	       8 allocs/op
+BenchmarkStatus/members=1/BasicStatus-12            	1000000000	         1.798 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/BasicStatus-12            	1000000000	         2.020 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/BasicStatus-12            	1000000000	         1.857 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/WithProgress-12           	88718131	        40.35 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/WithProgress-12           	90743721	        40.58 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/WithProgress-12           	88762501	        40.31 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/WithProgress-example-12   	85679264	        42.21 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/WithProgress-example-12   	84193376	        42.45 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=1/WithProgress-example-12   	85646991	        42.46 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/Status-12                 	 8288943	       439.3 ns/op	    1160 B/op	      10 allocs/op
+BenchmarkStatus/members=3/Status-12                 	 8345673	       437.7 ns/op	    1160 B/op	      10 allocs/op
+BenchmarkStatus/members=3/Status-12                 	 8099815	       435.3 ns/op	    1160 B/op	      10 allocs/op
+BenchmarkStatus/members=3/Status-example-12         	 7569435	       485.0 ns/op	    1160 B/op	      10 allocs/op
+BenchmarkStatus/members=3/Status-example-12         	 7486323	       480.8 ns/op	    1160 B/op	      10 allocs/op
+BenchmarkStatus/members=3/Status-example-12         	 7466258	       482.3 ns/op	    1160 B/op	      10 allocs/op
+BenchmarkStatus/members=3/BasicStatus-12            	1000000000	         1.793 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/BasicStatus-12            	1000000000	         1.790 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/BasicStatus-12            	1000000000	         1.793 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/WithProgress-12           	58280522	        61.48 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/WithProgress-12           	58909558	        62.45 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/WithProgress-12           	56878477	        61.67 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/WithProgress-example-12   	54789550	        65.29 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/WithProgress-example-12   	55355056	        65.44 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=3/WithProgress-example-12   	55694253	        65.66 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/Status-12                 	 6853346	       522.5 ns/op	    1288 B/op	      12 allocs/op
+BenchmarkStatus/members=5/Status-12                 	 6938445	       516.4 ns/op	    1288 B/op	      12 allocs/op
+BenchmarkStatus/members=5/Status-12                 	 6984592	       517.6 ns/op	    1288 B/op	      12 allocs/op
+BenchmarkStatus/members=5/Status-example-12         	 6270738	       559.8 ns/op	    1288 B/op	      12 allocs/op
+BenchmarkStatus/members=5/Status-example-12         	 6484926	       558.0 ns/op	    1288 B/op	      12 allocs/op
+BenchmarkStatus/members=5/Status-example-12         	 6493641	       562.4 ns/op	    1288 B/op	      12 allocs/op
+BenchmarkStatus/members=5/BasicStatus-12            	1000000000	         1.786 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/BasicStatus-12            	1000000000	         1.775 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/BasicStatus-12            	1000000000	         1.778 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/WithProgress-12           	43634424	        82.24 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/WithProgress-12           	43952420	        83.11 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/WithProgress-12           	43493822	        82.13 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/WithProgress-example-12   	37170738	        87.23 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/WithProgress-example-12   	40291196	        87.29 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=5/WithProgress-example-12   	41429072	        87.73 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=100/Status-12               	  306828	     11772 ns/op	   28904 B/op	     119 allocs/op
+BenchmarkStatus/members=100/Status-12               	  309926	     11670 ns/op	   28904 B/op	     119 allocs/op
+BenchmarkStatus/members=100/Status-12               	  313352	     11812 ns/op	   28904 B/op	     119 allocs/op
+BenchmarkStatus/members=100/Status-example-12       	  296883	     12338 ns/op	   28904 B/op	     119 allocs/op
+BenchmarkStatus/members=100/Status-example-12       	  298417	     12287 ns/op	   28904 B/op	     119 allocs/op
+BenchmarkStatus/members=100/Status-example-12       	  294956	     12319 ns/op	   28904 B/op	     119 allocs/op
+BenchmarkStatus/members=100/BasicStatus-12          	1000000000	         1.795 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=100/BasicStatus-12          	1000000000	         1.794 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=100/BasicStatus-12          	1000000000	         1.794 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatus/members=100/WithProgress-12         	 1000000	      3044 ns/op	     896 B/op	       1 allocs/op
+BenchmarkStatus/members=100/WithProgress-12         	 1000000	      3052 ns/op	     896 B/op	       1 allocs/op
+BenchmarkStatus/members=100/WithProgress-12         	 1000000	      3037 ns/op	     896 B/op	       1 allocs/op
+BenchmarkStatus/members=100/WithProgress-example-12 	 1000000	      3277 ns/op	     896 B/op	       1 allocs/op
+BenchmarkStatus/members=100/WithProgress-example-12 	 1000000	      3266 ns/op	     896 B/op	       1 allocs/op
+BenchmarkStatus/members=100/WithProgress-example-12 	 1000000	      3277 ns/op	     896 B/op	       1 allocs/op
+BenchmarkRawNode/single-voter-12                    	 3180860	      1105 ns/op	         1.000 firstIndex/op	         2.000 lastIndex/op	         2.000 ready/op	         0.0000003 term/op	    1435 B/op	      34 allocs/op
+--- BENCH: BenchmarkRawNode/single-voter-12
+BenchmarkRawNode/single-voter-12                    	 3238927	      1088 ns/op	         1.000 firstIndex/op	         2.000 lastIndex/op	         2.000 ready/op	         0.0000003 term/op	    1434 B/op	      34 allocs/op
+--- BENCH: BenchmarkRawNode/single-voter-12
+BenchmarkRawNode/single-voter-12                    	 3274652	      1087 ns/op	         1.000 firstIndex/op	         2.000 lastIndex/op	         2.000 ready/op	         0.0000003 term/op	    1434 B/op	      34 allocs/op
+--- BENCH: BenchmarkRawNode/single-voter-12
+BenchmarkRawNode/two-voters-12                      	 1988598	      1719 ns/op	         3.000 firstIndex/op	         2.000 lastIndex/op	         2.000 ready/op	         1.000 term/op	    2428 B/op	      56 allocs/op
+--- BENCH: BenchmarkRawNode/two-voters-12
+BenchmarkRawNode/two-voters-12                      	 2111503	      1694 ns/op	         3.000 firstIndex/op	         2.000 lastIndex/op	         2.000 ready/op	         1.000 term/op	    2425 B/op	      56 allocs/op
+--- BENCH: BenchmarkRawNode/two-voters-12
+BenchmarkRawNode/two-voters-12                      	 2102332	      1697 ns/op	         3.000 firstIndex/op	         2.000 lastIndex/op	         2.000 ready/op	         1.000 term/op	    2425 B/op	      56 allocs/op
+--- BENCH: BenchmarkRawNode/two-voters-12
+PASS
+ok  	go.etcd.io/raft/v3	254.145s
+BenchmarkProposal3Nodes-12    	raft2026/05/26 16:47:00 INFO: 1 switched to configuration voters=()
+BenchmarkProposal3Nodes-12    	raft2026/05/26 16:47:05 INFO: 1 switched to configuration voters=()
+BenchmarkProposal3Nodes-12    	raft2026/05/26 16:47:09 INFO: 1 switched to configuration voters=()
+PASS
+ok  	go.etcd.io/raft/v3/rafttest	19.655s
+ 1076469	      2921 ns/op	    2353 B/op	      41 allocs/op
+ 1602936	      3555 ns/op	    4790 B/op	     104 allocs/op
+ 1566091	      2909 ns/op	    2066 B/op	      41 allocs/op
+PASS
+ok  	go.etcd.io/raft/v3/rafttest	21.543s

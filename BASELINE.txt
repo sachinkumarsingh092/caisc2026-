@@ -1,0 +1,84 @@
+CAISc 2026 paper — Baseline capture for etcd-io/raft
+
+Pinned commit:    67d129e88b8ff1acbfe8957fad48a127096a47f9
+Pinned date:      2026-05-26 09:53:47 +0100
+Module:           go.etcd.io/raft/v3
+Go toolchain:     go1.26.3 darwin/arm64 (matches repo .go-version: 1.26)
+Repo location:    ./raft-upstream/
+
+Test suite (go test ./...):
+  ok  go.etcd.io/raft/v3            1.256s
+  ok  go.etcd.io/raft/v3/confchange 1.672s
+  ok  go.etcd.io/raft/v3/quorum     2.116s
+  ok  go.etcd.io/raft/v3/raftpb     2.671s
+  ok  go.etcd.io/raft/v3/rafttest   3.804s
+  ok  go.etcd.io/raft/v3/tracker    3.690s
+
+Headline benchmarks (count=3, benchtime=3s, on darwin/arm64 12 cores):
+  BenchmarkProposal3Nodes (rafttest, propose+ready+advance, 3-node sim cluster):
+    ~2.9-3.5 µs/op, ~2.0-4.8 KB/op, ~41-104 allocs/op
+  BenchmarkRawNode/single-voter:  ~1.09 µs/op, 1434 B/op, 34 allocs/op
+  BenchmarkRawNode/two-voters:    ~1.70 µs/op, 2425 B/op, 56 allocs/op
+  BenchmarkStatus/members=3/Status: ~437 ns/op, 1160 B/op, 10 allocs/op
+  BenchmarkStatus/members=100/Status: ~11.7 µs/op, 28904 B/op, 119 allocs/op
+
+Full benchmark dump: ./BASELINE_BENCH.txt
+
+Injection points (harness-relevant):
+  Node interface  (node.go:132)    — Tick, Campaign, Propose, ProposeConfChange,
+                                     Step, Ready, Advance, ApplyConfChange,
+                                     TransferLeadership, ReadIndex, Status,
+                                     ReportUnreachable, ReportSnapshot, Stop.
+  Storage interface (storage.go:48) — InitialState, Entries, Term, LastIndex,
+                                     FirstIndex, Snapshot. In-tree MemoryStorage
+                                     used for tests.
+  Config struct (raft.go:126)      — ID, ElectionTick, HeartbeatTick, Storage,
+                                     Applied, AsyncStorageWrites, MaxSizePerMsg,
+                                     MaxCommittedSizePerReady,
+                                     MaxUncommittedEntriesSize, MaxInflightMsgs,
+                                     MaxInflightBytes, CheckQuorum, PreVote,
+                                     ReadOnlyOption, DisableProposalForwarding,
+                                     DisableConfChangeValidation,
+                                     StepDownOnRemoval, TraceLogger.
+
+Existing upstream verification infrastructure (reuse, do not reinvent):
+  rafttest/                        — Deterministic, command-driven test framework
+                                     with handlers for every Raft op
+                                     (campaign, tick, deliver_msgs, propose,
+                                      process_ready, process_append_thread,
+                                      process_apply_thread, transfer_leadership,
+                                      propose_conf_change, send_snapshot,
+                                      set_randomized_election_timeout,
+                                      stabilize, ...). Our DST Layer 2 extends
+                                     this.
+  state_trace.go (with_tla tag)    — Emits TracingEvent at every state
+                                     transition (SendAppendEntries, BecomeLeader,
+                                     ...). Build with `go build -tags=with_tla`
+                                     and supply Config.TraceLogger.
+  tla/etcdraft.tla                 — Core spec (36KB).
+  tla/MCetcdraft.tla + .cfg        — TLC model-checker driver. Runs via
+                                     validate-model.sh.
+  tla/Traceetcdraft.tla + .cfg     — Trace-validation spec. Validates Go traces
+                                     against the model via validate.sh.
+  tla/example.ndjson (1.8 MB)      — Reference trace.
+  testdata/                        — 28 datadriven golden scenarios:
+                                     campaign, prevote, checkquorum, confchange
+                                     v1/v2, snapshots, async_storage_writes,
+                                     slow_follower_after_compaction, etc.
+
+External tooling NOT yet installed (prerequisite for Layer 1):
+  - Java JRE/JDK (TLC runs on the JVM).
+  - tla2tools.jar (TLC model checker).
+  - CommunityModules-deps.jar (TLA+ community libs).
+  - Porcupine (Go linearizability checker) — for Layer 3.
+
+Algorithmic edit targets (search space for the optimization loop):
+  - Pipelining: optimistic in-flight window growth/backoff under follower lag.
+  - Batching: commit-ack coalescing, MsgApp coalescing thresholds.
+  - Flow control: MaxInflightMsgs / MaxInflightBytes adaptive policies.
+  - Read paths: ReadIndex quorum vs. lease-based; follower read paths.
+  - AsyncStorageWrites coupling: LocalAppendThread / LocalApplyThread
+    pipelining when AsyncStorageWrites=true.
+
+All edits constrained to function-scoped, single-file changes parseable by the
+harness; out-of-scope edits are rejected at parse time before any test runs.

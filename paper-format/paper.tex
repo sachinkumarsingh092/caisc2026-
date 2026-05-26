@@ -1,0 +1,447 @@
+% CAISc 2026 submission — Open-Ended Track.
+% Anonymized for review (default submission mode).
+%
+% Build: pdflatex paper && bibtex paper && pdflatex paper && pdflatex paper
+
+\documentclass{article}
+
+\usepackage{caisc_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\title{Verification-Gated Autonomous Optimization of a Production Raft
+Library: A Harness-First Pipeline for Algorithmic Discovery}
+
+% Author block stays anonymized for submission (the .sty handles this
+% automatically in the default mode). Do not list AI systems here; the
+% AI Involvement Checklist at the end captures their role.
+\author{%
+  Anonymous Author(s) \\
+  Affiliation \\
+  Address \\
+  \texttt{email}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We study whether an autonomous, LLM-driven optimization loop can discover
+algorithmic improvements to a production consensus library while
+preserving every protocol-level correctness invariant. Taking
+\texttt{etcd-io/raft}---the most widely deployed Raft implementation---as
+our target, we build a layered verification harness combining the
+in-tree TLA$^{+}$ specification, deterministic simulation testing under
+seeded fault injection, linearizability checking of recorded client
+histories, and a differential oracle against the unmodified upstream
+library. We then drive an evolutionary search in which a large language
+model proposes bounded algorithmic edits and configuration variants;
+candidates that fail any harness layer are rejected before any
+performance comparison is permitted. We report (i)~the design and
+injection points of the harness over Raft's existing
+\texttt{Node}/\texttt{Storage} interfaces, (ii)~the set of behavioural
+anomalies surfaced during harness bring-up, (iii)~the candidate
+variants accepted by the harness and their throughput and tail-latency
+characteristics relative to the pinned baseline, and (iv)~an ablation
+showing which harness layer caught which class of incorrect candidate.
+Our central claim is methodological: in a domain with mechanically
+checkable safety properties, the harness---not the model---is the
+load-bearing artefact, and a sufficiently sharp harness lets a
+general-purpose coding agent search the algorithmic neighbourhood of a
+mature systems codebase safely.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+% ~1 page
+% Motivation:
+%  - Raft underpins Kubernetes, CockroachDB, etcd, Docker Swarm, etc.
+%  - Any non-trivial change to a Raft implementation must preserve safety
+%    properties (election safety, log matching, leader completeness,
+%    state-machine safety, log durability under partial failure).
+%  - LLM-driven code search ("AI-driven research for systems") has
+%    demonstrated meaningful wins on isolated kernels and scheduling
+%    problems, but is rarely trusted near production consensus code
+%    because the cost of an undetected regression is catastrophic.
+%  - Our hypothesis: the bottleneck is not generation quality but
+%    verification bandwidth. If correctness can be mechanically gated at
+%    every step, a general-purpose coding agent can be allowed to
+%    explore aggressively.
+%
+% Contributions:
+%   1. A layered verification harness for etcd-io/raft built over the
+%      library's existing pluggable interfaces (no upstream changes).
+%   2. An autonomous optimization loop whose rejection oracle is the
+%      harness itself; the generator never sees performance scores for
+%      candidates that violate a single invariant.
+%   3. An empirical study reporting bugs surfaced, accepted variants,
+%      throughput/tail-latency improvements, and a per-layer ablation
+%      of harness effectiveness.
+%   4. Reproducible artefact (anonymized at submission, public on
+%      acceptance): harness sources, candidate database, seeds, and
+%      regression scripts.
+%
+% Non-goals:
+%   - We are not retraining or fine-tuning the underlying model.
+%   - We are not replacing human review of accepted variants for
+%     mainline upstreaming.
+
+\section{Background}
+\label{sec:background}
+
+% ~1 page
+% 2.1 Raft (briefly): leader election, log replication, log compaction,
+%     membership change. State the five safety properties we rely on.
+% 2.2 etcd-io/raft: a side-effect-free library; the Node interface
+%     exposes Tick/Step/Ready/Advance and a pluggable Storage. This is
+%     why it is unusually amenable to deterministic simulation.
+% 2.3 Harness-first AI engineering: the principle that automatic,
+%     fast verification at scale dominates human review of agent
+%     output. Cite Datadog's redis-rust and Helix studies.
+% 2.4 Autonomous, verification-gated optimization: cite Datadog's
+%     Unicron work and the ADRS programme; describe the
+%     generator/evaluator/oracle/selection pattern.
+
+\section{Verification Harness}
+\label{sec:harness}
+
+% ~1.5 pages
+
+\subsection{Design Principles}
+% - Independent failure modes across layers (redis-rust insight).
+% - No modification to upstream raft source; all instrumentation is
+%   external and uses the library's documented interfaces.
+% - Every layer must run in seconds per case so iteration is cheap.
+
+\subsection{Layer 1: TLA$^{+}$ Specification}
+% Reuse the in-tree TLA+ specs as the protocol-level ground truth.
+% Enumerate which invariants we check (election safety, log matching,
+% leader completeness, state-machine safety, etc.).
+
+\subsection{Layer 2: Deterministic Simulation Testing}
+% Deterministic scheduler over the Node interface; simulated network
+% and storage; seeded fault injection across {partition, drop, reorder,
+% slow disk, crash-restart, snapshot races}. Each run is reproducible
+% from a single seed.
+
+\subsection{Layer 3: Linearizability}
+% Recorded client histories from DST runs are validated with a
+% linearizability checker (Porcupine-class) under simulated network
+% conditions. Counter-examples are persisted with seeds.
+
+\subsection{Layer 4: Differential Oracle}
+% For any candidate that is a behavioural modification of upstream
+% raft, identical seeded inputs are run against the pinned-upstream
+% binary and the candidate; divergent externally-observable traces
+% trigger rejection.
+
+\subsection{Injection Points and Costs}
+% Table: per-layer wall-clock per scenario, scenarios run per
+% candidate, total verification time budget per candidate.
+
+\section{Autonomous Optimization Loop}
+\label{sec:loop}
+
+% ~1.5 pages
+
+\subsection{Search Space}
+% - Tunables: HeartbeatTick, ElectionTick, MaxSizePerMsg,
+%   MaxInflightMsgs, MaxUncommittedEntriesSize, pre-vote/check-quorum
+%   toggles.
+% - Bounded algorithmic edits (one-file, function-scoped):
+%     * batched commit acknowledgement,
+%     * pipelining backoff under follower lag,
+%     * follower read-lease path,
+%     * flow-control heuristic for in-flight window growth.
+% Edits outside this scope are rejected at parse time.
+
+\subsection{Candidate Generator}
+% A frontier coding agent is prompted with the target function, the
+% safety properties the harness will check, and a retrieval-augmented
+% view of the surrounding code. The generator never sees performance
+% measurements during proposal.
+
+\subsection{Rejection Oracle}
+% The full harness pyramid. Order of evaluation is cheapest-first
+% (build/test ~ seconds, DST ~ minutes, linearizability ~ minutes,
+% TLA+ refinement check ~ scenario-dependent). Any failing layer ends
+% the candidate's life immediately.
+
+\subsection{Candidate Database and Selection}
+% SQLite-backed: { id, parent_id, generation, patch, harness_outcome,
+% per-layer timings, benchmark_scores (only if accepted) }.
+% Power-law parent sampling across accepted candidates. We bound the
+% total wall-clock and LLM budget per run.
+
+\section{Experimental Setup}
+\label{sec:setup}
+
+% ~0.5 page
+% - Pinned commit hash of etcd-io/raft.
+% - Hardware: CPU/memory; DST is embarrassingly parallel by seed.
+% - Workloads: write-heavy, read-heavy, mixed, membership churn.
+% - Cluster sizes: N in {3, 5}.
+% - Seeds: deterministic set held constant across baseline and
+%   candidate runs.
+% - Total budget: wall-clock, LLM token spend.
+
+\section{Results}
+\label{sec:results}
+
+% ~1.5 pages
+
+\subsection{Harness Bring-Up Findings}
+% Behavioural anomalies surfaced while bringing the harness up over
+% the unmodified upstream library, with seeds.
+
+\subsection{Accepted Variants}
+% Pareto front: throughput (write-heavy, mixed) and p99 latency,
+% baseline vs. accepted variants. Table + Pareto plot.
+
+\subsection{Per-Layer Ablation}
+% For each harness layer, count of bad candidates first caught
+% there; show what slips through if that layer is removed.
+
+\subsection{Cost Analysis}
+% LLM tokens per accepted variant; wall-clock per generation;
+% acceptance rate per generation.
+
+\section{Limitations and Threats to Validity}
+\label{sec:limits}
+
+% ~0.5 page
+% - Harness coverage is a lower bound on bugs: properties not
+%   expressed cannot be checked. We explicitly list invariants the
+%   harness does NOT check.
+% - DST is deterministic by construction but only as adversarial as
+%   its fault model; we discuss residual scheduling phenomena it can
+%   miss.
+% - Performance results are on synthetic workloads against simulated
+%   network/disk, not production traces.
+% - The accepted variants are not, by themselves, production-ready:
+%   harness acceptance is necessary but not sufficient for upstream
+%   merge; mainline review and shadow deployment remain.
+% - Generator non-determinism: results from a different model or
+%   prompt template may differ.
+
+\section{Related Work}
+\label{sec:related}
+
+% ~0.3 page
+% - Harness-first engineering (redis-rust, Helix).
+% - Autonomous, verification-gated optimization (Datadog Unicron).
+% - AI-driven research for systems (ADRS / OpenEvolve / AlphaEvolve).
+% - Formal verification and DST in distributed systems
+%   (TLA+, FoundationDB-style DST, Jepsen).
+% - etcd robustness testing.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+% ~0.2 page
+% Restate the methodological claim. In a domain with mechanically
+% checkable safety properties, the harness, not the model, is the
+% load-bearing artefact. We give one full instantiation of that
+% pattern over a production-grade Raft library.
+
+\begin{ack}
+% Acknowledgements are hidden in the anonymized submission via the
+% style file's `ack` environment; they appear only in the camera-ready
+% copy.
+\end{ack}
+
+\section*{References}
+
+\medskip
+{
+\small
+% References here. Use natbib (loaded by default). Suggested entries:
+% - Ongaro & Ousterhout, "In Search of an Understandable Consensus
+%   Algorithm (Extended Version)" (Raft).
+% - Lamport, TLA+ specification of Paxos / consensus.
+% - Kingsbury, Jepsen and Knossos / Porcupine references.
+% - Datadog: harness-first agents (blog).
+% - Datadog: fully autonomous optimization (blog).
+% - UCB-ADRS, "Barbarians at the Gate" (arXiv:2510.06189).
+% - redis-rust paper (anonymized cite at submission).
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\section{Technical Appendices and Supplementary Material}
+
+% Use the appendix freely — it does not count against the 8-page body.
+% Suggested contents:
+%   A.1  Full harness configuration and per-layer parameters.
+%   A.2  Complete fault-injection catalogue.
+%   A.3  Candidate database schema.
+%   A.4  Full prompt templates for the candidate generator.
+%   A.5  Per-seed reproduction scripts for every reported anomaly
+%        and every accepted variant.
+%   A.6  Full benchmark tables (per workload, per cluster size,
+%        per seed) for baseline and all accepted variants.
+%   A.7  Counter-examples produced by the linearizability checker.
+%   A.8  Diff listings for every accepted algorithmic edit.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section*{Conference For AI Scientists 2026 - AI Involvement Checklist}
+\label{checklist_ai_involvement}
+
+This checklist is designed to allow you to explain the role of AI in your research. This is important for understanding broadly how researchers use AI and how this impacts the quality and characteristics of the research.
+
+The checklist has two parts: \textbf{Research Stage Assessment} (items 1-4), where you rate the level of AI involvement and iteration effort at each stage of the research process, and \textbf{AI System Documentation} (items 5-6), where you provide free-text descriptions of the AI systems used and their observed limitations.
+
+\subsection*{Research Stage Assessment}
+
+For items 1-4, give a score from the scale below that defines the role of AI in each part of the scientific process. The scores are as follows:
+
+\begin{itemize}
+    \item \involvementA{} \textbf{Human-generated}: Humans generated 95\% or more of the research, with AI being of minimal involvement.
+    \item \involvementB{} \textbf{Mostly human, assisted by AI}: The research was a collaboration between humans and AI models, but humans produced the majority (>50\%) of the research.
+    \item \involvementC{} \textbf{Mostly AI, assisted by human}: The research task was a collaboration between humans and AI models, but AI produced the majority (>50\%) of the research.
+    \item \involvementD{} \textbf{AI-generated}: AI performed over 95\% of the research. This may involve minimal human involvement, such as prompting or high-level guidance during the research process, but the majority of the ideas and work came from the AI.
+\end{itemize}
+
+For each research stage where AI was involved, i.e. where you selected \involvementB{}, \involvementC{}, or \involvementD{}, please also indicate the approximate level of iteration effort required using the provided iteration macros. Count substantive attempts, prompts, runs, agent trajectories, or course corrections; do not count minor wording edits.
+
+\begin{itemize}
+    \item \iterationLow{}: approximately 1-10 substantive attempts.
+    \item \iterationMedium{}: approximately 10-100 substantive attempts, with some failed attempts or course corrections.
+    \item \iterationHigh{}: approximately 100+ substantive attempts, with substantial exploration, failures, or trial-and-error.
+    \item \iterationNA{}: not applicable because AI involvement was \involvementA{}.
+    \item \iterationUnclear{}: the authors cannot reasonably estimate.
+\end{itemize}
+
+These categories leave room for interpretation, so we ask that the authors also include a brief explanation elaborating on how AI was involved in the tasks for each category. Please keep your explanation to less than 150 words.
+
+\begin{enumerate}
+
+    \item \textbf{Hypothesis development}: Hypothesis development includes the process by which you came to explore this research topic and research question. This can involve the background research performed by either researchers or by AI. This can also involve whether the idea was proposed by researchers or by AI.
+
+    Answer: \involvementTODO{}
+
+    Iteration Effort: \iterationTODO{}
+
+    Explanation: \justificationTODO{}
+
+    \item \textbf{Experimental design and implementation}: This category includes design of experiments that are used to test the hypotheses, coding and implementation of computational methods, and the execution of these experiments.
+
+    Answer: \involvementTODO{}
+
+    Iteration Effort: \iterationTODO{}
+
+    Explanation: \justificationTODO{}
+
+    \item \textbf{Analysis of data and interpretation of results}: This category encompasses any process to organize and process data for the experiments in the paper. It also includes interpretations of the results of the study.
+
+    Answer: \involvementTODO{}
+
+    Iteration Effort: \iterationTODO{}
+
+    Explanation: \justificationTODO{}
+
+    \item \textbf{Writing}: This includes any processes for compiling results, methods, etc. into the final paper form. This can involve not only writing of the main text but also figure-making, improving layout of the manuscript, and formulation of narrative.
+
+    Answer: \involvementTODO{}
+
+    Iteration Effort: \iterationTODO{}
+
+    Explanation: \justificationTODO{}
+
+\end{enumerate}
+
+\subsection*{AI System Documentation}
+
+For items 5-6, provide a free-text description.
+
+\begin{enumerate}
+    \setcounter{enumi}{4}
+
+    \item \textbf{AI systems used}: Describe all AI systems used in this research without naming specific products or models. Use system-level descriptors only (e.g., ``a frontier large language model'', ``a protein structure prediction system'', ``a custom multi-agent framework built on open-source models''). Include relevant details such as system type, scale, and capabilities. \textbf{Specific model and product names should only be included in the camera-ready version.}
+
+    Description: \justificationTODO{}
+
+    \item \textbf{Observed AI Limitations}: What specific limitations and failure modes have you observed when using AI as a partner or lead author?
+
+    Description: \justificationTODO{}
+
+\end{enumerate}
+
+\newpage
+
+\section*{Conference For AI Scientists 2026 - Reproducibility and Responsibility Checklist}
+\label{checklist_reproducibility}
+
+\begin{enumerate}
+
+\item {\bf Claims}
+    \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Limitations}
+    \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Theory assumptions and proofs}
+    \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+    \item {\bf Experimental result reproducibility}
+    \item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Open access to data and code}
+    \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Experimental setting/details}
+    \item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer, etc.) necessary to understand the results?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Experiment statistical significance}
+    \item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Experiments compute resources}
+    \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Research Ethics}
+    \item[] Question: Does the research conducted in the paper conform with the \href{https://neurips.cc/Conferences/2026/MainTrackHandbook}{NeurIPS Code of Ethics}, except where CAISc's AI authorship policies apply?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\item {\bf Broader impacts}
+    \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
+    \item[] Answer: \answerTODO{}
+    \item[] Justification: \justificationTODO{}
+
+\end{enumerate}
+
+
+\end{document}

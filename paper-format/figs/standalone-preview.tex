@@ -1,0 +1,22 @@
+% Standalone wrapper so you can preview any of the figures as a
+% single-page PDF without touching the paper.
+%
+% Build:
+%   cd paper-format/figs
+%   pdflatex standalone-preview     # default: bench-paired-boxplot
+%
+% To preview a different figure, change \FIG below.
+\documentclass[border=8pt]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{statistics}
+\pgfplotsset{compat=1.18}
+
+% Change this to preview a different figure:
+%   bench-paired-boxplot
+%   bench-improvement-bars
+%   score-trajectory
+\newcommand{\FIG}{score-trajectory}
+
+\begin{document}
+\input{\FIG}
+\end{document}

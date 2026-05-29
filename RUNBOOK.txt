@@ -1,0 +1,310 @@
+RUNBOOK — install and run the CAISc 2026 raft-evolution stack
+================================================================
+
+Project layout
+--------------
+caisc2026/
+  .env                          API key (gitignored; you supply this)
+  raft-upstream/                Pinned etcd-io/raft + 4-line seeded-RNG patch
+    raft.go                     Working copy (overwritten by evaluator each iter)
+    raft.go.baseline            Pristine pinned source, used to revert
+    tla/                        Upstream TLA+ spec + (after install) jars/
+  harness/
+    dst/                        Deterministic simulation harness (Go module)
+      cmd/dst/                  CLI binary
+    optimize/                   OpenEvolve loop wrapper
+      run.sh                    Driver script
+      tla-validate.sh           One-shot TLA+ trace validation
+  paper-format/                 LaTeX submission + bibliography
+  .venv/                        Python virtualenv (OpenEvolve etc.)
+  PINNED_COMMIT.txt             Raft upstream commit hash
+  BASELINE.txt, BASELINE_BENCH.txt   Reference baseline numbers
+
+
+--------------------------------------------------------------
+1. One-time host prerequisites
+--------------------------------------------------------------
+
+Required tools and versions used in this project:
+
+  Go        1.26.x  (matches raft-upstream/.go-version)
+  Python    3.11.x  (used to host openevolve + pypdf)
+  uv        latest  (for pip-installing into .venv)
+  Java      17 JDK/JRE  (for TLA+ TLC; macOS Zulu OpenJDK works)
+  LaTeX     pdflatex + bibtex + natbib + booktabs + hyperref
+  curl      (already on macOS)
+
+Install on macOS via Homebrew (skip whatever you already have):
+
+  brew install go python@3.11 uv openjdk@17
+  brew install --cask basictex          # minimal pdflatex
+  sudo tlmgr update --self
+  sudo tlmgr install natbib booktabs hyperref microtype \
+                     environ ncntrsbk psnfss tex-gyre
+
+
+--------------------------------------------------------------
+2. Set the inference API key (one-time)
+--------------------------------------------------------------
+
+Create .env in the project root with:
+
+  MODEL_ACCESS_KEY="<your DigitalOcean inference key>"
+
+That file is already in .gitignore. The driver script sources it.
+
+
+--------------------------------------------------------------
+3. Python venv + OpenEvolve (one-time)
+--------------------------------------------------------------
+
+From the project root:
+
+  python3.11 -m venv .venv
+  source .venv/bin/activate
+  uv pip install openevolve pypdf
+  deactivate
+
+Verify:
+
+  .venv/bin/openevolve-run --help
+
+
+--------------------------------------------------------------
+4. Raft upstream — confirm clean baseline (one-time)
+--------------------------------------------------------------
+
+The repo already ships with raft-upstream/ at the pinned commit and
+the four-line patch applied. To confirm:
+
+  cd raft-upstream
+  go mod download
+  go test -count=1 -timeout 180s ./...     # all 6 packages should pass
+  cd ..
+
+To restore baseline source if any run leaves it dirty:
+
+  /bin/cp raft-upstream/raft.go.baseline raft-upstream/raft.go
+
+
+--------------------------------------------------------------
+5. DST harness — build and run
+--------------------------------------------------------------
+
+Build the CLI:
+
+  cd harness/dst
+  go mod tidy            # only needed first time
+  go build -o /tmp/dst ./cmd/dst
+  cd ../..
+
+Run a single seed (3-node, 2000 ticks, full fault catalogue):
+
+  /tmp/dst -seed=1 -ticks=2000 -nodes=3
+
+Run with linearizability check (Porcupine):
+
+  /tmp/dst -seed=1 -ticks=2000 -nodes=3 -lin-check
+
+A multi-seed sweep:
+
+  for s in $(seq 1 100); do
+    /tmp/dst -seed=$s -ticks=2000 -nodes=3 2>/dev/null
+  done
+
+Verbose progress every 100 ticks:
+
+  /tmp/dst -seed=1 -ticks=2000 -nodes=3 -v
+
+Debug client lifecycle:
+
+  DST_DEBUG_CLIENT=1 /tmp/dst -seed=1 -ticks=200 -nodes=3
+
+Exit codes:
+  0   OK
+  1   invariant violation or linearizability fail
+  2   harness internal error (build, IO, etc.)
+  3   linearizability check timeout
+
+
+--------------------------------------------------------------
+6. OpenEvolve loop — run an optimization sweep
+--------------------------------------------------------------
+
+The driver script does everything: source .env, restore baseline,
+launch the loop. From the project root:
+
+  ./harness/optimize/run.sh 30        # 30 iterations
+  ./harness/optimize/run.sh           # defaults to 20 iterations
+
+Output is written to:
+
+  harness/optimize/out/checkpoints/     SQLite candidate database
+  harness/optimize/out/best/            best_program.go + JSON metrics
+  harness/optimize/out/logs/            per-run openevolve log
+
+After the run, the best candidate is at:
+
+  harness/optimize/out/best/best_program.go
+
+To re-evaluate the best candidate against the full upstream test
+suite and a 100-seed DST sweep:
+
+  /bin/cp harness/optimize/out/best/best_program.go raft-upstream/raft.go
+  (cd raft-upstream && go test -count=1 -timeout 180s ./...)
+  go build -o /tmp/dst-best ./harness/dst/cmd/dst
+  for s in $(seq 1 100); do
+    /tmp/dst-best -seed=$s -ticks=2000 -nodes=3 2>/dev/null
+  done
+
+Restore baseline when done:
+
+  /bin/cp raft-upstream/raft.go.baseline raft-upstream/raft.go
+
+
+--------------------------------------------------------------
+7. Benchmark — measure throughput (paired 10-run, ns/op)
+--------------------------------------------------------------
+
+Stage whichever raft.go you want to measure (baseline or candidate):
+
+  /bin/cp raft-upstream/raft.go.baseline raft-upstream/raft.go
+  # OR
+  /bin/cp harness/optimize/out/best/best_program.go raft-upstream/raft.go
+
+Run the in-tree benchmark:
+
+  cd raft-upstream
+  go test -bench=BenchmarkProposal3Nodes -benchmem \
+          -benchtime=2s -count=10 -run='^$' ./rafttest \
+          2>&1 | grep -oE '[0-9]+\s+ns/op' | awk '{print $1}' | sort -n
+
+
+--------------------------------------------------------------
+8. TLA+ validation — run TLC against a trace
+--------------------------------------------------------------
+
+Jars live under raft-upstream/tla/jars/ . They are not committed; if
+they are missing, redownload:
+
+  mkdir -p raft-upstream/tla/jars
+  cd raft-upstream/tla/jars
+  curl -sSL -o tla2tools.jar \
+       https://nightly.tlapl.us/dist/tla2tools.jar
+  curl -sSL -L -o CommunityModules-deps.jar \
+       https://github.com/tlaplus/CommunityModules/releases/latest/download/CommunityModules-deps.jar
+  cd ../../..
+
+Validate the in-tree reference trace (sanity check; takes ~25 min):
+
+  ./harness/optimize/tla-validate.sh raft-upstream/tla/example.ndjson
+
+A successful run ends with:
+
+  Model checking completed. No error has been found.
+
+Validate a trace you generated yourself: pass its path as the only
+argument. The trace must be NDJSON with the upstream-format
+TracingEvent records, produced by building any consumer of the raft
+library with -tags=with_tla and routing a TraceLogger to write each
+event as one JSON object per line.
+
+
+--------------------------------------------------------------
+9. Paper — compile the LaTeX submission
+--------------------------------------------------------------
+
+From the project root:
+
+  cd paper-format
+  pdflatex paper
+  bibtex paper
+  pdflatex paper
+  pdflatex paper
+
+Output: paper-format/paper.pdf (13 pages: body 1-8, refs 8-9,
+appendix 9, AI Involvement Checklist 10-11, Reproducibility
+Checklist 12-13).
+
+Submission options (style file flags, in paper.tex preamble):
+
+  \usepackage{caisc_2026}                  # default: anonymous, line-numbered
+  \usepackage[preprint]{caisc_2026}        # for arXiv: non-anonymized
+  \usepackage[final]{caisc_2026}           # for camera-ready ONLY
+
+
+--------------------------------------------------------------
+10. Running on a dedicated DigitalOcean droplet
+--------------------------------------------------------------
+
+Why: kills the bimodal benchmark distribution caused by background
+load on a laptop, and lets us parallelise evaluator instances. Total
+runtime drops from ~76 min to ~10 min for a 30-iter sweep; a longer
+100-iter run becomes practical.
+
+Recommended droplet: CPU-Optimized c-16 (16 vCPU dedicated, 32 GB
+RAM, ~$0.48/hr) in NYC3 or SFO3. Choose Ubuntu 24.04 LTS. Add your
+SSH public key at create time so password auth is never needed.
+
+One-time provisioning, from your Mac:
+
+  ./harness/optimize/sync-to-droplet.sh root@<DROPLET_IP>
+  ssh root@<DROPLET_IP> 'bash /root/caisc2026/harness/optimize/setup-droplet.sh'
+  scp .env root@<DROPLET_IP>:/root/caisc2026/.env
+
+Calibrate the droplet's clean bench (20 paired runs, ~3 min):
+
+  ssh root@<DROPLET_IP> 'bash /root/caisc2026/harness/optimize/calibrate-on-droplet.sh'
+
+Drive a run from your Mac (tmux on droplet keeps it alive
+across SSH disconnects):
+
+  ./harness/optimize/run-on-droplet.sh root@<IP> 30 rerun
+  ./harness/optimize/run-on-droplet.sh root@<IP> 100 explore
+
+Follow live output:
+
+  ssh root@<IP> 'tail -f /root/caisc2026/harness/optimize/out-<tag>-*/run.log'
+
+Pull results back when finished:
+
+  ./harness/optimize/pull-from-droplet.sh root@<IP> harness/optimize/out-<tag>-<stamp>
+
+The pulled directory lands at the same relative path under your Mac
+project root, so paper-side scripts that read the candidate database
+just work.
+
+After both runs, destroy the droplet from the DO control panel to
+stop billing.
+
+
+--------------------------------------------------------------
+11. End-to-end smoke test
+--------------------------------------------------------------
+
+A two-minute "everything is wired up" check:
+
+  /bin/cp raft-upstream/raft.go.baseline raft-upstream/raft.go
+  (cd raft-upstream && go test ./...)                       # 6 OK
+  go build -o /tmp/dst ./harness/dst/cmd/dst
+  /tmp/dst -seed=1 -ticks=500 -nodes=3 -lin-check           # 1 OK + LIN OK
+  ./harness/optimize/run.sh 1                               # 1 iter, ~50s
+
+
+--------------------------------------------------------------
+12. Cleanup
+--------------------------------------------------------------
+
+Wipe an OpenEvolve run's artefacts:
+
+  rm -rf harness/optimize/out
+  rm -rf harness/optimize/.cache
+
+Restore upstream raft to baseline:
+
+  /bin/cp raft-upstream/raft.go.baseline raft-upstream/raft.go
+
+Drop the Python venv and start over:
+
+  rm -rf .venv
+  # then redo step 3

@@ -1,0 +1,61 @@
+% Paired 10-run BenchmarkProposal3Nodes box-and-whisker plot.
+% Data source: Table 1 of the paper (droplet, 2026-05-29).
+%
+% USAGE in paper.tex:
+%   \usepackage{pgfplots}
+%   \usepgfplotslibrary{statistics}
+%   \pgfplotsset{compat=1.18}
+%   ...
+%   \begin{figure}
+%     \centering
+%     \input{figs/bench-paired-boxplot}
+%     \caption{Paired 10-run BenchmarkProposal3Nodes ns/op (lower is better).}
+%     \label{fig:bench-boxplot}
+%   \end{figure}
+%
+% STANDALONE preview (build a single-page PDF of just this plot):
+%   pdflatex '\documentclass{standalone}\usepackage{pgfplots}\usepgfplotslibrary{statistics}\pgfplotsset{compat=1.18}\begin{document}\input{bench-paired-boxplot}\end{document}'
+\begin{tikzpicture}
+  \begin{axis}[
+    width=0.7\linewidth,
+    height=6cm,
+    boxplot/draw direction=y,
+    ylabel={ns/op (lower is better)},
+    xtick={1,2},
+    xticklabels={baseline, candidate},
+    xticklabel style={font=\small},
+    yticklabel style={font=\footnotesize},
+    ymin=4500, ymax=12500,
+    ymajorgrids=true,
+    grid style={dashed,gray!30},
+    cycle list={
+      {draw=blue!60!black, fill=blue!20, very thick},
+      {draw=red!70!black,  fill=red!20,  very thick},
+    },
+  ]
+    % baseline: 5683 6223 8144 9212 9263 9547 9574 9605 9811 11439
+    % q1=8144 median=9405 q3=9605 (computed from sorted 10 samples)
+    \addplot+[
+      boxplot prepared={
+        lower whisker=5683,
+        lower quartile=8144,
+        median=9405,
+        upper quartile=9605,
+        upper whisker=11439,
+        average=8950,
+      },
+    ] coordinates {};
+    % candidate: 6127 6216 6406 6425 6494 7546 7967 8310 9355 9448
+    % q1=6406 median=7020 q3=8310
+    \addplot+[
+      boxplot prepared={
+        lower whisker=6127,
+        lower quartile=6406,
+        median=7020,
+        upper quartile=8310,
+        upper whisker=9448,
+        average=7529,
+      },
+    ] coordinates {};
+  \end{axis}
+\end{tikzpicture}

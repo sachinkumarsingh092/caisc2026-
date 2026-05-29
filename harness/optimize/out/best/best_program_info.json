@@ -1,0 +1,18 @@
+{
+  "id": "1c3a355f-a354-4f3f-93db-1bd726b40859",
+  "generation": 2,
+  "iteration": 5,
+  "timestamp": 1779800898.053716,
+  "parent_id": "393486eb-173c-4121-9c17-70ad790b329b",
+  "metrics": {
+    "combined_score": 1.1516314779270633,
+    "speedup": 1.1516314779270633,
+    "ns_op": 2084.0,
+    "baseline_ns_op": 2400.0,
+    "violations": 0,
+    "sweep_secs": 1.1117279529571533,
+    "stage": "ok"
+  },
+  "language": "go",
+  "saved_at": 1779802291.804738
+}

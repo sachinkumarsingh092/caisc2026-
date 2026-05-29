@@ -1,0 +1,242 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Antithesis}(2024)]{antithesis}
+{Antithesis}.
+\newblock The determinator: A deterministic hypervisor for autonomous software
+  testing.
+\newblock \url{https://antithesis.com/product/how_antithesis_works/}, 2024.
+
+\bibitem[Athalye(2017)]{porcupine}
+Anish Athalye.
+\newblock Porcupine: A fast linearizability checker in {Go}.
+\newblock \url{https://github.com/anishathalye/porcupine}, 2017.
+
+\bibitem[Balog et~al.(2025)Balog, Novikov, V{\~u}, Eisenberger, Dupont, Huang,
+  Wagner, Shirobokov, Kozlovskii, Ruiz, Mehrabian, Kumar, See, Chaudhuri,
+  Holland, Davies, Nowozin, and Kohli]{alphaevolve}
+Matej Balog, Alexander Novikov, Ng{\^a}n V{\~u}, Marvin Eisenberger, Emilien
+  Dupont, Po-Sen Huang, Adam~Zsolt Wagner, Sergey Shirobokov, Borislav
+  Kozlovskii, Francisco J.~R. Ruiz, Abbas Mehrabian, M.~Pawan Kumar, Abigail
+  See, Swarat Chaudhuri, George Holland, Alex Davies, Sebastian Nowozin, and
+  Pushmeet Kohli.
+\newblock {AlphaEvolve}: A {Gemini}-powered coding agent for designing advanced
+  algorithms.
+\newblock Technical report, Google DeepMind, May 2025.
+\newblock White paper.
+  \url{https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf}.
+
+\bibitem[Chen et~al.(2021)Chen, Tworek, Jun, Yuan, Pinto, Kaplan, Edwards,
+  Burda, Joseph, Brockman, et~al.]{codex}
+Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de~Oliveira
+  Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg
+  Brockman, et~al.
+\newblock Evaluating large language models trained on code.
+\newblock \emph{arXiv preprint arXiv:2107.03374}, 2021.
+\newblock \doi{10.48550/arXiv.2107.03374}.
+
+\bibitem[Chen and Nalla(2026)]{datadogAutonomous}
+Ming Chen and Sesh Nalla.
+\newblock Closing the verification loop, part 2: Fully autonomous optimization.
+\newblock Datadog Engineering Blog, 2026.
+\newblock
+  \url{https://www.datadoghq.com/blog/ai/fully-autonomous-optimization/}.
+
+\bibitem[Cheng et~al.(2025)Cheng, Liu, Pan, Li, Wang, Krentsel, Xia, Cemri,
+  Park, Yang, Chen, Agrawal, Desai, Xing, Sen, Zaharia, and
+  Stoica]{barbarians2025}
+Audrey Cheng, Shu Liu, Melissa Pan, Zhifei Li, Bowen Wang, Alex Krentsel, Tian
+  Xia, Mert Cemri, Jongseok Park, Shuo Yang, Jeff Chen, Lakshya Agrawal, Aditya
+  Desai, Jiarong Xing, Koushik Sen, Matei Zaharia, and Ion Stoica.
+\newblock Barbarians at the gate: How {AI} is upending systems research.
+\newblock \emph{arXiv preprint arXiv:2510.06189}, 2025.
+\newblock \doi{10.48550/arXiv.2510.06189}.
+
+\bibitem[Claessen and Hughes(2000)]{quickcheck}
+Koen Claessen and John Hughes.
+\newblock {QuickCheck}: A lightweight tool for random testing of {Haskell}
+  programs.
+\newblock In \emph{Proceedings of the Fifth ACM SIGPLAN International
+  Conference on Functional Programming (ICFP)}, pages 268--279, 2000.
+\newblock \doi{10.1145/351240.351266}.
+
+\bibitem[{etcd Authors}(2022--present)]{etcdRobustness}
+{etcd Authors}.
+\newblock {etcd} robustness testing framework.
+\newblock \url{https://github.com/etcd-io/etcd/tree/main/tests/robustness},
+  2022--present.
+\newblock Upstream robustness suite validating KV and Watch API guarantees
+  under seeded fault injection.
+
+\bibitem[Hawblitzel et~al.(2015)Hawblitzel, Howell, Kapritsos, Lorch, Parno,
+  Roberts, Setty, and Zill]{ironfleet}
+Chris Hawblitzel, Jon Howell, Manos Kapritsos, Jacob~R. Lorch, Bryan Parno,
+  Michael~Lowell Roberts, Srinath T.~V. Setty, and Brian Zill.
+\newblock {IronFleet}: Proving practical distributed systems correct.
+\newblock In \emph{Proceedings of the 25th ACM Symposium on Operating Systems
+  Principles (SOSP '15)}, pages 1--17, 2015.
+\newblock \doi{10.1145/2815400.2815428}.
+
+\bibitem[Herlihy and Wing(1990)]{herlihy1990linearizability}
+Maurice Herlihy and Jeannette~M. Wing.
+\newblock Linearizability: A correctness condition for concurrent objects.
+\newblock \emph{ACM Transactions on Programming Languages and Systems},
+  12\penalty0 (3):\penalty0 463--492, 1990.
+\newblock \doi{10.1145/78969.78972}.
+
+\bibitem[Jimenez et~al.(2024)Jimenez, Yang, Wettig, Yao, Pei, Press, and
+  Narasimhan]{swebench}
+Carlos~E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir
+  Press, and Karthik Narasimhan.
+\newblock {SWE-bench}: Can language models resolve real-world {GitHub} issues?
+\newblock In \emph{Proceedings of the International Conference on Learning
+  Representations (ICLR)}, 2024.
+\newblock arXiv:2310.06770.
+
+\bibitem[Keles et~al.(2026)Keles, Menon, Nalla, and Shah]{datadogHarness}
+Alp Keles, Jai Menon, Sesh Nalla, and Vyom Shah.
+\newblock Closing the verification loop: Observability-driven harnesses for
+  building with agents.
+\newblock Datadog Engineering Blog, 2026.
+\newblock \url{https://www.datadoghq.com/blog/ai/harness-first-agents/}.
+
+\bibitem[Kingsbury(2013--present)]{jepsen}
+Kyle Kingsbury.
+\newblock Jepsen: Distributed systems safety analysis.
+\newblock \url{https://jepsen.io}, 2013--present.
+
+\bibitem[Kingsbury(2014)]{knossos}
+Kyle Kingsbury.
+\newblock {Knossos}: A linearizability checker for distributed systems.
+\newblock \url{https://github.com/jepsen-io/knossos}, 2014.
+\newblock Clojure implementation; predecessor to Porcupine.
+
+\bibitem[Lattuada et~al.(2023)Lattuada, Hance, Cho, Brun, Subasinghe, Zhou,
+  Howell, Parno, and Hawblitzel]{verus}
+Andrea Lattuada, Travis Hance, Chanhee Cho, Matthias Brun, Isitha Subasinghe,
+  Yi~Zhou, Jon Howell, Bryan Parno, and Chris Hawblitzel.
+\newblock {Verus}: Verifying {Rust} programs using linear ghost types.
+\newblock \emph{Proceedings of the ACM on Programming Languages}, 7\penalty0
+  (OOPSLA1):\penalty0 286--315, 2023.
+\newblock \doi{10.1145/3586037}.
+
+\bibitem[Li et~al.(2022)Li, Choi, Chung, Kushman, Schrittwieser, Leblond,
+  Eccles, Keeling, Gimeno, Dal~Lago, Hubert, Choy, de~Masson~d'Autume,
+  Babuschkin, Chen, Huang, Welbl, Gowal, Cherepanov, Molloy, Mankowitz,
+  Sutherland~Robson, Kohli, de~Freitas, Kavukcuoglu, and Vinyals]{alphacode}
+Yujia Li, David Choi, Junyoung Chung, Nate Kushman, Julian Schrittwieser,
+  R{\'e}mi Leblond, Tom Eccles, James Keeling, Felix Gimeno, Agustin Dal~Lago,
+  Thomas Hubert, Peter Choy, Cyprien de~Masson~d'Autume, Igor Babuschkin,
+  Xinyun Chen, Po-Sen Huang, Johannes Welbl, Sven Gowal, Alexey Cherepanov,
+  James Molloy, Daniel~J. Mankowitz, Esme Sutherland~Robson, Pushmeet Kohli,
+  Nando de~Freitas, Koray Kavukcuoglu, and Oriol Vinyals.
+\newblock Competition-level code generation with {AlphaCode}.
+\newblock \emph{Science}, 378\penalty0 (6624):\penalty0 1092--1097, 2022.
+\newblock \doi{10.1126/science.abq1158}.
+
+\bibitem[MacIver et~al.(2019)MacIver, Hatfield-Dodds, and {Hypothesis
+  contributors}]{hypothesis}
+David~R. MacIver, Zac Hatfield-Dodds, and {Hypothesis contributors}.
+\newblock {Hypothesis}: A new approach to property-based testing.
+\newblock \emph{Journal of Open Source Software}, 4\penalty0 (43):\penalty0
+  1891, 2019.
+\newblock \doi{10.21105/joss.01891}.
+
+\bibitem[Mankowitz et~al.(2023)Mankowitz, Michi, Zhernov, Gelmi, Selvi,
+  Paduraru, Leurent, Iqbal, Lespiau, Ahern, K{\"o}ppe, Millikin, Gaffney,
+  Elster, Broshear, Gamble, Milan, Tung, Hwang, Cemgil, Barekatain, Li,
+  Mandhane, Hubert, Schrittwieser, Hassabis, Kohli, Riedmiller, Vinyals, and
+  Silver]{alphadev}
+Daniel~J. Mankowitz, Andrea Michi, Anton Zhernov, Marco Gelmi, Marco Selvi,
+  Cosmin Paduraru, Edouard Leurent, Shariq Iqbal, Jean-Baptiste Lespiau, Alex
+  Ahern, Thomas K{\"o}ppe, Kevin Millikin, Stephen Gaffney, Sophie Elster,
+  Jackson Broshear, Chris Gamble, Kieran Milan, Robert Tung, Minjae Hwang,
+  A.~Taylan Cemgil, Mohammadamin Barekatain, Yujia Li, Amol Mandhane, Thomas
+  Hubert, Julian Schrittwieser, Demis Hassabis, Pushmeet Kohli, Martin
+  Riedmiller, Oriol Vinyals, and David Silver.
+\newblock Faster sorting algorithms discovered using deep reinforcement
+  learning.
+\newblock \emph{Nature}, 618:\penalty0 257--263, 2023.
+\newblock \doi{10.1038/s41586-023-06004-9}.
+
+\bibitem[Nalla(2026)]{redisRust}
+Sesh Nalla.
+\newblock {redis-rust}: A case study in ai-assisted systems programming with
+  deterministic verification.
+\newblock Technical report, 2026.
+\newblock \url{https://github.com/nerdsane/redis-rust/blob/main/docs/PAPER.md}.
+
+\bibitem[Ongaro and Ousterhout(2014)]{ongaro2014search}
+Diego Ongaro and John Ousterhout.
+\newblock In search of an understandable consensus algorithm (extended
+  version).
+\newblock In \emph{Proceedings of the 2014 USENIX Annual Technical Conference
+  (USENIX ATC '14)}, pages 305--319. USENIX Association, 2014.
+
+\bibitem[{OpenEvolve contributors}(2025)]{openevolve}
+{OpenEvolve contributors}.
+\newblock {OpenEvolve}: An open-source evolutionary code-optimization
+  framework.
+\newblock \url{https://github.com/codelion/openevolve}, 2025.
+
+\bibitem[Romera-Paredes et~al.(2023)Romera-Paredes, Barekatain, Novikov, Balog,
+  Kumar, Dupont, Ruiz, Ellenberg, Wang, Fawzi, Kohli, and Fawzi]{funsearch}
+Bernardino Romera-Paredes, Mohammadamin Barekatain, Alexander Novikov, Matej
+  Balog, M.~Pawan Kumar, Emilien Dupont, Francisco J.~R. Ruiz, Jordan~S.
+  Ellenberg, Pengming Wang, Omar Fawzi, Pushmeet Kohli, and Alhussein Fawzi.
+\newblock Mathematical discoveries from program search with large language
+  models.
+\newblock \emph{Nature}, 625, 2023.
+\newblock \doi{10.1038/s41586-023-06924-6}.
+\newblock Published December 14, 2023.
+
+\bibitem[{TigerBeetle Engineering}(2023--2025)]{tigerbeetleDST}
+{TigerBeetle Engineering}.
+\newblock {VOPR}: Viewstamped operation replayer for deterministic simulation
+  testing.
+\newblock
+  \url{https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/internals/vopr.md},
+  2023--2025.
+
+\bibitem[Wang(2020)]{madsim}
+Runji Wang.
+\newblock {Madsim}: Magical deterministic simulator for distributed systems.
+\newblock \url{https://github.com/madsim-rs/madsim}, 2020.
+\newblock Rust async runtime for deterministic simulation testing.
+
+\bibitem[Wilcox et~al.(2015)Wilcox, Woos, Panchekha, Tatlock, Wang, Ernst, and
+  Anderson]{verdi}
+James~R. Wilcox, Doug Woos, Pavel Panchekha, Zachary Tatlock, Xi~Wang,
+  Michael~D. Ernst, and Thomas Anderson.
+\newblock {Verdi}: A framework for implementing and formally verifying
+  distributed systems.
+\newblock In \emph{Proceedings of the 36th ACM SIGPLAN Conference on
+  Programming Language Design and Implementation (PLDI '15)}, pages 357--368,
+  2015.
+\newblock \doi{10.1145/2737924.2737958}.
+
+\bibitem[Wilson(2014)]{fdbsim}
+Will Wilson.
+\newblock Testing distributed systems with deterministic simulation.
+\newblock Strange Loop Conference talk, 2014.
+\newblock
+  \url{https://www.thestrangeloop.com/2014/testing-distributed-systems-w-slash-deterministic-simulation.html}.
+
+\bibitem[Zhou et~al.(2021)Zhou, Xu, Shraer, Namasivayam, Miller, Tschannen,
+  Atherton, Beamon, Sears, Leach, Rosenthal, Dong, Wilson, Collins, Scherer,
+  Grieser, Liu, Moore, Muppana, Su, and Yadav]{foundationdb}
+Jingyu Zhou, Meng Xu, Alexander Shraer, Bala Namasivayam, Alex Miller, Evan
+  Tschannen, Steve Atherton, Andrew~J. Beamon, Rusty Sears, John Leach, Dave
+  Rosenthal, Xin Dong, Will Wilson, Ben Collins, David Scherer, Alec Grieser,
+  Young Liu, Alvin Moore, Bhaskar Muppana, Xiaoge Su, and Vishesh Yadav.
+\newblock {FoundationDB}: A distributed unbundled transactional key value
+  store.
+\newblock In \emph{Proceedings of the 2021 International Conference on
+  Management of Data (SIGMOD '21)}, pages 2653--2666, 2021.
+\newblock \doi{10.1145/3448016.3457559}.
+
+\end{thebibliography}

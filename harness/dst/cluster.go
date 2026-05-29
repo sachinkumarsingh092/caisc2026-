@@ -19,6 +19,21 @@ type Node struct {
 	storage   *raft.MemoryStorage
 	committed []*pb.Entry // entries the cluster has reported as applied
 
+	// State-machine state: a single integer register, updated as Write
+	// entries are applied. appliedIndex tracks the highest applied index
+	// at this node and is used by linearizable-read polling.
+	//
+	// registerAt records the register value immediately AFTER each
+	// committed entry (writes, no-ops, conf-changes) is applied. A
+	// linearizable read with safe index S must return the value at S,
+	// not the latest value — because between the moment raft confirmed
+	// the safe index and the moment our pollRead fires, more entries
+	// may have applied, advancing the register past S. Looking up
+	// registerAt[S] gives the value at the linearization point.
+	register     uint64
+	appliedIndex uint64
+	registerAt   map[uint64]uint64
+
 	// Per-tick observed soft state, cached so the oracle can read it cheaply.
 	leaderID uint64
 	term     uint64
@@ -34,10 +49,9 @@ type Cluster struct {
 	ids   []uint64 // stable iteration order
 	tick  uint64
 
-	// History of proposals (just data bytes) that any client successfully
-	// submitted, in tick order. Used by the linearizability layer in a
-	// follow-up commit.
-	proposals [][]byte
+	// Clients registered via RegisterClient; the cluster routes commit and
+	// read-index notifications to them inside Step.
+	clients []*Client
 }
 
 func NewCluster(seed int64, size int) (*Cluster, error) {
@@ -83,7 +97,7 @@ func NewCluster(seed int64, size int) (*Cluster, error) {
 		if err := rn.Bootstrap(peers); err != nil {
 			return nil, fmt.Errorf("bootstrap node %d: %w", id, err)
 		}
-		c.nodes[id] = &Node{id: id, raw: rn, storage: st}
+		c.nodes[id] = &Node{id: id, raw: rn, storage: st, registerAt: make(map[uint64]uint64)}
 	}
 	return c, nil
 }
@@ -108,6 +122,7 @@ func (c *Cluster) IDs() []uint64        { return c.ids }
 //  4. Refresh per-node soft state cache.
 func (c *Cluster) Step() error {
 	c.tick++
+	c.net.AdvanceTick(c.tick)
 
 	// 1. Tick.
 	for _, id := range c.ids {
@@ -140,12 +155,21 @@ func (c *Cluster) Step() error {
 				return fmt.Errorf("node %d ApplySnapshot: %w", id, err)
 			}
 		}
-		// Record committed entries for the oracle.
+		// Record committed entries for the oracle and apply them to the
+		// node's state machine.
 		for _, e := range rd.CommittedEntries {
 			n.committed = append(n.committed, e)
-			// Apply conf changes back into the node so its quorum tracker
-			// stays consistent with the log.
+			if e.GetIndex() > n.appliedIndex {
+				n.appliedIndex = e.GetIndex()
+			}
 			switch e.GetType() {
+			case pb.EntryNormal:
+				if opID, value, ok := DecodeWrite(e.GetData()); ok {
+					n.register = value
+					for _, cl := range c.clients {
+						cl.onWriteCommitted(opID, c.tick)
+					}
+				}
 			case pb.EntryConfChange:
 				var cc pb.ConfChange
 				if err := proto.Unmarshal(e.GetData(), &cc); err == nil {
@@ -156,6 +180,18 @@ func (c *Cluster) Step() error {
 				if err := proto.Unmarshal(e.GetData(), &cc); err == nil {
 					n.raw.ApplyConfChange(&cc)
 				}
+			}
+			// Snapshot the register value at this applied index so a
+			// linearizable read for safeIndex == e.GetIndex() (or any
+			// index in [previous_applied+1, e.GetIndex()]) returns the
+			// correct value rather than whatever the register holds
+			// after additional entries applied in this same Ready.
+			n.registerAt[e.GetIndex()] = n.register
+		}
+		// Surface ReadIndex resolutions to interested clients.
+		for _, rs := range rd.ReadStates {
+			for _, cl := range c.clients {
+				cl.onReadIndexReady(rs.RequestCtx, rs.Index)
 			}
 		}
 		// Send outbound messages through the network in a canonical order.
@@ -182,6 +218,13 @@ func (c *Cluster) Step() error {
 		}
 	}
 
+	// 2b. Poll pending reads — once a preferred node's appliedIndex has
+	// caught up to a client's safe index, the read can return the
+	// current register value at that node.
+	for _, cl := range c.clients {
+		cl.pollRead(c.tick)
+	}
+
 	// 3. Deliver inbox messages.
 	for _, id := range c.ids {
 		if c.net.IsPartitioned(id) {
@@ -203,6 +246,15 @@ func (c *Cluster) Step() error {
 	return nil
 }
 
+// RegisterClient attaches a Client to the cluster; Step will route relevant
+// state-machine events (committed writes, read-index resolutions) to it.
+func (c *Cluster) RegisterClient(cl *Client) {
+	c.clients = append(c.clients, cl)
+}
+
+// Clients returns the registered clients in insertion order.
+func (c *Cluster) Clients() []*Client { return c.clients }
+
 // Propose attempts to propose data to the current leader. Returns the leader's
 // id and whether the proposal was accepted. If no leader is known, returns
 // (0, false).
@@ -217,7 +269,6 @@ func (c *Cluster) Propose(data []byte) (leader uint64, ok bool) {
 	if err := c.nodes[leader].raw.Propose(data); err != nil {
 		return leader, false
 	}
-	c.proposals = append(c.proposals, append([]byte(nil), data...))
 	return leader, true
 }
 

@@ -1,0 +1,66 @@
+Linearizability layer — state and known limitations (task #5)
+================================================================
+
+What it does
+------------
+Records every client write (Propose+commit) and linearizable read
+(ReadIndex+resolve) into a porcupine history, then optionally runs
+porcupine.CheckOperationsTimeout against a single-register sequential
+specification. The check is enabled via `dst -lin-check`.
+
+State machine
+-------------
+A single uint64 register, initial value 0. Writes overwrite. Reads
+return the value at the linearizable safe index (registerAt[safeIndex]),
+NOT the current register, so that bursts of applied entries within one
+Step don't cause reads to over-report.
+
+Empirically observed pass rates (unmodified upstream raft at pinned
+commit 67d129e8, on this hardware):
+
+  scenario                                              pass rate
+  ----------------------------------------------------- ----------
+  invariant check only (log-prefix + leader-uniq)         100/100
+  lin-check, faults disabled                               29/30
+  lin-check, faults enabled (partition+drop+dup+reorder)   83/100
+
+Known limitations
+-----------------
+Roughly 3% (no faults) to 17% (with faults) of seeds show porcupine
+returning Illegal on the resulting history. We do not believe these
+are real raft bugs; they are model imprecisions in the harness:
+
+1. Read-resolution timing. When a follower-issued ReadIndex resolves
+   in the same tick that a stream of new committed entries lands, our
+   pollRead reports the value at safeIndex but the apparent return
+   tick is the same as several concurrent writes' commit ticks. With
+   tick-level resolution this can produce histories porcupine cannot
+   reconstruct under our register model.
+
+2. Timed-out ops with unknown outcome. We exclude these entirely
+   from the porcupine input (see history.go). This is conservative
+   for false-positive purposes but means we cannot catch lin
+   violations that involve the value of a write that hung.
+
+3. Leader-change races. When a follower-issued ReadIndex is in flight
+   across a leader change, the response that arrives may come from the
+   old leader and reflect a stale commit index. The follower may still
+   resolve, returning a value that's consistent with the cluster but
+   placed earlier on the timeline than porcupine expects.
+
+For the paper, we therefore use:
+  - INVARIANT check (log-prefix + leader-uniqueness) as the *strict*
+    rejection gate in the autonomous optimization loop. This has zero
+    false positives in 200 seeds of unmodified raft.
+  - LIN-CHECK as a soft secondary signal: a candidate whose lin-fail
+    rate is materially higher than the baseline's 17% noise floor is
+    flagged for manual inspection, not auto-rejected.
+
+Future work
+-----------
+- Switch to porcupine's Event API to model in-flight ops with proper
+  "may or may not commit" semantics (see CheckEvents).
+- Encode richer state in the model (per-op metadata, write origin) to
+  let porcupine partition the history.
+- Capture per-tick state-machine snapshots at sub-tick resolution so
+  read return times are uniquely orderable against concurrent writes.

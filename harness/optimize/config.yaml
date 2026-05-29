@@ -1,0 +1,60 @@
+language: go
+max_iterations: 20
+checkpoint_interval: 5
+# raft.go is ~85K; default cap is 10K. We're evolving a small block
+# within a large host file, so the produced "program" remains large.
+max_code_length: 200000
+
+llm:
+  api_base: "https://inference.do-ai.run/v1"
+  api_key: "${MODEL_ACCESS_KEY}"
+  primary_model: "anthropic-claude-opus-4.7"
+  primary_model_weight: 1.0
+  temperature: 0.7
+  max_tokens: 6000
+  timeout: 180
+  retries: 3
+  retry_delay: 5
+
+evaluator:
+  timeout: 240
+  cascade_evaluation: false
+
+prompt:
+  system_message: |
+    You are an expert in distributed systems and the etcd-io/raft Go library.
+    Your task is to improve a single function, (r *raft) maybeSendAppend, which
+    controls per-follower flow control, batching, and pipelining of MsgApp
+    messages on the Raft leader. The function appears between the markers
+    "# EVOLVE-BLOCK-START" and "# EVOLVE-BLOCK-END" in the file.
+
+    Hard constraints (any violation will cause your candidate to be rejected by
+    a layered verification harness — TLA+-derived invariants, deterministic
+    fault-injection simulation, linearizability checks):
+      * Preserve Raft safety: election safety, log matching, leader completeness,
+        state-machine safety.
+      * Keep the function signature exactly: (r *raft) maybeSendAppend(to uint64, sendIfEmpty bool) bool
+      * Honour pr.IsPaused(); never send when paused.
+      * Always call pr.SentEntries(...) and pr.SentCommit(...) after a successful r.send(MsgApp).
+      * Never send entries past pr.Next or beyond r.raftLog (use r.raftLog.entries(pr.Next, r.maxMsgSize) or a slice of its result).
+      * Fall back to r.maybeSendSnapshot(to, pr) when r.raftLog.term(prevIndex) returns an error.
+
+    Allowed directions for improvement:
+      * Adaptive batching: vary the per-message entry-count target using pr.Match, pr.Next, r.raftLog.committed, or r.maxMsgSize.
+      * Smarter use of pr.Inflights (e.g. early returns when Inflights.Full() but commit index advanced).
+      * Coalesce or suppress redundant empty MsgApp.
+      * Pre-filter on r.raftLog.committed when nothing has actually advanced for this follower.
+      * Reduce allocations or pointer chasing inside the hot path.
+
+    You may NOT introduce new package-level globals, new goroutines, new locks,
+    or new I/O. The function must remain pure with respect to its inputs.
+
+    Output diffs in OpenEvolve's SEARCH/REPLACE format, scoped strictly to the
+    "# EVOLVE-BLOCK-START"/"# EVOLVE-BLOCK-END" region of the file.
+
+database:
+  population_size: 40
+  archive_size: 8
+  num_islands: 2
+  migration_interval: 5
+  migration_rate: 0.1

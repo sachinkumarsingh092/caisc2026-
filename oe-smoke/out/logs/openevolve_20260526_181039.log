@@ -1,0 +1,77 @@
+2026-05-26 18:10:39,450 - openevolve.controller - INFO - Logging to oe-smoke/out/logs/openevolve_20260526_181039.log
+2026-05-26 18:10:43,381 - openevolve.controller - INFO - Set random seed to 42 for reproducibility
+2026-05-26 18:10:43,468 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: anthropic-claude-opus-4.7
+2026-05-26 18:10:43,468 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: anthropic-claude-opus-4.7 (weight: 1.00)
+2026-05-26 18:10:43,475 - openevolve.prompt.sampler - INFO - Initialized prompt sampler
+2026-05-26 18:10:43,475 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
+2026-05-26 18:10:43,475 - openevolve.database - INFO - Initialized program database with 0 programs
+2026-05-26 18:10:43,477 - openevolve.evaluator - INFO - Successfully loaded evaluation function from oe-smoke/evaluator.py
+2026-05-26 18:10:43,477 - openevolve.evaluator - WARNING - Configuration has 'cascade_evaluation: true' but evaluator 'oe-smoke/evaluator.py' does not define 'evaluate_stage1' function. This will fall back to direct evaluation, making the cascade setting useless. Consider setting 'cascade_evaluation: false' or implementing cascade functions.
+2026-05-26 18:10:43,477 - openevolve.evaluator - INFO - Initialized evaluator with oe-smoke/evaluator.py
+2026-05-26 18:10:43,477 - openevolve.controller - INFO - Initialized OpenEvolve with oe-smoke/program.py
+2026-05-26 18:10:43,477 - openevolve.controller - INFO - Adding initial program to database
+2026-05-26 18:10:43,497 - openevolve.evaluator - INFO - Evaluated program 5d366002-8208-4bd7-a074-c36b07c8ef73 in 0.02s: score=0.0233, value=0.0000
+2026-05-26 18:10:43,497 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 5, 'diversity': 0}
+2026-05-26 18:10:43,497 - openevolve.controller - WARNING - ⚠️  No 'combined_score' metric found in evaluation results. Using average of all numeric metrics (0.0116) for evolution guidance. For better evolution results, please modify your evaluator to return a 'combined_score' metric that properly weights different aspects of program performance.
+2026-05-26 18:10:43,502 - openevolve.process_parallel - INFO - Initialized process parallel controller with 1 workers
+2026-05-26 18:10:43,503 - openevolve.process_parallel - INFO - Set max None tasks per child
+2026-05-26 18:10:43,503 - openevolve.process_parallel - INFO - Started process pool with 1 processes
+2026-05-26 18:10:43,503 - openevolve.controller - INFO - Using island-based evolution with 5 islands
+2026-05-26 18:10:43,503 - openevolve.database - INFO - Island Status:
+2026-05-26 18:10:43,503 - openevolve.database - INFO -  * Island 0: 1 programs, best=0.0116, avg=0.0116, diversity=0.00, gen=0 (best: 5d366002-8208-4bd7-a074-c36b07c8ef73)
+2026-05-26 18:10:43,503 - openevolve.database - INFO -    Island 1: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:10:43,503 - openevolve.database - INFO -    Island 2: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:10:43,503 - openevolve.database - INFO -    Island 3: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:10:43,503 - openevolve.database - INFO -    Island 4: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:10:43,503 - openevolve.process_parallel - INFO - Starting process-based evolution from iteration 1 for 3 iterations (total: 4)
+2026-05-26 18:10:43,507 - openevolve.process_parallel - INFO - Early stopping disabled
+2026-05-26 18:11:00,364 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 5}
+2026-05-26 18:11:00,364 - openevolve.process_parallel - INFO - Iteration 1: Program 2e2f9a68-4794-4dab-8491-fef0110ece15 (parent: 5d366002-8208-4bd7-a074-c36b07c8ef73) completed in 16.52s
+2026-05-26 18:11:00,364 - openevolve.process_parallel - INFO - Metrics: score=0.0233, value=0.0000
+2026-05-26 18:11:00,364 - openevolve.process_parallel - WARNING - ⚠️  No 'combined_score' metric found in evaluation results. Using average of all numeric metrics (0.0116) for evolution guidance. For better evolution results, please modify your evaluator to return a 'combined_score' metric that properly weights different aspects of program performance.
+2026-05-26 18:11:00,364 - openevolve.process_parallel - INFO - Checkpoint interval reached at iteration 1
+2026-05-26 18:11:00,364 - openevolve.database - INFO - Island Status:
+2026-05-26 18:11:00,364 - openevolve.database - INFO -  * Island 0: 2 programs, best=0.0116, avg=0.0116, diversity=240.70, gen=1 (best: 5d366002-8208-4bd7-a074-c36b07c8ef73)
+2026-05-26 18:11:00,364 - openevolve.database - INFO -    Island 1: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:00,364 - openevolve.database - INFO -    Island 2: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:00,364 - openevolve.database - INFO -    Island 3: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:00,364 - openevolve.database - INFO -    Island 4: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:00,365 - openevolve.database - INFO - Saved database with 2 programs to oe-smoke/out/checkpoints/checkpoint_1
+2026-05-26 18:11:00,366 - openevolve.controller - INFO - Saved best program at checkpoint 1 with metrics: score=0.0233, value=0.0000
+2026-05-26 18:11:00,366 - openevolve.controller - INFO - Saved checkpoint at iteration 1 to oe-smoke/out/checkpoints/checkpoint_1
+2026-05-26 18:11:15,727 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 8, 'diversity': 0}
+2026-05-26 18:11:15,727 - openevolve.process_parallel - INFO - Iteration 2: Program c8e6f7b7-c23e-47a1-8bf0-6f0f0936e78e (parent: 5d366002-8208-4bd7-a074-c36b07c8ef73) completed in 15.36s
+2026-05-26 18:11:15,727 - openevolve.process_parallel - INFO - Metrics: score=0.0000, error=invalid literal for int() with base 10: '40094.6589737165'
+2026-05-26 18:11:15,727 - openevolve.process_parallel - INFO - Checkpoint interval reached at iteration 2
+2026-05-26 18:11:15,727 - openevolve.database - INFO - Island Status:
+2026-05-26 18:11:15,727 - openevolve.database - INFO -  * Island 0: 2 programs, best=0.0116, avg=0.0116, diversity=240.70, gen=1 (best: 5d366002-8208-4bd7-a074-c36b07c8ef73)
+2026-05-26 18:11:15,727 - openevolve.database - INFO -    Island 1: 1 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=1 (best: c8e6f7b7-c23e-47a1-8bf0-6f0f0936e78e)
+2026-05-26 18:11:15,727 - openevolve.database - INFO -    Island 2: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:15,727 - openevolve.database - INFO -    Island 3: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:15,728 - openevolve.database - INFO -    Island 4: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:15,729 - openevolve.database - INFO - Saved database with 3 programs to oe-smoke/out/checkpoints/checkpoint_2
+2026-05-26 18:11:15,729 - openevolve.controller - INFO - Saved best program at checkpoint 2 with metrics: score=0.0233, value=0.0000
+2026-05-26 18:11:15,729 - openevolve.controller - INFO - Saved checkpoint at iteration 2 to oe-smoke/out/checkpoints/checkpoint_2
+2026-05-26 18:11:27,227 - openevolve.database - INFO - New MAP-Elites cell occupied in island 2: {'complexity': 4, 'diversity': 0}
+2026-05-26 18:11:27,227 - openevolve.database - INFO - New best program 91f76d23-5c29-4d0c-b00c-b47f6a4a0ee5 replaces 5d366002-8208-4bd7-a074-c36b07c8ef73
+2026-05-26 18:11:27,227 - openevolve.process_parallel - INFO - Iteration 3: Program 91f76d23-5c29-4d0c-b00c-b47f6a4a0ee5 (parent: 5d366002-8208-4bd7-a074-c36b07c8ef73) completed in 11.50s
+2026-05-26 18:11:27,227 - openevolve.process_parallel - INFO - Metrics: score=0.0000, value=338350.0000
+2026-05-26 18:11:27,227 - openevolve.process_parallel - INFO - 🌟 New best solution found at iteration 3: 91f76d23-5c29-4d0c-b00c-b47f6a4a0ee5
+2026-05-26 18:11:27,227 - openevolve.process_parallel - INFO - Checkpoint interval reached at iteration 3
+2026-05-26 18:11:27,227 - openevolve.database - INFO - Island Status:
+2026-05-26 18:11:27,227 - openevolve.database - INFO -  * Island 0: 2 programs, best=0.0116, avg=0.0116, diversity=240.70, gen=1 (best: 5d366002-8208-4bd7-a074-c36b07c8ef73)
+2026-05-26 18:11:27,227 - openevolve.database - INFO -    Island 1: 1 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=1 (best: c8e6f7b7-c23e-47a1-8bf0-6f0f0936e78e)
+2026-05-26 18:11:27,227 - openevolve.database - INFO -    Island 2: 1 programs, best=169175.0000, avg=169175.0000, diversity=0.00, gen=1 (best: 91f76d23-5c29-4d0c-b00c-b47f6a4a0ee5)
+2026-05-26 18:11:27,227 - openevolve.database - INFO -    Island 3: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:27,227 - openevolve.database - INFO -    Island 4: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-26 18:11:27,230 - openevolve.database - INFO - Saved database with 4 programs to oe-smoke/out/checkpoints/checkpoint_3
+2026-05-26 18:11:27,230 - openevolve.controller - INFO - Saved best program at checkpoint 3 with metrics: score=0.0000, value=338350.0000
+2026-05-26 18:11:27,230 - openevolve.controller - INFO - Saved checkpoint at iteration 3 to oe-smoke/out/checkpoints/checkpoint_3
+2026-05-26 18:11:27,230 - openevolve.process_parallel - INFO - ✅ Evolution completed - Maximum iterations reached
+2026-05-26 18:11:27,233 - openevolve.database - INFO - Saved database with 4 programs to oe-smoke/out/checkpoints/checkpoint_3
+2026-05-26 18:11:27,234 - openevolve.controller - INFO - Saved best program at checkpoint 3 with metrics: score=0.0000, value=338350.0000
+2026-05-26 18:11:27,234 - openevolve.controller - INFO - Saved checkpoint at iteration 3 to oe-smoke/out/checkpoints/checkpoint_3
+2026-05-26 18:11:27,316 - openevolve.process_parallel - INFO - Stopped process pool
+2026-05-26 18:11:27,316 - openevolve.controller - INFO - Using tracked best program: 91f76d23-5c29-4d0c-b00c-b47f6a4a0ee5
+2026-05-26 18:11:27,316 - openevolve.controller - INFO - Evolution complete. Best program has metrics: score=0.0000, value=338350.0000
+2026-05-26 18:11:27,317 - openevolve.controller - INFO - Saved best program to oe-smoke/out/best/best_program.py with program info to oe-smoke/out/best/best_program_info.json

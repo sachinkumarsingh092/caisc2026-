@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{33}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -63,6 +63,28 @@ Koen Claessen and John Hughes.
 \newblock In \emph{Proceedings of the Fifth ACM SIGPLAN International
   Conference on Functional Programming (ICFP)}, pages 268--279, 2000.
 \newblock \doi{10.1145/351240.351266}.
+
+\bibitem[{Cockroach Labs}(2014--present)]{cockroachdb}
+{Cockroach Labs}.
+\newblock {CockroachDB}: A distributed {SQL} database.
+\newblock \url{https://github.com/cockroachdb/cockroach}, 2014--present.
+
+\bibitem[{Docker, Inc.}(2016--present)]{dockerSwarm}
+{Docker, Inc.}
+\newblock {SwarmKit}: A toolkit for orchestrating distributed systems at any
+  scale.
+\newblock \url{https://github.com/moby/swarmkit}, 2016--present.
+
+\bibitem[{etcd Authors}(2013--present)]{etcd}
+{etcd Authors}.
+\newblock {etcd}: A distributed, reliable key-value store for the most critical
+  data of a distributed system.
+\newblock \url{https://etcd.io}, 2013--present.
+
+\bibitem[{etcd Authors}(2014--present)]{etcdraft}
+{etcd Authors}.
+\newblock {etcd-io/raft}: A go implementation of the raft consensus algorithm.
+\newblock \url{https://github.com/etcd-io/raft}, 2014--present.
 
 \bibitem[{etcd Authors}(2022--present)]{etcdRobustness}
 {etcd Authors}.
@@ -194,6 +216,11 @@ Bernardino Romera-Paredes, Mohammadamin Barekatain, Alexander Novikov, Matej
 \newblock \doi{10.1038/s41586-023-06924-6}.
 \newblock Published December 14, 2023.
 
+\bibitem[{The Kubernetes Authors}(2014--present)]{kubernetes}
+{The Kubernetes Authors}.
+\newblock Kubernetes: Production-grade container orchestration.
+\newblock \url{https://kubernetes.io}, 2014--present.
+
 \bibitem[{TigerBeetle Engineering}(2023--2025)]{tigerbeetleDST}
 {TigerBeetle Engineering}.
 \newblock {VOPR}: Viewstamped operation replayer for deterministic simulation
@@ -201,6 +228,11 @@ Bernardino Romera-Paredes, Mohammadamin Barekatain, Alexander Novikov, Matej
 \newblock
   \url{https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/internals/vopr.md},
   2023--2025.
+
+\bibitem[{TiKV Authors}(2016--present)]{tikv}
+{TiKV Authors}.
+\newblock {TiKV}: A distributed transactional key-value database.
+\newblock \url{https://tikv.org}, 2016--present.
 
 \bibitem[Wang(2020)]{madsim}
 Runji Wang.

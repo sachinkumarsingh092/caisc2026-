@@ -3,7 +3,7 @@ max_iterations: 3
 checkpoint_interval: 1
 
 llm:
-  api_base: "https://inference.do-ai.run/v1"
+  api_base: ""
   api_key: "${MODEL_ACCESS_KEY}"
   primary_model: ""
   primary_model_weight: 1.0

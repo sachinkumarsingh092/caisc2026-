@@ -5,11 +5,13 @@
 
 \documentclass{article}
 
+\PassOptionsToPackage{numbers,sort&compress}{natbib}
 \usepackage{caisc_2026}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
+\hypersetup{colorlinks=true, citecolor=blue, linkcolor=blue, urlcolor=blue}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{amsfonts}
@@ -19,8 +21,10 @@
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{graphicx}
-\title{Verification-Gated Autonomous Optimization of a Production Raft
-Library: A Harness-First Pipeline for Algorithmic Discovery}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algrenewcommand\algorithmiccomment[1]{\hfill\textcolor{gray!60!black}{\(\triangleright\)\,\textit{#1}}}
+\title{Verification-Gated Autonomous Optimization of Systems Code}
 
 % Author block stays anonymized for submission (the .sty handles this
 % automatically in the default mode). Do not list AI systems here; the
@@ -39,38 +43,33 @@ Library: A Harness-First Pipeline for Algorithmic Discovery}
 \begin{abstract}
 We study whether an autonomous, LLM-driven optimization loop can
 discover algorithmic improvements to a production consensus library
-while preserving every protocol-level correctness invariant. Taking
-\texttt{etcd-io/raft}---the most widely deployed Raft implementation,
-underpinning Kubernetes, CockroachDB, and the etcd key-value store---as
-our target, we compose a layered verification harness that combines
-the library's in-tree TLA$^{+}$ trace-validation infrastructure, a
-purpose-built deterministic simulation tester running on top of
-upstream's pluggable \texttt{RawNode}/\texttt{Storage} interfaces, and
-a Porcupine-based linearizability checker on recorded client histories
-under partition, drop, reorder, and duplicate fault injection. The
-harness is then used as the rejection oracle for an evolutionary
-search driven by a frontier coding model: each candidate must clear
-upstream compilation, the unmodified upstream test suite, a seeded
-multi-scenario fault sweep, and a Raft-protocol invariant checker
-before its benchmark score is allowed to compete. We report (i)~the
-design and injection points of the harness against existing upstream
-verification assets, (ii)~the calibration of its noise floors, (iii)~
-the candidates surfaced by an evolutionary loop targeting the
-leader-side flow-control function \texttt{maybeSendAppend}, and (iv)~an
-ablation showing which harness layer caught which class of incorrect
-candidate. Our central claim is methodological: in a domain with
-mechanically checkable safety properties, the harness---not the model---
-is the load-bearing artefact, and a sufficiently sharp harness lets a
-general-purpose coding agent search the algorithmic neighbourhood of
-a mature systems codebase safely.
+while preserving every safety property of the protocol. Our target is
+\texttt{etcd-io/raft}, the consensus library beneath Kubernetes and
+CockroachDB. We build a layered verification harness around it: an
+existing TLA$^{+}$ specification for protocol-level invariants, a
+deterministic fault-injection simulator that drives the library
+through partition, drop, reorder, and duplication scenarios, and a
+linearizability check on the resulting client histories. The harness
+then gates an evolutionary search driven by a frontier coding model:
+every candidate edit must clear compilation, the fault sweep, and
+the linearizability check before its benchmark score is even
+reported.
+Our central claim is methodological: where safety is
+mechanically checkable, the harness---not the model---is the
+load-bearing artefact, and a sufficiently sharp harness lets a
+general-purpose coding agent search inside a mature systems codebase
+safely. Harness-acceptance is necessary but not sufficient for
+upstream merge; we make no production-readiness claim.
 \end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
 
 Raft \cite{ongaro2014search} is the consensus algorithm at the core of
-most contemporary distributed systems---etcd, Kubernetes, CockroachDB,
-Docker Swarm, TiKV. Implementations of Raft are required to preserve
+most contemporary distributed systems---etcd~\cite{etcd},
+Kubernetes~\cite{kubernetes}, CockroachDB~\cite{cockroachdb},
+Docker Swarm~\cite{dockerSwarm}, TiKV~\cite{tikv}. Implementations of
+Raft are required to preserve
 five safety properties (election safety, log matching, leader
 completeness, state-machine safety, and log durability under partial
 failure) under every interleaving of message loss, reorder, duplication,
@@ -89,23 +88,25 @@ predicate.
 
 Our hypothesis is that the bottleneck is verification bandwidth, not
 generation quality. Concretely: if every candidate variant produced by
-the LLM is forced through a mechanical pipeline---compile, full upstream
-test suite, seeded deterministic fault-injection sweep, linearizability
-check, benchmark---before any performance score is reported, the
+the LLM is forced through a mechanical pipeline---compile, seeded
+deterministic fault-injection sweep, linearizability check,
+benchmark---before any performance score is reported, the
 generator can be allowed to explore aggressively without endangering
 the codebase. The harness, not the model, becomes the artefact whose
 quality determines what kinds of improvements are reachable.
 
-This paper instantiates that pattern over \texttt{etcd-io/raft} at a
-pinned commit. Our contributions are:
+This paper instantiates that pattern over
+\texttt{etcd-io/raft}~\cite{etcdraft} at a pinned commit. Our contributions are:
 \begin{enumerate}
-  \item A minimal-upstream-patch DST harness over the library's
-    existing \texttt{RawNode}/\texttt{Storage} interfaces, with
+  \item A minimal-upstream-patch deterministic simulation testing
+    (DST)~\cite{fdbsim,foundationdb} harness over the library's existing
+    \texttt{RawNode}/\texttt{Storage} interfaces, with
     seeded fault injection (partition, heal, drop, reorder,
-    duplicate) and a two-layer oracle (Raft-protocol invariants and
+    duplicate) and a three-layer oracle (TLA$^{+}$ trace validation, Raft-protocol invariants and
     Porcupine linearizability on client histories). The harness
     achieves bit-for-bit reproducibility per seed after a four-line
-    patch to the upstream election-timeout RNG.
+    patch to the upstream election-timeout random number generator
+    (RNG).
   \item Calibration of harness noise floors: we report 0~invariant
     violations across 200 distinct fault-injected seeds on the
     unmodified upstream, a 17\% Porcupine false-positive rate
@@ -114,7 +115,7 @@ pinned commit. Our contributions are:
   \item An evolutionary-search wrapper that uses the harness as the
     rejection oracle. A frontier coding model proposes bounded edits
     to the leader-side flow-control function
-    \texttt{(r~*raft) maybeSendAppend}; candidates that fail to
+    \texttt{maybeSendAppend}; candidates that fail to
     compile, fail any upstream test, fail any fault-injection
     scenario, or produce non-linearizable client histories beyond
     the noise floor are discarded before benchmarking.
@@ -177,16 +178,16 @@ model-vs-review tradeoff: instead of asking whether agent-written
 code is correct, a layered set of automated oracles asks whether the
 candidate falsifies any property. Prior instantiations target a
 Redis-compatible store~\cite{redisRust} and a Kafka-compatible
-engine. Verification-gated autonomous
+engine~\cite{datadogHarness}. Verification-gated autonomous
 optimization~\cite{datadogAutonomous,barbarians2025} extends the
 pattern with an LLM candidate generator and an evolutionary
 database~\cite{openevolve,alphaevolve,funsearch,alphadev}, gated on a
 formal or empirical oracle; reported deployments have driven large
 speedups on time-series codecs behind \texttt{Verus}~\cite{verus}
 safety proofs. We instantiate the pattern over a Go
-consensus library: the harness is empirical (deterministic simulation
-plus linearizability checking) rather than formal, and the search
-target is a single function inside a $\sim$85~KB host file.
+consensus library: the harness combines TLA$^{+}$ trace validation,
+deterministic simulation, and linearizability checking, and the
+search target is a single function inside a $\sim$85~KB host file.
 
 \section{Verification Harness}
 \label{sec:harness}
@@ -205,7 +206,7 @@ will invoke the full pyramid hundreds of times per run.
 
 We achieve bit-for-bit reproducibility per seed via a single
 four-line patch to the upstream library: a new optional
-\texttt{Config.Rand func(int) int} field that, when set, replaces a
+\texttt{Config.Rand} field that, when set, replaces a
 \texttt{crypto/rand}-backed source for the randomized election
 timeout (the only non-seedable randomness in the library, identified
 by a single \texttt{globalRand.Intn} call in \texttt{raft.go}). When
@@ -227,20 +228,26 @@ admitted by the spec is a failure.
 \subsection{Layer 2: Deterministic Simulation Testing}
 \label{sec:harness-dst}
 The DST layer is a from-scratch single-goroutine scheduler built atop
-\texttt{RawNode}. The cluster's per-tick step performs, in order:
-(1)~tick all non-partitioned nodes; (2)~for each node, drain
-\texttt{Ready()}, persist \texttt{Entries} to a per-node
-\texttt{MemoryStorage}, apply \texttt{CommittedEntries} to a
-single-register state machine, sort outbound \texttt{Messages} into a
-canonical $\langle\text{To},\text{From},\text{Type},\text{Term},
-\text{Index}\rangle$ order before sending (sorting is required
-because upstream builds \texttt{r.msgs} by iterating a
-\texttt{map[uint64]*Progress}), then \texttt{Advance(rd)};
-(3)~deliver pending inbox messages by \texttt{Step()}-ing them into
-target nodes; (4)~poll pending client read operations against the
-linearizable safe index. All randomness is sourced from a single
-seeded \texttt{*rand.Rand} threaded through both the harness and
-upstream's election timeout.
+\texttt{RawNode}; it advances the cluster one logical tick at a time
+in four phases.
+\textbf{Clocks:} every healthy node is ticked, possibly firing an
+election or a heartbeat.
+\textbf{Progress:} each node drains its \texttt{Ready()}; the
+harness persists the new entries to a per-node \texttt{MemoryStorage},
+applies committed entries to a single-register state machine, and
+enqueues outbound messages onto the network in a canonical order ---
+a deterministic sort is required because upstream builds the outbox
+by iterating a Go map.
+\textbf{Delivery:} messages whose scheduled-delivery tick has arrived
+are \texttt{Step()}-ed into their destination, possibly being
+dropped, reordered, or duplicated by the network layer.
+\textbf{Reads:} pending client reads complete once the linearizable
+safe index has caught up.
+All randomness --- ours and upstream's election timeout --- flows
+from a single seeded \texttt{*rand.Rand}, exposed via the four-line
+patch of \S\ref{sec:harness}; full pseudocode and the bindings to
+upstream's \texttt{RawNode}/\texttt{Storage} interface are in
+Appendix~\ref{app:dst-detail}.
 
 The network supports per-link drop probability, partition/heal,
 per-message scheduled-delivery delay (yielding reorder when delays
@@ -264,7 +271,7 @@ preferring a distinct cluster node, issue writes via \texttt{Propose}
 and linearizable reads via \texttt{ReadIndex} into a single-register
 state machine. Each client
 keeps at most one operation in flight; writes encode a 17-byte payload
-\verb|[tag=0x01][opID:8][value:8]| so committed entries can be matched
+ so committed entries can be matched
 back to the issuing client. Reads are finalised once the preferred
 node's \texttt{appliedIndex} crosses the safe index returned in
 \texttt{Ready.ReadStates}; the read returns the register snapshot
@@ -286,40 +293,45 @@ support; we treat this as a deferred extension and discuss it in
 
 \subsection{Layer Costs}
 \label{sec:harness-cost}
-On commodity hardware (Apple M-class, single-process), the per-seed
-cost of the full harness pyramid (compile, upstream test suite, 8
-fault-injected DST seeds at 1500~ticks each, Porcupine check, and a
-five-run benchmark) is approximately $30$~seconds wall-clock. The
-DST layer alone runs at $\sim$12\,k ticks/second for a three-node
-cluster; a 200-seed sweep at 2000~ticks completes in under four
-minutes.
+On a 16-vCPU \texttt{x86\_64} cloud host ($32$~GB RAM, Ubuntu
+\texttt{24.04}), single-process, the per-candidate cost of the
+harness pyramid (compile, $8$ fault-injected DST seeds at $1500$~ticks
+each, Porcupine check, and a five-run benchmark) is approximately
+$15$--$20$~seconds wall-clock; the LLM call dominates total
+per-iteration time. The DST layer alone runs at $\sim$12\,k
+ticks/second for a three-node cluster; a 200-seed sweep at
+$2000$~ticks completes in under four minutes.
 
 \section{Autonomous Optimization Loop}
 \label{sec:loop}
 
 \subsection{Search Space}
-We target a single function in \texttt{raft.go}:
-\begin{center}
-\texttt{(r *raft) maybeSendAppend(to uint64, sendIfEmpty bool) bool}
-\end{center}
-This is the per-follower decision point that gates flow control,
-batching, pipelining, and snapshot fallback. It is the single hottest
-function on the leader's outbound path, $\sim$45~lines of code with
-all the relevant levers in scope: \texttt{pr.IsPaused()},
-\texttt{pr.Inflights.Full()}, \texttt{r.raftLog.entries(\allowbreak
-pr.Next,\allowbreak{} r.maxMsgSize)}, the \texttt{StateReplicate}
-predicate, and the post-send progress update via
-\texttt{pr.SentEntries} and \texttt{pr.SentCommit}. The function is
-marked with \texttt{\#~EVOLVE-BLOCK-START} and \texttt{\#~EVOLVE-BLOCK-END}
-comments; candidates that touch the file outside this region are
-rejected at diff-application time.
+We restrict the optimizer to one function in \texttt{raft.go}, the
+leader's per-follower send decision
+\texttt{maybeSendAppend(to, sendIfEmpty)}. It runs once per follower
+per tick and decides whether to emit an \texttt{AppendEntries}
+message, governing flow control, batching, pipelining, and snapshot
+fallback---the hottest function on the leader's outbound path
+($\sim$45~lines). We chose it because every throughput lever is local
+to the function, yet a wrong edit can break log consistency, making it
+a sharp test of the harness rather than the generator. The levers in
+scope---a throttle check, the replication-state predicate, the
+owed-entries log slice, the post-send progress update, and the
+snapshot fallback---map to their upstream identifiers in
+Table~\ref{tab:levers}. The mutable region is delimited by
+\texttt{EVOLVE-BLOCK} markers; diffs touching the file outside it are
+rejected before compilation.
 
-The candidate generator is instructed by system prompt to preserve
-five named contracts: (i)~the function signature; (ii)~the
-\texttt{IsPaused} short-circuit; (iii)~the snapshot fallback path on
-\texttt{term()} error; (iv)~the post-send progress updates;
-(v)~prohibition on new package-level state, goroutines, locks, or
-I/O.
+The generator is instructed to preserve five behavioural contracts,
+stated by purpose: the signature; the throttle short-circuit (never
+send to a paused or window-full follower); snapshot fallback when the
+required log prefix has been compacted; the post-send progress update
+(else later ticks break log matching); and no new package-level state,
+goroutines, locks, or I/O. The middle three are exactly what the
+harness re-checks mechanically---the prompt states them so the
+generator need not rediscover them, but the harness, not the prompt,
+enforces them. The verbatim prompt is in
+Appendix~\ref{app:system-prompt}.
 
 \subsection{Candidate Generator}
 A frontier coding agent receives the entire host file plus the
@@ -334,16 +346,19 @@ generator from over-fitting to bench noise.
 \subsection{Rejection Oracle}
 The rejection oracle is the harness pyramid of \S\ref{sec:harness},
 applied in order of increasing cost: \emph{(a)}~upstream package
-compilation; \emph{(b)}~the unmodified upstream test suite for the
-affected packages; \emph{(c)}~the DST sweep ($N=8$ seeds, 1500~ticks
-each, full fault catalogue); \emph{(d)}~the linearizability check on
-the recorded client histories; only then \emph{(e)}~the benchmark.
-Any layer's failure terminates evaluation immediately and is recorded
-as the candidate's rejection reason. The harness layers contribute
-their failure modes independently---a candidate that compiles
-correctly but violates log-matching is caught at (c), while a
-candidate that passes (c) but has reordered \texttt{Ready.Messages}
-in a way that breaks linearizability is caught at (d).
+compilation; \emph{(b)}~the DST sweep ($N=8$ seeds, $1500$~ticks
+each, full fault catalogue); \emph{(c)}~the linearizability check on
+the recorded client histories; only then \emph{(d)}~the benchmark.
+Any layer's failure terminates evaluation immediately and is
+recorded as the candidate's rejection reason. The harness layers
+contribute failure modes independently---a candidate that compiles
+correctly but violates log-matching is caught at (b), while a
+candidate that passes (b) but reorders \texttt{Ready.Messages} in a
+way that breaks linearizability is caught at (c). The unmodified
+upstream test suite is \emph{not} run per candidate (it adds
+$\sim$5~seconds for negligible additional coverage given (b)) but
+is run on accepted candidates as part of the post-acceptance
+re-validation described in \S\ref{sec:results-variants}.
 
 \subsection{Candidate Database and Selection}
 We use a published open-source evolutionary search
@@ -375,8 +390,9 @@ calibrated noise floor are not interpretable as improvements; see
 \texttt{main} on 2026-05-26). The single patch to upstream is the
 seedable election-timeout RNG of \S\ref{sec:harness}; all other
 modifications live in a separate Go module and are applied to a
-working copy of \texttt{raft.go} on each evaluation. The upstream
-test suite is run on every candidate before any benchmark.
+working copy of \texttt{raft.go} on each evaluation. The unmodified
+upstream test suite is run on accepted candidates as part of
+post-acceptance re-validation.
 
 \paragraph{Software and hardware.}
 Go \texttt{1.26.3}; OpenEvolve~\cite{openevolve} \texttt{0.2.27};
@@ -440,9 +456,9 @@ we report the minimum across five \texttt{-benchtime=1s} runs.
 \label{sec:results-loop}
 We ran the loop for $30$ iterations over $\sim$76 minutes of wall-clock
 on a single host. Of $30$ proposed candidates, \emph{all $30$ cleared
-the rejection oracle}: every candidate compiled, passed the full
-upstream test suite, passed $8$ fault-injected DST seeds at
-$1500$~ticks, and produced a non-violating client history. None were
+the rejection oracle}: every candidate compiled, passed $8$
+fault-injected DST seeds at $1500$~ticks, and produced a
+non-violating client history. None were
 rejected at the linearizability layer (the gate operates at the
 calibrated noise floor of \S\ref{sec:harness-lin}). The mean per-iteration
 score was $1.067$; $25$ of $30$ candidates ($83.3\%$) scored at or
@@ -460,7 +476,7 @@ plausible mutations preserve the function's contract.
 
 \subsection{Best Accepted Variant}
 \label{sec:results-variants}
-The highest-scoring variant introduces four coordinated edits to
+The highest-scoring variant introduces three coordinated edits to
 \texttt{maybeSendAppend}:
 
 \begin{enumerate}
@@ -529,9 +545,9 @@ we treat this as a methodological lesson and discuss it in
 
 \subsection{Per-Layer Ablation}
 \label{sec:results-ablation}
-Across the $30$-iteration run, no candidate failed compilation,
-no candidate failed the upstream test suite, and no candidate
-triggered an invariant violation during the DST sweep. The
+Across the $30$-iteration run, no candidate failed compilation
+and no candidate triggered an invariant violation during the DST
+sweep. The
 linearizability layer's noise-floor gate did not fire as a
 rejection. This is not, on its own, evidence that the harness layers
 are equivalent. To probe layer-uniqueness we re-evaluated the
@@ -674,9 +690,9 @@ spec.
 \end{ack}
 
 \section*{References}
-
 \medskip
 {
+\renewcommand{\section}[2]{}% suppress thebibliography's auto-heading
 \small
 \bibliographystyle{plainnat}
 \bibliography{references}
@@ -686,18 +702,137 @@ spec.
 \appendix
 \section{Technical Appendices and Supplementary Material}
 
-% Use the appendix freely — it does not count against the 8-page body.
-% Suggested contents:
-%   A.1  Full harness configuration and per-layer parameters.
-%   A.2  Complete fault-injection catalogue.
-%   A.3  Candidate database schema.
-%   A.4  Full prompt templates for the candidate generator.
-%   A.5  Per-seed reproduction scripts for every reported anomaly
-%        and every accepted variant.
-%   A.6  Full benchmark tables (per workload, per cluster size,
-%        per seed) for baseline and all accepted variants.
-%   A.7  Counter-examples produced by the linearizability checker.
-%   A.8  Diff listings for every accepted algorithmic edit.
+\subsection{DST scheduler: full algorithm and bindings to upstream
+            \texttt{RawNode}}
+\label{app:dst-detail}
+
+Algorithm~\ref{alg:dst-tick} gives the per-tick step in full; the
+remainder of this section explains how each line maps onto the
+upstream \texttt{RawNode}/\texttt{Storage} interface.
+
+\begin{algorithm}
+\caption{One simulator tick (deterministic, single-threaded).}
+\label{alg:dst-tick}
+\begin{algorithmic}[1]
+\Require cluster $C$, network $N$, seeded RNG $\rho$
+\Statex \textit{1.\ Clocks.}
+\ForAll{healthy $n \in C$}
+  \State $n.\textsc{Tick}(\rho)$ \Comment{may fire election or heartbeat}
+\EndFor
+\Statex \textit{2.\ Let each node make progress.}
+\ForAll{$n \in C$}
+  \State $\langle\text{entries},\,\text{committed},\,\text{outbox}\rangle
+         \gets n.\textsc{Ready}()$
+  \State \textsc{Persist}(entries);\ \ \textsc{Apply}(committed);\ \
+         enqueue \textsc{Sort}(outbox) into $N$
+  \State $n.\textsc{Advance}()$
+\EndFor
+\Statex \textit{3.\ Deliver mail.}
+\ForAll{$m \in N$ scheduled for this tick}
+  \State $m.\text{dst}.\textsc{Step}(m)$
+         \Comment{may drop, reorder, or duplicate}
+\EndFor
+\Statex \textit{4.\ Answer clients.}
+\ForAll{pending read $q$ with $q.\text{idx} \le \text{safeIndex}$}
+  \State complete $q$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Phase 2 (Progress) bindings.}
+The destructure
+$\langle\text{entries},\text{committed},\text{outbox}\rangle$
+corresponds to the \texttt{rd.Entries}, \texttt{rd.CommittedEntries},
+and \texttt{rd.Messages} fields of the \texttt{Ready} struct returned
+by \texttt{RawNode.Ready()}. \textsc{Persist} writes to a per-node
+\texttt{MemoryStorage}; \textsc{Apply} updates a single-register
+state machine; \textsc{Sort} orders the outbox by
+$\langle\text{To},\text{From},\text{Type},\text{Term},\text{Index}\rangle$
+before any message is enqueued. The sort is mandatory: upstream
+constructs \texttt{r.msgs} by iterating a
+\texttt{map[uint64]*Progress}, and Go intentionally randomises map
+iteration order, so any deterministic execution must impose a
+canonical order at this seam. After Phase 2 the harness calls
+\texttt{n.Advance(rd)} to release the \texttt{Ready} block, matching
+upstream's contract.
+
+\paragraph{Phase 3 (Delivery) and randomness.}
+The network applies drop, reorder, and duplication faults using the
+parameters of \S\ref{sec:harness-dst}. All randomness --- fault
+choices, partition/heal events, scheduled-delivery delays, and
+upstream's own election timeout --- is sourced from a single seeded
+\texttt{*rand.Rand}; the latter is exposed by the four-line patch of
+\S\ref{sec:harness}, which is the only modification to the upstream
+library.
+
+\subsection{Search-Space Identifiers}
+\label{app:search-identifiers}
+Table~\ref{tab:levers} maps each lever named in \S\ref{sec:loop} to its
+upstream \texttt{etcd-io/raft} identifier at the pinned commit.
+
+\begin{table}[h]
+  \caption{The optimization levers in \texttt{maybeSendAppend} and
+    their upstream symbols.}
+  \label{tab:levers}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Lever (\S\ref{sec:loop}) & Upstream identifier \\
+    \midrule
+    Throttle check     & \texttt{pr.IsPaused()}, \texttt{pr.Inflights.Full()} \\
+    Replication state  & \texttt{pr.State == StateReplicate} \\
+    Owed-entries slice & \texttt{r.raftLog.entries(pr.Next, r.maxMsgSize)} \\
+    Progress update    & \texttt{pr.SentEntries(\ldots)}, \texttt{pr.SentCommit(\ldots)} \\
+    Snapshot fallback  & \texttt{r.raftLog.term(pr.Next-1)} error path \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Candidate-Generator System Prompt}
+\label{app:system-prompt}
+The following is the verbatim \texttt{system\_message} supplied to the
+candidate generator (the contracts of \S\ref{sec:loop} are its
+\emph{hard constraints}). It is reproduced unedited except that the
+specific model identity is withheld for anonymous review.
+
+\begin{verbatim}
+You are an expert in distributed systems and the etcd-io/raft Go library.
+Your task is to improve a single function, (r *raft) maybeSendAppend, which
+controls per-follower flow control, batching, and pipelining of MsgApp
+messages on the Raft leader. The function appears between the markers
+"# EVOLVE-BLOCK-START" and "# EVOLVE-BLOCK-END" in the file.
+
+Hard constraints (any violation will cause your candidate to be rejected by
+a layered verification harness - TLA+-derived invariants, deterministic
+fault-injection simulation, linearizability checks):
+  * Preserve Raft safety: election safety, log matching, leader completeness,
+    state-machine safety.
+  * Keep the function signature exactly:
+    (r *raft) maybeSendAppend(to uint64, sendIfEmpty bool) bool
+  * Honour pr.IsPaused(); never send when paused.
+  * Always call pr.SentEntries(...) and pr.SentCommit(...) after a
+    successful r.send(MsgApp).
+  * Never send entries past pr.Next or beyond r.raftLog (use
+    r.raftLog.entries(pr.Next, r.maxMsgSize) or a slice of its result).
+  * Fall back to r.maybeSendSnapshot(to, pr) when r.raftLog.term(prevIndex)
+    returns an error.
+
+Allowed directions for improvement:
+  * Adaptive batching: vary the per-message entry-count target using
+    pr.Match, pr.Next, r.raftLog.committed, or r.maxMsgSize.
+  * Smarter use of pr.Inflights (e.g. early returns when Inflights.Full()
+    but commit index advanced).
+  * Coalesce or suppress redundant empty MsgApp.
+  * Pre-filter on r.raftLog.committed when nothing has actually advanced
+    for this follower.
+  * Reduce allocations or pointer chasing inside the hot path.
+
+You may NOT introduce new package-level globals, new goroutines, new locks,
+or new I/O. The function must remain pure with respect to its inputs.
+
+Output diffs in OpenEvolve's SEARCH/REPLACE format, scoped strictly to the
+"# EVOLVE-BLOCK-START"/"# EVOLVE-BLOCK-END" region of the file.
+\end{verbatim}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -841,7 +976,7 @@ For items 5-6, provide a free-text description.
     \item {\bf Experimental result reproducibility}
     \item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)?
     \item[] Answer: \answerYes{}
-    \item[] Justification: \S\ref{sec:setup} records the pinned upstream commit (\texttt{etcd-io/raft @ 67d129e8}, 2026-05-26), the Go and tooling versions (Go \texttt{1.26.3}, OpenEvolve \texttt{0.2.27}, Porcupine \texttt{v1.1.0}, OpenJDK \texttt{17}), the hardware configuration (dedicated 16-vCPU \texttt{x86\_64} cloud host, 32~GB, Ubuntu \texttt{24.04}), the seeded fault parameters, the seed set, and the benchmark methodology (Go's standard \texttt{go test -bench=\dots{} -benchtime=1s -count=5} with min-reduction). The single upstream patch enabling deterministic seeded election timeouts is described in \S\ref{sec:harness}.
+    \item[] Justification: \S\ref{sec:setup} records the pinned upstream commit (\texttt{etcd-io/raft @ 67d129e8}, 2026-05-26), the Go and tooling versions (Go \texttt{1.26.3}, OpenEvolve \texttt{0.2.27}, Porcupine \texttt{v1.1.0}, OpenJDK \texttt{17}), the hardware configuration (dedicated 16-vCPU \texttt{x86\_64} cloud host, 32~GB RAM, Ubuntu \texttt{24.04}), the seeded fault parameters, the seed set, and the benchmark methodology (Go's standard \texttt{go test -bench=\dots{} -benchtime=1s -count=5} with min-reduction). The single upstream patch enabling deterministic seeded election timeouts is described in \S\ref{sec:harness}.
 
 \item {\bf Open access to data and code}
     \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
@@ -856,7 +991,7 @@ For items 5-6, provide a free-text description.
 \item {\bf Experiment statistical significance}
     \item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
     \item[] Answer: \answerYes{}
-    \item[] Justification: \S\ref{sec:results-variants} (Table~\ref{tab:bench-paired}) reports the min, median, and max of a paired ten-run benchmark distribution rather than single-point speedups, and \S\ref{sec:limits} explicitly characterises the bimodal benchmark distribution and a $\sim$10\% noise-floor below which apparent improvements are not interpretable as real. We do not perform parametric hypothesis testing because the underlying distribution violates normality.
+    \item[] Justification: \S\ref{sec:results-variants} (Table~\ref{tab:bench-paired}) reports the min, median, and max of a paired ten-run benchmark distribution rather than single-point speedups, and \S\ref{sec:limits} explicitly characterises the bimodal benchmark distribution and a $\sim$17\% linearizability false-positive noise floor below which apparent improvements are not interpretable as real. We do not perform parametric hypothesis testing because the underlying distribution violates normality.
 
 \item {\bf Experiments compute resources}
     \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?

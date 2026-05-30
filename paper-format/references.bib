@@ -13,25 +13,6 @@
   publisher = {USENIX Association},
 }
 
-@article{lamport1998paxos,
-  author  = {Lamport, Leslie},
-  title   = {The Part-Time Parliament},
-  journal = {ACM Transactions on Computer Systems},
-  volume  = {16},
-  number  = {2},
-  pages   = {133--169},
-  year    = {1998},
-  doi     = {10.1145/279227.279229},
-}
-
-@article{howard2016flexible,
-  author  = {Howard, Heidi and Malkhi, Dahlia and Spiegelman, Alexander},
-  title   = {Flexible {P}axos: Quorum Intersection Revisited},
-  journal = {arXiv preprint arXiv:1608.06696},
-  year    = {2016},
-  doi     = {10.48550/arXiv.1608.06696},
-}
-
 % ---------------------------------------------------------------
 % Linearizability, property-based testing, deterministic simulation
 % ---------------------------------------------------------------
@@ -121,6 +102,51 @@
   howpublished = {\url{https://github.com/madsim-rs/madsim}},
   note         = {Rust async runtime for deterministic simulation
                   testing},
+}
+
+@misc{etcd,
+  author       = {{etcd Authors}},
+  title        = {{etcd}: A distributed, reliable key-value store for the
+                  most critical data of a distributed system},
+  year         = {2013--present},
+  howpublished = {\url{https://etcd.io}},
+}
+
+@misc{etcdraft,
+  author       = {{etcd Authors}},
+  title        = {{etcd-io/raft}: A Go implementation of the Raft consensus
+                  algorithm},
+  year         = {2014--present},
+  howpublished = {\url{https://github.com/etcd-io/raft}},
+}
+
+@misc{kubernetes,
+  author       = {{The Kubernetes Authors}},
+  title        = {Kubernetes: Production-Grade Container Orchestration},
+  year         = {2014--present},
+  howpublished = {\url{https://kubernetes.io}},
+}
+
+@misc{cockroachdb,
+  author       = {{Cockroach Labs}},
+  title        = {{CockroachDB}: A Distributed {SQL} Database},
+  year         = {2014--present},
+  howpublished = {\url{https://github.com/cockroachdb/cockroach}},
+}
+
+@misc{dockerSwarm,
+  author       = {{Docker, Inc.}},
+  title        = {{SwarmKit}: A toolkit for orchestrating distributed
+                  systems at any scale},
+  year         = {2016--present},
+  howpublished = {\url{https://github.com/moby/swarmkit}},
+}
+
+@misc{tikv,
+  author       = {{TiKV Authors}},
+  title        = {{TiKV}: A distributed transactional key-value database},
+  year         = {2016--present},
+  howpublished = {\url{https://tikv.org}},
 }
 
 @misc{etcdRobustness,

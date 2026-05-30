@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  29 MAY 2026 18:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  30 MAY 2026 18:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -262,6 +262,8 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip55
 )
+Package hyperref Info: Option `colorlinks' set `true' on input line 14.
+
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/booktabs/book
 tabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
@@ -463,31 +465,70 @@ Package graphics Info: Driver file: pdftex.def on input line 106.
 \Gin@req@height=\dimen189
 \Gin@req@width=\dimen190
 )
+(/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/algorithms/al
+gorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/float/float.s
+ty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count325
+\float@exts=\toks31
+\float@box=\box57
+\@float@everytoks=\toks32
+\@floatcapt=\box58
+)
+\@float@every@algorithm=\toks33
+\c@algorithm=\count326
+)
+(/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/algorithmicx/
+algpseudocode.sty
+Package: algpseudocode 
+
+(/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/algorithmicx/
+algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count327
+\c@ALG@rem=\count328
+\c@ALG@nested=\count329
+\ALG@tlm=\skip63
+\ALG@thistlm=\skip64
+\c@ALG@Lnr=\count330
+\c@ALG@blocknr=\count331
+\c@ALG@storecount=\count332
+\c@ALG@tmpcounter=\count333
+\ALG@tmplength=\skip65
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/l3backend/l3b
 ackend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count325
+\l__color_backend_stack_int=\count334
 ) (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -555,18 +596,18 @@ LaTeX Font Info:    ... okay on input line 35.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 35.
+Package hyperref Info: Link coloring ON on input line 39.
 (./paper.out) (./paper.out)
 \@outlinefile=\write3
 \openout3 = `paper.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 35.
-Package microtype Info: Applying patch `item' on input line 35.
-Package microtype Info: Applying patch `toc' on input line 35.
-Package microtype Info: Applying patch `eqnum' on input line 35.
-Package microtype Info: Applying patch `footnote' on input line 35.
-Package microtype Info: Applying patch `verbatim' on input line 35.
-LaTeX Info: Redefining \microtypesetup on input line 35.
+LaTeX Info: Redefining \microtypecontext on input line 39.
+Package microtype Info: Applying patch `item' on input line 39.
+Package microtype Info: Applying patch `toc' on input line 39.
+Package microtype Info: Applying patch `eqnum' on input line 39.
+Package microtype Info: Applying patch `footnote' on input line 39.
+Package microtype Info: Applying patch `verbatim' on input line 39.
+LaTeX Info: Redefining \microtypesetup on input line 39.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -585,17 +626,17 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/context/base/mkii/s
 upp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count326
+\scratchcounter=\count335
 \scratchdimen=\dimen191
-\scratchbox=\box57
-\nofMPsegments=\count327
-\nofMParguments=\count328
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count329
+\scratchbox=\box59
+\nofMPsegments=\count336
+\nofMParguments=\count337
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count338
 \MPscratchDim=\dimen192
-\MPnumerator=\count330
-\makeMPintoPDFobject=\count331
-\everyMPtoPDFconversion=\toks32
+\MPnumerator=\count339
+\makeMPintoPDFobject=\count340
+\everyMPtoPDFconversion=\toks35
 )
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/epstopdf-pkg/
 epstopdf-base.sty
@@ -613,7 +654,7 @@ cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
 
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsa
@@ -624,7 +665,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
 
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsb
@@ -639,7 +680,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 66
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 63
 .
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/psnfss/t1phv.
@@ -658,84 +699,90 @@ Package microtype Info: Loading generic protrusion settings for font family
 vips/base/8r.enc}{/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/
 enc/dvips/cm-super/cm-super-t1.enc}]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 149.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 150.
  [2]
-Underfull \hbox (badness 6510) in paragraph at lines 217--226
+Underfull \hbox (badness 6510) in paragraph at lines 218--227
 \T1/ptm/m/n/10 (+20) For the protocol-level or-a-cle, we reuse the in-tree \T1/
 cmtt/m/n/10 MCetcdraft.tla \T1/ptm/m/n/10 (+20) spec and the
  []
 
 [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 405--409
+Underfull \hbox (badness 10000) in paragraph at lines 421--425
  []\T1/ptm/b/n/10 (+20) Benchmark.[] \T1/ptm/m/n/10 (+20) We in-voke \T1/cmtt/m
 /n/10 go test -bench=BenchmarkProposal3Nodes -benchtime=1s
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 467--473
+Underfull \hbox (badness 10000) in paragraph at lines 483--489
 []\T1/ptm/b/n/10 (+20) Throttled early-bail\T1/ptm/m/n/10 (+20) : the func-tion
  com-putes \T1/cmtt/m/n/10 throttled := pr.State ==
  []
 
 
-Underfull \hbox (badness 7649) in paragraph at lines 467--473
+Underfull \hbox (badness 7649) in paragraph at lines 483--489
 \T1/cmtt/m/n/10 StateReplicate && pr.Inflights.Full() \T1/ptm/m/n/10 (+20) once
  at en-try; when \T1/cmtt/m/n/10 throttled
  []
 
 
-Underfull \hbox (badness 1762) in paragraph at lines 467--473
+Underfull \hbox (badness 1762) in paragraph at lines 483--489
 \T1/cmtt/m/n/10 && !sendIfEmpty \T1/ptm/m/n/10 (+20) the func-tion re-turns im-
 me-di-ately, skip-ping the storage-backed
  []
 
 [6]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 5
-43.
+59.
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/psnfss/ts1ptm
 .fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Underfull \hbox (badness 5954) in paragraph at lines 543--547
+Underfull \hbox (badness 5954) in paragraph at lines 559--563
 []\T1/ptm/m/it/10 (+20) Compilation re-jec-tions \T1/ptm/m/n/10 (+20) (typed-me
 thod in-ven-tion, e.g., a can-di-date that called
  []
 
-[7] (./paper.bbl [8]
-Underfull \hbox (badness 1248) in paragraph at lines 22--32
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.616 
+      ] (./paper.bbl
+Underfull \hbox (badness 2828) in paragraph at lines 22--32
 []\T1/ptm/m/n/9 (+20) Matej Ba-log, Alexan-der Novikov, Ngân V[]u, Mar-vin Eise
-n-berger, Em-i-lien Dupont, Po-Sen Huang,
+n-berger, Em-i-lien Dupont, Po-Sen
  []
 
 
-Underfull \hbox (badness 6910) in paragraph at lines 22--32
-\T1/ptm/m/n/9 (+20) Adam Zsolt Wag-ner, Sergey Shi-robokov, Borislav Ko-zlovski
-i, Fran-cisco J. R. Ruiz, Ab-
+Underfull \hbox (badness 1910) in paragraph at lines 22--32
+\T1/ptm/m/n/9 (+20) Huang, Adam Zsolt Wag-ner, Sergey Shi-robokov, Borislav Ko-
+zlovskii, Fran-cisco J. R. Ruiz,
  []
 
 
-Underfull \hbox (badness 4967) in paragraph at lines 22--32
-\T1/ptm/m/n/9 (+20) bas Mehra-bian, M. Pawan Ku-mar, Abi-gail See, Swarat Chaud
--huri, George Hol-land, Alex
+Underfull \hbox (badness 1406) in paragraph at lines 22--32
+\T1/ptm/m/n/9 (+20) Ab-bas Mehra-bian, M. Pawan Ku-mar, Abi-gail See, Swarat Ch
+aud-huri, George Hol-land, Alex
  []
 
 
-Underfull \hbox (badness 2653) in paragraph at lines 22--32
+Underfull \hbox (badness 1383) in paragraph at lines 22--32
 \T1/ptm/m/n/9 (+20) Davies, Se-bas-tian Nowozin, and Push-meet Kohli.  Al-phaE-
 volve: A Gemini-powered cod-ing
  []
 
 
-Underfull \hbox (badness 3746) in paragraph at lines 22--32
+Underfull \hbox (badness 2111) in paragraph at lines 22--32
 \T1/ptm/m/n/9 (+20) agent for de-sign-ing ad-vanced al-go-rithms.  Tech-ni-cal 
 re-port, Google Deep-Mind, May 2025.
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 22--32
-\T1/ptm/m/n/9 (+20) White pa-per. []$\T1/cmtt/m/n/9 https : / / storage . googl
-eapis . com / deepmind-[]media / DeepMind . com / Blog /
+\T1/ptm/m/n/9 (+20) White pa-per. [][]$\T1/cmtt/m/n/9 https : / / storage . goo
+gleapis . com / deepmind-[]media / DeepMind . com / Blog /
  []
 
 
@@ -744,40 +791,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--32
 gning-[]advanced-[]algorithms /
  []
 
+[8]
+Underfull \hbox (badness 3965) in paragraph at lines 43--48
+[]\T1/ptm/m/n/9 (+20) Ming Chen and Sesh Nalla.  Clos-ing the ver-i-fi-ca-tion 
+loop, part 2: Fully au-tonomous
+ []
+
+
+Underfull \hbox (badness 2698) in paragraph at lines 43--48
+\T1/ptm/m/n/9 (+20) op-ti-miza-tion.  Data-dog En-gi-neer-ing Blog, 2026.  [][]
+$\T1/cmtt/m/n/9 https : / / www . datadoghq . com / blog / ai /
+ []
+
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 223--228
+Underfull \hbox (badness 10000) in paragraph at lines 255--260
 []\T1/ptm/m/n/9 (+20) Will Wil-son.  Test-ing dis-tributed sys-tems with de-ter
 -min-is-tic sim-u-la-tion.  Strange
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--228
-\T1/ptm/m/n/9 (+20) Loop Con-fer-ence talk, 2014.  []$\T1/cmtt/m/n/9 https : / 
-/ www . thestrangeloop . com / 2014 /
+Underfull \hbox (badness 10000) in paragraph at lines 255--260
+\T1/ptm/m/n/9 (+20) Loop Con-fer-ence talk, 2014.  [][]$\T1/cmtt/m/n/9 https : 
+/ / www . thestrangeloop . com / 2014 /
  []
 
-) [10] [11] [12] [13]
-Underfull \hbox (badness 2644) in paragraph at lines 864--865
-[]\T1/ptm/m/n/10 (+20) Justification: Ÿ[]5[] states the single-host com-mod-ity
- work-sta-tion con-text and the
+)
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 714.
+ [10] [11
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.835 \end{verbatim}
+                    ]
+Overfull \hbox (6.66632pt too wide) in paragraph at lines 835--835
+[]  \T1/cmtt/m/n/10 * Preserve Raft safety: election safety, log matching, lead
+er completeness,[] 
  []
 
-[14] (./paper.aux)
+[12] [13] [14] [15]
+Underfull \hbox (badness 2644) in paragraph at lines 999--1000
+[]\T1/ptm/m/n/10 (+20) Justification: Ÿ[][]5[][] states the single-host com-mod
+-ity work-sta-tion con-text and the
+ []
+
+[16] (./paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 654F74232738DB2483B719CB46CA5F8D;4619.
+(rerunfilecheck)             Checksum: 94C61438A6A0285F765C5B673AA3642B;5424.
  ) 
 Here is how much of TeX's memory you used:
- 14524 strings out of 467525
- 225322 string characters out of 5408440
- 686442 words of memory out of 5000000
- 42753 multiletter control sequences out of 15000+600000
- 682468 words of font info for 319 fonts, out of 8000000 for 9000
+ 15205 strings out of 467525
+ 236422 string characters out of 5408440
+ 704969 words of memory out of 5000000
+ 43403 multiletter control sequences out of 15000+600000
+ 695844 words of font info for 321 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,9n,79p,1002b,670s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,9n,79p,1002b,696s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmmi7.pfb></opt/homebrew/Cellar/texlive/20260301/s
@@ -792,10 +866,10 @@ ellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></opt/
 homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/tim
 es/utmri8a.pfb>
-Output written on paper.pdf (14 pages, 252001 bytes).
+Output written on paper.pdf (16 pages, 262870 bytes).
 PDF statistics:
- 516 PDF objects out of 1000 (max. 8388607)
- 473 compressed objects within 5 object streams
- 115 named destinations out of 1000 (max. 500000)
- 50921 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 526 PDF objects out of 1000 (max. 8388607)
+ 481 compressed objects within 5 object streams
+ 129 named destinations out of 1000 (max. 500000)
+ 59137 words of extra memory for PDF output out of 61914 (max. 10000000)
 

@@ -6,9 +6,9 @@ checkpoint_interval: 5
 max_code_length: 200000
 
 llm:
-  api_base: "https://inference.do-ai.run/v1"
+  api_base: "https://REDACTED-ENDPOINT/v1"  # provider redacted for anonymous submission
   api_key: "${MODEL_ACCESS_KEY}"
-  primary_model: "anthropic-claude-opus-4.7"
+  primary_model: "frontier-llm"  # model identity redacted for anonymous submission
   primary_model_weight: 1.0
   temperature: 0.7
   max_tokens: 6000

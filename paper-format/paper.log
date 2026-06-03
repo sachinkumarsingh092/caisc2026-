@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  30 MAY 2026 18:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  30 MAY 2026 23:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -713,43 +713,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 421--425
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 483--489
+Underfull \hbox (badness 10000) in paragraph at lines 500--506
 []\T1/ptm/b/n/10 (+20) Throttled early-bail\T1/ptm/m/n/10 (+20) : the func-tion
  com-putes \T1/cmtt/m/n/10 throttled := pr.State ==
  []
 
 
-Underfull \hbox (badness 7649) in paragraph at lines 483--489
+Underfull \hbox (badness 7649) in paragraph at lines 500--506
 \T1/cmtt/m/n/10 StateReplicate && pr.Inflights.Full() \T1/ptm/m/n/10 (+20) once
  at en-try; when \T1/cmtt/m/n/10 throttled
  []
 
 
-Underfull \hbox (badness 1762) in paragraph at lines 483--489
+Underfull \hbox (badness 1762) in paragraph at lines 500--506
 \T1/cmtt/m/n/10 && !sendIfEmpty \T1/ptm/m/n/10 (+20) the func-tion re-turns im-
 me-di-ately, skip-ping the storage-backed
  []
 
-[6]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 5
-59.
-
-(/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/psnfss/ts1ptm
-.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-Underfull \hbox (badness 5954) in paragraph at lines 559--563
-[]\T1/ptm/m/it/10 (+20) Compilation re-jec-tions \T1/ptm/m/n/10 (+20) (typed-me
-thod in-ven-tion, e.g., a can-di-date that called
- []
-
-[7
+[6] [7
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.616 
-      ] (./paper.bbl
+l.620 
+      ] (./paper.bbl [8]
 Underfull \hbox (badness 2828) in paragraph at lines 22--32
 []\T1/ptm/m/n/9 (+20) Matej Ba-log, Alexan-der Novikov, Ngân V[]u, Mar-vin Eise
 n-berger, Em-i-lien Dupont, Po-Sen
@@ -791,7 +778,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--32
 gning-[]advanced-[]algorithms /
  []
 
-[8]
+
 Underfull \hbox (badness 3965) in paragraph at lines 43--48
 []\T1/ptm/m/n/9 (+20) Ming Chen and Sesh Nalla.  Clos-ing the ver-i-fi-ca-tion 
 loop, part 2: Fully au-tonomous
@@ -815,61 +802,91 @@ Underfull \hbox (badness 10000) in paragraph at lines 255--260
 / / www . thestrangeloop . com / 2014 /
  []
 
-)
+) [10]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 714.
- [10] [11
+put line 733.
+ [11
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.835 \end{verbatim}
+l.817 
+      ] [12
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.937 \end{verbatim}
+                    
+pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.937 \end{verbatim}
+                    
+pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.937 \end{verbatim}
                     ]
-Overfull \hbox (6.66632pt too wide) in paragraph at lines 835--835
+Overfull \hbox (6.66632pt too wide) in paragraph at lines 937--937
 []  \T1/cmtt/m/n/10 * Preserve Raft safety: election safety, log matching, lead
 er completeness,[] 
  []
 
-[12] [13] [14] [15]
-Underfull \hbox (badness 2644) in paragraph at lines 999--1000
+[13]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
+55.
+
+(/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/psnfss/ts1ptm
+.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [14] [15] [16] [17]
+Underfull \hbox (badness 2644) in paragraph at lines 1140--1141
 []\T1/ptm/m/n/10 (+20) Justification: Ÿ[][]5[][] states the single-host com-mod
 -ity work-sta-tion con-text and the
  []
 
-[16] (./paper.aux)
+[18] (./paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 94C61438A6A0285F765C5B673AA3642B;5424.
+(rerunfilecheck)             Checksum: 50D36866DD44EA771BE7D170759D45BE;6131.
  ) 
 Here is how much of TeX's memory you used:
- 15205 strings out of 467525
- 236422 string characters out of 5408440
- 704969 words of memory out of 5000000
- 43403 multiletter control sequences out of 15000+600000
- 695844 words of font info for 321 fonts, out of 8000000 for 9000
+ 15223 strings out of 467525
+ 236652 string characters out of 5408440
+ 698534 words of memory out of 5000000
+ 43412 multiletter control sequences out of 15000+600000
+ 695749 words of font info for 321 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,9n,79p,1002b,696s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,10n,79p,1002b,696s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmmi7.pfb></opt/homebrew/Cellar/texlive/20260301/s
-hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/
-texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt
-/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/typ
-e1/public/cm-super/sftt0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/te
-xmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></opt/homebrew/Cellar/texlive
-/20260301/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></opt/homebrew/C
-ellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></opt/
-homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmr8a.
-pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/tim
-es/utmri8a.pfb>
-Output written on paper.pdf (16 pages, 262870 bytes).
+hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></opt/homebrew/Cellar/
+texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></op
+t/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/
+20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></opt/homebr
+ew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/publi
+c/cm-super/sftt0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist
+/fonts/type1/public/cm-super/sftt1000.pfb></opt/homebrew/Cellar/texlive/2026030
+1/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></opt/homebrew/Cellar/te
+xlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></opt/homebrew
+/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></op
+t/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmri
+8a.pfb>
+Output written on paper.pdf (18 pages, 309035 bytes).
 PDF statistics:
- 526 PDF objects out of 1000 (max. 8388607)
- 481 compressed objects within 5 object streams
- 129 named destinations out of 1000 (max. 500000)
- 59137 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 588 PDF objects out of 1000 (max. 8388607)
+ 532 compressed objects within 6 object streams
+ 138 named destinations out of 1000 (max. 500000)
+ 59161 words of extra memory for PDF output out of 61914 (max. 10000000)
 

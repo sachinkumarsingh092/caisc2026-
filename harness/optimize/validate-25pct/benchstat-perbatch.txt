@@ -1,0 +1,51 @@
+############ BATCH 1 ############
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+                  │ base-b1.txt  │          cand-b1.txt           │
+                  │    sec/op    │    sec/op     vs base          │
+Proposal3Nodes-16   9.464µ ± 15%   9.496µ ± 20%  ~ (p=0.912 n=30)
+
+                  │  base-b1.txt  │           cand-b1.txt           │
+                  │     B/op      │     B/op       vs base          │
+Proposal3Nodes-16   3.487Ki ± 34%   3.966Ki ± 40%  ~ (p=0.612 n=30)
+
+                  │ base-b1.txt │          cand-b1.txt          │
+                  │  allocs/op  │  allocs/op   vs base          │
+Proposal3Nodes-16   71.50 ± 40%   87.00 ± 46%  ~ (p=0.549 n=30)
+
+############ BATCH 2 ############
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+                  │ base-b2.txt │          cand-b2.txt           │
+                  │   sec/op    │    sec/op     vs base          │
+Proposal3Nodes-16   9.646µ ± 4%   9.375µ ± 22%  ~ (p=0.379 n=30)
+
+                  │  base-b2.txt  │           cand-b2.txt           │
+                  │     B/op      │     B/op       vs base          │
+Proposal3Nodes-16   4.433Ki ± 15%   4.343Ki ± 49%  ~ (p=0.264 n=30)
+
+                  │ base-b2.txt │          cand-b2.txt          │
+                  │  allocs/op  │  allocs/op   vs base          │
+Proposal3Nodes-16   99.50 ± 25%   98.50 ± 55%  ~ (p=0.311 n=30)
+
+############ BATCH 3 ############
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+                  │ base-b3.txt  │          cand-b3.txt           │
+                  │    sec/op    │    sec/op     vs base          │
+Proposal3Nodes-16   9.403µ ± 22%   9.479µ ± 10%  ~ (p=0.496 n=30)
+
+                  │  base-b3.txt  │           cand-b3.txt           │
+                  │     B/op      │     B/op       vs base          │
+Proposal3Nodes-16   4.156Ki ± 45%   4.465Ki ± 45%  ~ (p=0.237 n=30)
+
+                  │ base-b3.txt │          cand-b3.txt          │
+                  │  allocs/op  │  allocs/op   vs base          │
+Proposal3Nodes-16   89.00 ± 52%   99.50 ± 53%  ~ (p=0.459 n=30)
+

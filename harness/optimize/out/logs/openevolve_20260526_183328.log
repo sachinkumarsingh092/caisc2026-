@@ -1,13 +1,13 @@
-2026-05-26 18:33:28,636 - openevolve.controller - INFO - Logging to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/logs/openevolve_20260526_183328.log
+2026-05-26 18:33:28,636 - openevolve.controller - INFO - Logging to /workspace/caisc2026/harness/optimize/out/logs/openevolve_20260526_183328.log
 2026-05-26 18:33:28,650 - openevolve.controller - INFO - Set random seed to 42 for reproducibility
-2026-05-26 18:33:28,678 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: anthropic-claude-opus-4.7
-2026-05-26 18:33:28,678 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: anthropic-claude-opus-4.7 (weight: 1.00)
+2026-05-26 18:33:28,678 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: frontier-llm
+2026-05-26 18:33:28,678 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: frontier-llm (weight: 1.00)
 2026-05-26 18:33:28,684 - openevolve.prompt.sampler - INFO - Initialized prompt sampler
 2026-05-26 18:33:28,685 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
 2026-05-26 18:33:28,685 - openevolve.database - INFO - Initialized program database with 0 programs
-2026-05-26 18:33:28,686 - openevolve.evaluator - INFO - Successfully loaded evaluation function from /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/evaluator.py
-2026-05-26 18:33:28,686 - openevolve.evaluator - INFO - Initialized evaluator with /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/evaluator.py
-2026-05-26 18:33:28,686 - openevolve.controller - INFO - Initialized OpenEvolve with /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/initial_program.go
+2026-05-26 18:33:28,686 - openevolve.evaluator - INFO - Successfully loaded evaluation function from /workspace/caisc2026/harness/optimize/evaluator.py
+2026-05-26 18:33:28,686 - openevolve.evaluator - INFO - Initialized evaluator with /workspace/caisc2026/harness/optimize/evaluator.py
+2026-05-26 18:33:28,686 - openevolve.controller - INFO - Initialized OpenEvolve with /workspace/caisc2026/harness/optimize/initial_program.go
 2026-05-26 18:33:28,686 - openevolve.controller - INFO - Adding initial program to database
 2026-05-26 18:33:48,719 - openevolve.evaluator - INFO - Evaluated program 23a02084-ce5e-4764-8260-6d9936bb28cd in 20.03s: combined_score=1.1511, speedup=1.1511, ns_op=2085.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.0061, stage=ok
 2026-05-26 18:33:48,720 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 5, 'diversity': 0}
@@ -41,9 +41,9 @@
 2026-05-26 18:38:18,066 - openevolve.database - INFO - Island Status:
 2026-05-26 18:38:18,066 - openevolve.database - INFO -  * Island 0: 3 programs, best=1.1516, avg=1.1216, diversity=85.20, gen=3 (best: 1c3a355f-a354-4f3f-93db-1bd726b40859)
 2026-05-26 18:38:18,066 - openevolve.database - INFO -    Island 1: 2 programs, best=1.1215, avg=1.1212, diversity=109.20, gen=2 (best: a81910fa-ca39-4b46-82de-5ac94013c3a3)
-2026-05-26 18:38:18,074 - openevolve.database - INFO - Saved database with 6 programs to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_5
+2026-05-26 18:38:18,074 - openevolve.database - INFO - Saved database with 6 programs to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_5
 2026-05-26 18:38:18,074 - openevolve.controller - INFO - Saved best program at checkpoint 5 with metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 18:38:18,074 - openevolve.controller - INFO - Saved checkpoint at iteration 5 to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_5
+2026-05-26 18:38:18,074 - openevolve.controller - INFO - Saved checkpoint at iteration 5 to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_5
 2026-05-26 18:39:14,839 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 5, 'diversity': 0}
 2026-05-26 18:39:14,840 - openevolve.process_parallel - INFO - Iteration 6: Program f703cad5-9846-430a-ae5f-d513d845ad5a (parent: a81910fa-ca39-4b46-82de-5ac94013c3a3) completed in 56.76s
 2026-05-26 18:39:14,840 - openevolve.process_parallel - INFO - Metrics: combined_score=1.0850, speedup=1.0850, ns_op=2212.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.0407, stage=ok
@@ -71,9 +71,9 @@
 2026-05-26 18:42:44,795 - openevolve.database - INFO - Island Status:
 2026-05-26 18:42:44,795 - openevolve.database - INFO -  * Island 0: 4 programs, best=1.1516, avg=1.1189, diversity=49.90, gen=5 (best: 1c3a355f-a354-4f3f-93db-1bd726b40859)
 2026-05-26 18:42:44,795 - openevolve.database - INFO -    Island 1: 5 programs, best=1.1516, avg=1.1300, diversity=95.93, gen=5 (best: cf67c4d6-0308-410e-8b4c-55ea756c5540)
-2026-05-26 18:42:44,816 - openevolve.database - INFO - Saved database with 12 programs to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_10
+2026-05-26 18:42:44,816 - openevolve.database - INFO - Saved database with 12 programs to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_10
 2026-05-26 18:42:44,816 - openevolve.controller - INFO - Saved best program at checkpoint 10 with metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 18:42:44,816 - openevolve.controller - INFO - Saved checkpoint at iteration 10 to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_10
+2026-05-26 18:42:44,816 - openevolve.controller - INFO - Saved checkpoint at iteration 10 to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_10
 2026-05-26 18:43:39,523 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 0}
 2026-05-26 18:43:39,523 - openevolve.process_parallel - INFO - Iteration 11: Program e5ef5da4-9c0f-4225-8830-8dee2b1f7d25 (parent: c77119a8-043c-4877-adad-25c9904a0936) completed in 54.73s
 2026-05-26 18:43:39,523 - openevolve.process_parallel - INFO - Metrics: combined_score=1.1310, speedup=1.1310, ns_op=2122.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=0.9884, stage=ok
@@ -91,9 +91,9 @@
 2026-05-26 18:47:18,320 - openevolve.database - INFO - Island Status:
 2026-05-26 18:47:18,320 - openevolve.database - INFO -  * Island 0: 7 programs, best=1.1516, avg=1.0829, diversity=79.55, gen=8 (best: 1c3a355f-a354-4f3f-93db-1bd726b40859)
 2026-05-26 18:47:18,320 - openevolve.database - INFO -    Island 1: 7 programs, best=1.1516, avg=1.1068, diversity=108.60, gen=7 (best: cf67c4d6-0308-410e-8b4c-55ea756c5540)
-2026-05-26 18:47:18,354 - openevolve.database - INFO - Saved database with 17 programs to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_15
+2026-05-26 18:47:18,354 - openevolve.database - INFO - Saved database with 17 programs to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_15
 2026-05-26 18:47:18,355 - openevolve.controller - INFO - Saved best program at checkpoint 15 with metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 18:47:18,355 - openevolve.controller - INFO - Saved checkpoint at iteration 15 to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_15
+2026-05-26 18:47:18,355 - openevolve.controller - INFO - Saved checkpoint at iteration 15 to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_15
 2026-05-26 18:48:15,102 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 0, 'diversity': 2}
 2026-05-26 18:48:15,102 - openevolve.process_parallel - INFO - Iteration 16: Program 1daf782b-374b-4f0d-851d-b44bac44ca00 (parent: a81910fa-ca39-4b46-82de-5ac94013c3a3) completed in 56.78s
 2026-05-26 18:48:15,102 - openevolve.process_parallel - INFO - Metrics: combined_score=1.0939, speedup=1.0939, ns_op=2194.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.0313, stage=ok
@@ -119,9 +119,9 @@
 2026-05-26 18:51:57,618 - openevolve.database - INFO - Island Status:
 2026-05-26 18:51:57,618 - openevolve.database - INFO -  * Island 0: 9 programs, best=1.1516, avg=1.0846, diversity=79.55, gen=10 (best: 1c3a355f-a354-4f3f-93db-1bd726b40859)
 2026-05-26 18:51:57,618 - openevolve.database - INFO -    Island 1: 10 programs, best=1.1516, avg=1.0974, diversity=87.83, gen=10 (best: cf67c4d6-0308-410e-8b4c-55ea756c5540)
-2026-05-26 18:51:57,674 - openevolve.database - INFO - Saved database with 22 programs to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_20
+2026-05-26 18:51:57,674 - openevolve.database - INFO - Saved database with 22 programs to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_20
 2026-05-26 18:51:57,675 - openevolve.controller - INFO - Saved best program at checkpoint 20 with metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 18:51:57,675 - openevolve.controller - INFO - Saved checkpoint at iteration 20 to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_20
+2026-05-26 18:51:57,675 - openevolve.controller - INFO - Saved checkpoint at iteration 20 to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_20
 2026-05-26 18:52:54,165 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 4}
 2026-05-26 18:52:54,166 - openevolve.process_parallel - INFO - Iteration 21: Program d78e2b8a-4e50-4b12-acf5-e812677f36b3 (parent: 1c3a355f-a354-4f3f-93db-1bd726b40859) completed in 56.55s
 2026-05-26 18:52:54,166 - openevolve.process_parallel - INFO - Metrics: combined_score=1.1294, speedup=1.1294, ns_op=2125.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=0.9861, stage=ok
@@ -143,9 +143,9 @@
 2026-05-26 18:56:30,987 - openevolve.database - INFO - Island Status:
 2026-05-26 18:56:30,987 - openevolve.database - INFO -  * Island 0: 12 programs, best=1.1516, avg=1.0510, diversity=55.57, gen=13 (best: 1c3a355f-a354-4f3f-93db-1bd726b40859)
 2026-05-26 18:56:30,987 - openevolve.database - INFO -    Island 1: 12 programs, best=1.1516, avg=1.0836, diversity=112.60, gen=12 (best: cf67c4d6-0308-410e-8b4c-55ea756c5540)
-2026-05-26 18:56:31,049 - openevolve.database - INFO - Saved database with 27 programs to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_25
+2026-05-26 18:56:31,049 - openevolve.database - INFO - Saved database with 27 programs to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_25
 2026-05-26 18:56:31,050 - openevolve.controller - INFO - Saved best program at checkpoint 25 with metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 18:56:31,050 - openevolve.controller - INFO - Saved checkpoint at iteration 25 to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_25
+2026-05-26 18:56:31,050 - openevolve.controller - INFO - Saved checkpoint at iteration 25 to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_25
 2026-05-26 18:57:30,069 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 8, 'diversity': 2}
 2026-05-26 18:57:30,069 - openevolve.process_parallel - INFO - Iteration 26: Program 82a34d46-3c5b-4216-a13b-bc7eb46da456 (parent: cf67c4d6-0308-410e-8b4c-55ea756c5540) completed in 59.08s
 2026-05-26 18:57:30,069 - openevolve.process_parallel - INFO - Metrics: combined_score=1.0825, speedup=1.0825, ns_op=2217.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.0255, stage=ok
@@ -170,14 +170,14 @@
 2026-05-26 19:01:31,570 - openevolve.database - INFO - Island Status:
 2026-05-26 19:01:31,570 - openevolve.database - INFO -  * Island 0: 14 programs, best=1.1516, avg=1.0527, diversity=55.57, gen=15 (best: 1c3a355f-a354-4f3f-93db-1bd726b40859)
 2026-05-26 19:01:31,570 - openevolve.database - INFO -    Island 1: 14 programs, best=1.1516, avg=1.0873, diversity=125.35, gen=15 (best: cf67c4d6-0308-410e-8b4c-55ea756c5540)
-2026-05-26 19:01:31,645 - openevolve.database - INFO - Saved database with 32 programs to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-26 19:01:31,645 - openevolve.database - INFO - Saved database with 32 programs to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
 2026-05-26 19:01:31,645 - openevolve.controller - INFO - Saved best program at checkpoint 30 with metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 19:01:31,645 - openevolve.controller - INFO - Saved checkpoint at iteration 30 to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-26 19:01:31,645 - openevolve.controller - INFO - Saved checkpoint at iteration 30 to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
 2026-05-26 19:01:31,645 - openevolve.process_parallel - INFO - ✅ Evolution completed - Maximum iterations reached
-2026-05-26 19:01:31,711 - openevolve.database - INFO - Saved database with 32 programs to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-26 19:01:31,711 - openevolve.database - INFO - Saved database with 32 programs to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
 2026-05-26 19:01:31,711 - openevolve.controller - INFO - Saved best program at checkpoint 30 with metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 19:01:31,711 - openevolve.controller - INFO - Saved checkpoint at iteration 30 to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-26 19:01:31,711 - openevolve.controller - INFO - Saved checkpoint at iteration 30 to /workspace/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
 2026-05-26 19:01:31,804 - openevolve.process_parallel - INFO - Stopped process pool
 2026-05-26 19:01:31,804 - openevolve.controller - INFO - Using tracked best program: 1c3a355f-a354-4f3f-93db-1bd726b40859
 2026-05-26 19:01:31,804 - openevolve.controller - INFO - Evolution complete. Best program has metrics: combined_score=1.1516, speedup=1.1516, ns_op=2084.0000, baseline_ns_op=2400.0000, violations=0.0000, sweep_secs=1.1117, stage=ok
-2026-05-26 19:01:31,804 - openevolve.controller - INFO - Saved best program to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/best/best_program.go with program info to /Users/sachinsingh/dev/sachinkumarsingh092/leanlang/caisc2026/harness/optimize/out/best/best_program_info.json
+2026-05-26 19:01:31,804 - openevolve.controller - INFO - Saved best program to /workspace/caisc2026/harness/optimize/out/best/best_program.go with program info to /workspace/caisc2026/harness/optimize/out/best/best_program_info.json

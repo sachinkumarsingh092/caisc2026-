@@ -1,0 +1,26 @@
+{
+  "id": "90f41d5d-16fd-4140-9155-b3c9286ec107",
+  "generation": 2,
+  "iteration": 4,
+  "current_iteration": 5,
+  "metrics": {
+    "combined_score": 1.0144990261848086,
+    "speedup": 1.0144990261848086,
+    "ns_op": 4621.0,
+    "ns_op_median": 9115.0,
+    "ns_op_all": [
+      4621.0,
+      9271.0,
+      9115.0,
+      9403.0,
+      6557.0
+    ],
+    "baseline_ns_op": 4688.0,
+    "violations": 0,
+    "sweep_secs": 0.4242575168609619,
+    "stage": "ok"
+  },
+  "language": "go",
+  "timestamp": 1780152222.2068694,
+  "saved_at": 1780152271.834968
+}

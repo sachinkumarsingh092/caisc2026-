@@ -1,0 +1,88 @@
+[
+  {
+    "name": "baseline",
+    "contract": "(control) unmodified pinned baseline",
+    "inv_secs": 0.6,
+    "inv_caught_seed": 0,
+    "lin_secs": 0.6,
+    "lin": {
+      "OK": 11,
+      "FAIL": 1,
+      "UNKNOWN": 0,
+      "other": 0
+    },
+    "upstream_tests": "pass",
+    "caught_by": "L2_linearizability",
+    "detail": "1/12 seeds non-linearizable"
+  },
+  {
+    "name": "method_invention",
+    "contract": "signature/API: calls nonexistent pr.IsHealthy()",
+    "caught_by": "L0_compile",
+    "detail": "./raft.go:633:8: pr.IsHealthy undefined (type *tracker.Progress has no field or method IsHealthy)"
+  },
+  {
+    "name": "drop_progress",
+    "contract": "progress accounting: omits SentEntries/SentCommit",
+    "inv_secs": 40.9,
+    "inv_caught_seed": 1,
+    "lin_secs": 493.9,
+    "lin": {
+      "OK": 0,
+      "FAIL": 0,
+      "UNKNOWN": 12,
+      "other": 0
+    },
+    "upstream_tests": "FAIL:FAIL",
+    "caught_by": "L1_invariants",
+    "detail": "seed 1: timeout@seed1"
+  },
+  {
+    "name": "lie_commit",
+    "contract": "safety: advertises commit=lastIndex, not committed",
+    "inv_secs": 0.6,
+    "inv_caught_seed": 0,
+    "lin_secs": 0.6,
+    "lin": {
+      "OK": 2,
+      "FAIL": 10,
+      "UNKNOWN": 0,
+      "other": 0
+    },
+    "upstream_tests": "FAIL:TestLeaderStartReplication",
+    "caught_by": "L2_linearizability",
+    "detail": "10/12 seeds non-linearizable"
+  },
+  {
+    "name": "skip_pause",
+    "contract": "throttle short-circuit: ignores pr.IsPaused()",
+    "inv_secs": 0.6,
+    "inv_caught_seed": 0,
+    "lin_secs": 0.6,
+    "lin": {
+      "OK": 10,
+      "FAIL": 2,
+      "UNKNOWN": 0,
+      "other": 0
+    },
+    "upstream_tests": "FAIL:TestMsgAppFlowControlFull",
+    "caught_by": "L2_linearizability",
+    "detail": "2/12 seeds non-linearizable"
+  },
+  {
+    "name": "off_by_one_prev",
+    "contract": "log matching: prevIndex = pr.Next (off by one)",
+    "inv_secs": 0.4,
+    "inv_caught_seed": 0,
+    "lin_secs": 0.4,
+    "lin": {
+      "OK": 12,
+      "FAIL": 0,
+      "UNKNOWN": 0,
+      "other": 0
+    },
+    "upstream_tests": "FAIL:TestMsgAppFlowControlMoveForward",
+    "caught_by": "L3_upstream_tests",
+    "detail": "TestMsgAppFlowControlMoveForward"
+  }
+]

@@ -55,7 +55,7 @@ every candidate edit must clear compilation, the fault sweep, and
 the linearizability check before its benchmark score is even
 reported.
 Our central claim is methodological: where safety is
-mechanically checkable, the harness---not the model---is the
+mechanically checkable, the harness (not the model) is the
 load-bearing artefact, and a sufficiently sharp harness lets a
 general-purpose coding agent search inside a mature systems codebase
 safely. Harness-acceptance is necessary but not sufficient for
@@ -66,7 +66,7 @@ upstream merge; we make no production-readiness claim.
 \label{sec:intro}
 
 Raft \cite{ongaro2014search} is the consensus algorithm at the core of
-most contemporary distributed systems---etcd~\cite{etcd},
+most contemporary distributed systems: etcd~\cite{etcd},
 Kubernetes~\cite{kubernetes}, CockroachDB~\cite{cockroachdb},
 Docker Swarm~\cite{dockerSwarm}, TiKV~\cite{tikv}. Implementations of
 Raft are required to preserve
@@ -88,9 +88,9 @@ predicate.
 
 Our hypothesis is that the bottleneck is verification bandwidth, not
 generation quality. Concretely: if every candidate variant produced by
-the LLM is forced through a mechanical pipeline---compile, seeded
+the LLM is forced through a mechanical pipeline (compile, seeded
 deterministic fault-injection sweep, linearizability check,
-benchmark---before any performance score is reported, the
+benchmark) before any performance score is reported, the
 generator can be allowed to explore aggressively without endangering
 the codebase. The harness, not the model, becomes the artefact whose
 quality determines what kinds of improvements are reachable.
@@ -158,7 +158,7 @@ loops. The public \texttt{Node}/\texttt{RawNode} surface exposes
 the library unusually amenable to deterministic simulation testing:
 ticks are logical, message delivery and disk are caller-controlled,
 and the state machine's output is fully determined by its input
-sequence---given that the few sources of non-determinism inside the
+sequence, given that the few sources of non-determinism inside the
 library are themselves controllable.
 
 The repository ships three artefacts we reuse. (1)~A \texttt{rafttest}
@@ -194,7 +194,7 @@ search target is a single function inside a $\sim$85~KB host file.
 
 \subsection{Design Principles}
 We adopt three principles. \emph{Independence}: each layer should
-fail for a different reason---a wrong protocol spec passes
+fail for a different reason: a wrong protocol spec passes
 deterministic simulation, an incomplete fault catalogue passes the
 spec, a permissive state-machine model accepts non-linearizable
 histories that the spec rejects. \emph{Reuse-first}: where upstream
@@ -235,15 +235,15 @@ election or a heartbeat.
 \textbf{Progress:} each node drains its \texttt{Ready()}; the
 harness persists the new entries to a per-node \texttt{MemoryStorage},
 applies committed entries to a single-register state machine, and
-enqueues outbound messages onto the network in a canonical order ---
-a deterministic sort is required because upstream builds the outbox
+enqueues outbound messages onto the network in a canonical order.
+A deterministic sort is required because upstream builds the outbox
 by iterating a Go map.
 \textbf{Delivery:} messages whose scheduled-delivery tick has arrived
 are \texttt{Step()}-ed into their destination, possibly being
 dropped, reordered, or duplicated by the network layer.
 \textbf{Reads:} pending client reads complete once the linearizable
 safe index has caught up.
-All randomness --- ours and upstream's election timeout --- flows
+All randomness (ours and upstream's election timeout) flows
 from a single seeded \texttt{*rand.Rand}, exposed via the four-line
 patch of \S\ref{sec:harness}; full pseudocode and the bindings to
 upstream's \texttt{RawNode}/\texttt{Storage} interface are in
@@ -311,13 +311,13 @@ leader's per-follower send decision
 \texttt{maybeSendAppend(to, sendIfEmpty)}. It runs once per follower
 per tick and decides whether to emit an \texttt{AppendEntries}
 message, governing flow control, batching, pipelining, and snapshot
-fallback---the hottest function on the leader's outbound path
+fallback, the hottest function on the leader's outbound path
 ($\sim$45~lines). We chose it because every throughput lever is local
 to the function, yet a wrong edit can break log consistency, making it
 a sharp test of the harness rather than the generator. The levers in
-scope---a throttle check, the replication-state predicate, the
+scope (a throttle check, the replication-state predicate, the
 owed-entries log slice, the post-send progress update, and the
-snapshot fallback---map to their upstream identifiers in
+snapshot fallback) map to their upstream identifiers in
 Table~\ref{tab:levers}. The mutable region is delimited by
 \texttt{EVOLVE-BLOCK} markers; diffs touching the file outside it are
 rejected before compilation.
@@ -328,7 +328,7 @@ send to a paused or window-full follower); snapshot fallback when the
 required log prefix has been compacted; the post-send progress update
 (else later ticks break log matching); and no new package-level state,
 goroutines, locks, or I/O. The middle three are exactly what the
-harness re-checks mechanically---the prompt states them so the
+harness re-checks mechanically: the prompt states them so the
 generator need not rediscover them, but the harness, not the prompt,
 enforces them. The verbatim prompt is in
 Appendix~\ref{app:system-prompt}.
@@ -351,7 +351,7 @@ each, full fault catalogue); \emph{(c)}~the linearizability check on
 the recorded client histories; only then \emph{(d)}~the benchmark.
 Any layer's failure terminates evaluation immediately and is
 recorded as the candidate's rejection reason. The harness layers
-contribute failure modes independently---a candidate that compiles
+contribute failure modes independently: a candidate that compiles
 correctly but violates log-matching is caught at (b), while a
 candidate that passes (b) but reorders \texttt{Ready.Messages} in a
 way that breaks linearizability is caught at (c). The unmodified
@@ -447,15 +447,22 @@ which linearizability-check failures are not treated as candidate
 rejections in the loop. We treat the invariant oracle as the strict
 gate.
 
-The benchmark exhibits a bimodal ns/op distribution under repeated
-runs of an unmodified binary (typical mode at $\sim$2.3--2.5\,$\mu$s/op,
-secondary mode at $\sim$3.5--6.5\,$\mu$s/op driven by system load);
-we report the minimum across five \texttt{-benchtime=1s} runs.
+The benchmark exhibits a strongly bimodal ns/op distribution under
+repeated runs of an unmodified binary. A $100$-sample calibration on
+the evaluation host (Appendix~\ref{app:calibration}) gives a
+fast-mode minimum of $4905$~ns/op against a median of $8972$ and a
+p90 of $10734$, a spread driven by system load; the in-loop evaluator
+reports the minimum across five \texttt{-benchtime=1s} runs, a choice
+we revisit in \S\ref{sec:results-variants}. The in-loop score divides
+by a per-host baseline from a coarser earlier calibration ($2400$~ns/op
+arm64, $4688$~ns/op x86); $4905$ is a later $100$-sample recalibration,
+and as a common divisor the baseline does not affect rankings.
 
 \subsection{Loop Output}
 \label{sec:results-loop}
-We ran the loop for $30$ iterations over $\sim$76 minutes of wall-clock
-on a single host. Of $30$ proposed candidates, \emph{all $30$ cleared
+We ran the loop for $30$ iterations over $\sim$28 minutes of wall-clock
+on a single commodity arm64 host (in-loop baseline $2400$~ns/op). Of
+$30$ proposed candidates, \emph{all $30$ cleared
 the rejection oracle}: every candidate compiled, passed $8$
 fault-injected DST seeds at $1500$~ticks, and produced a
 non-violating client history. None were
@@ -474,10 +481,20 @@ infallibility; it is a claim about the LLM's tendency, under our
 prompt scoping, to produce edits inside a code region where most
 plausible mutations preserve the function's contract.
 
+\paragraph{Reproducibility.}
+An independent second $30$-iteration run on the x86 droplet (fresh
+sampling, identical configuration and gate) reproduced the gate
+behaviour exactly: all
+$30$ proposed candidates again cleared compilation, the $8$-seed
+fault-injected DST sweep, and the linearizability layer, with zero
+invariant violations. We use this replicate for the scoring analysis
+in \S\ref{sec:results-variants} and the ablation in
+\S\ref{sec:results-ablation}.
+
 \subsection{Best Accepted Variant}
 \label{sec:results-variants}
-The highest-scoring variant introduces three coordinated edits to
-\texttt{maybeSendAppend}:
+The best accepted variant (ranked by paired median) introduces three
+coordinated edits to \texttt{maybeSendAppend}:
 
 \begin{enumerate}
   \item \textbf{Throttled early-bail}: the function computes
@@ -536,52 +553,57 @@ has a wide bimodal distribution on this host; $\min$-of-$N$ is
 dominated by lucky-fast runs, where the candidate's small fixed
 overhead shows. The paired-distribution analysis in
 Table~\ref{tab:bench-paired} reveals that the candidate's
-optimisations affect the tail far more than the floor---exactly the
+optimisations affect the tail far more than the floor, exactly the
 behaviour one wants in a consensus library, where p99 latency, not
-best-case throughput, governs end-to-end commit time. A more robust
-evaluator scoring would use the paired median rather than the min;
-we treat this as a methodological lesson and discuss it in
+best-case throughput, governs end-to-end commit time.
+
+The independent replicate of \S\ref{sec:results-loop} makes the
+effect quantitative. Re-scoring its $31$ evaluated candidates against
+the same calibration baseline, $\min$-of-$N$ counts only $3$ as
+improvements while the paired median counts $11$; more starkly, the
+two rules invert the ranking. The loop's $\min$-best candidate
+(\texttt{90f41d5d}, $\min$-speedup $1.06$) is a median \emph{regression}
+($0.98\times$, ranked $18$th of $31$ by median), whereas the genuine
+median-best (\texttt{5866c047}, $1.60\times$ on the median by
+collapsing the bimodal tail) is ranked only $9$th by $\min$ and would
+be discarded as a regression ($\min$-speedup $0.92$). The full
+re-ranking is in Appendix~\ref{app:reranking}. A more robust evaluator
+would therefore score on the paired median rather than the min; we
+treat this as a methodological lesson and discuss it in
 \S\ref{sec:limits}.
 
 \subsection{Per-Layer Ablation}
 \label{sec:results-ablation}
-Across the $30$-iteration run, no candidate failed compilation
-and no candidate triggered an invariant violation during the DST
-sweep. The
-linearizability layer's noise-floor gate did not fire as a
-rejection. This is not, on its own, evidence that the harness layers
-are equivalent. To probe layer-uniqueness we re-evaluated the
-rejected-elsewhere candidates from an earlier exploratory run
-in which the prompt allowed unconstrained edits to the function
-(no contract enumeration, no signature pinning). In that run we
-observed three rejection classes:
-\begin{itemize}
-  \item \emph{Compilation rejections} (typed-method invention, e.g.,
-    a candidate that called \texttt{pr.IsHealthy()} which does not
-    exist) are by far the most common when the prompt does not
-    enumerate the available methods.
-  \item \emph{Upstream test rejections} catch contract violations
-    (e.g., a candidate that removed the
-    \texttt{pr.SentEntries(\ldots)} call). These are caught by
-    targeted unit tests in \texttt{raft\_test.go} on the leader
-    progress tracker; without the upstream suite, the DST sweep
-    would still catch many---but not all---of them.
-  \item \emph{Invariant rejections} from the DST sweep are the
-    distinctive contribution of the harness: in our prior runs,
-    a candidate that batched the \texttt{pr.SentCommit(\ldots)} call
-    after \texttt{r.send(\ldots)} based on a guess about delivery
-    ordering passed both compilation and the upstream test suite but
-    failed log-prefix agreement under partition-with-reorder seeds.
-\end{itemize}
-The fully-constrained prompt used in the headline 30-iter run did
-not surface invariant rejections, but our ablation supports the
-necessity of the DST layer: targeted unit tests of the upstream
-suite do not exhaustively cover the failure modes the DST sweep
-finds.
+Across both $30$-iteration runs the strict gate never fired, showing
+the constrained prompt is safe but not that the four layers are
+\emph{non-redundant}. To measure layer-uniqueness we hand-wrote five
+faulty variants of \texttt{maybeSendAppend}, each breaking a single
+named contract, plus an unmodified control, and pushed every variant
+through all four layers at $N=12$ seeds. The full outcome is in
+Appendix~\ref{app:ablation} (Table~\ref{tab:ablation-full}); it has
+three parts.
+
+First, \emph{every} broken variant is rejected before it can be
+benchmarked, and the catches span all four layers: a
+nonexistent-method call at compile; an omitted progress update by the
+DST sweep (a seed-1 liveness timeout); a forged commit index by the
+linearizability checker; and a paused-follower flood and a
+\texttt{prevIndex} off-by-one by the upstream suite (the flood also
+tripped linearizability at $2/12$ seeds, at the $1/12$ noise floor, so
+L3 is what catches it reliably). Second, the
+layers are genuinely independent: the safety-critical commit-index
+lie is flagged non-linearizable on $10/12$ seeds (far above the
+control's $1/12$ noise floor), yet \emph{passes} the invariant oracle
+untouched, precisely the redundancy Layer~3 exists to provide. Third,
+the harness does not subsume the upstream suite: a self-correcting
+\texttt{prevIndex} off-by-one passes both DST layers untouched and the
+paused-follower flood clears them up to the noise floor, yet both are
+caught reliably by upstream unit tests, which is why we re-run that
+suite on accepted candidates (\S\ref{sec:results-variants}).
 
 \subsection{Cost}
 \label{sec:results-cost}
-The $30$-iteration loop completed in approximately $76$~minutes
+The $30$-iteration loop completed in approximately $28$~minutes
 wall-clock, dominated by per-iteration evaluation cost
 (median $\sim$57~s; $\sim$15~s LLM call, $\sim$3~s upstream compile,
 $\sim$8~s harness compile, $\sim$1~s DST sweep at $N=8$ seeds and
@@ -616,12 +638,11 @@ remain in scope.
 
 \paragraph{Evaluator scoring and generator noise.}
 $\min$-of-$N$ benchmark scoring during evolution is jitter-sensitive
-and demonstrably misranked our best candidate; paired-distribution
-scoring (per Table~\ref{tab:bench-paired}) is the more robust report
-and should be the in-loop scoring function in future runs. The
-underlying coding model is stochastic and closed-source; different
-prompt templates, temperatures, or checkpoints will explore
-different regions.
+and demonstrably misranked our best candidate; paired-median scoring
+(Table~\ref{tab:bench-paired}) is more robust and should be the in-loop
+metric in future runs. The coding model is stochastic and closed-source;
+different prompts, temperatures, or checkpoints will explore different
+regions.
 
 \section{Related Work}
 \label{sec:related}
@@ -639,11 +660,11 @@ implementation.
 
 \paragraph{Formal verification of distributed systems.}
 \texttt{IronFleet}~\cite{ironfleet} (Dafny) and
-\texttt{Verdi}~\cite{verdi} (Coq) demonstrated machine-checked proofs
-of distributed implementations at scale, and \texttt{Verus}~\cite{verus}
-brings SMT-backed verification to Rust at lower proof cost.  Go has
-no such analogue, which is why our Layer~1 is an existing
-TLA$^{+}$ trace validator rather than a refinement proof.
+\texttt{Verdi}~\cite{verdi} (Coq) gave machine-checked proofs of
+distributed implementations at scale, and \texttt{Verus}~\cite{verus}
+brings SMT-backed verification to Rust. Go has no such analogue, so
+our Layer~1 is an existing TLA$^{+}$ trace validator rather than a
+refinement proof.
 
 \paragraph{LLM-driven code synthesis and evolution.}
 The lineage runs from \texttt{Codex}~\cite{codex} and
@@ -652,24 +673,22 @@ The lineage runs from \texttt{Codex}~\cite{codex} and
 \texttt{AlphaDev}~\cite{alphadev},
 \texttt{AlphaEvolve}~\cite{alphaevolve}).  The ADRS
 programme~\cite{barbarians2025} applies the latter via an open-source
-framework~\cite{openevolve} across ten systems benchmarks; we narrow
-it to a single safety-critical function.  Agent benchmarks like
-\texttt{SWE-bench}~\cite{swebench} gate at the repository level
-rather than the function-and-trace level we operate at.
+framework~\cite{openevolve} across ten benchmarks; we narrow it to one
+safety-critical function. \texttt{SWE-bench}~\cite{swebench}-style agent
+benchmarks gate at the repository level, not the function-and-trace
+level we use.
 
 \paragraph{Deterministic simulation and distributed-systems testing.}
 FoundationDB's simulator~\cite{fdbsim,foundationdb} and
 Jepsen~\cite{jepsen} pioneered seeded simulation and linearizability
-checking; contemporary continuations include
-\texttt{Antithesis}~\cite{antithesis}, \texttt{TigerBeetle}'s
-\texttt{VOPR}~\cite{tigerbeetleDST}, and \texttt{Madsim}~\cite{madsim}.
-Property-based testing contributes the underlying seeded-random
-discipline~\cite{quickcheck,hypothesis}.  Our DST inherits FDB's
-single-goroutine seeded-RNG style and the register-history checker
-pattern of Knossos~\cite{knossos}/Porcupine~\cite{porcupine}.  The
-\texttt{etcd} project ships a robustness suite targeting the
-integrated server~\cite{etcdRobustness}; our harness is the
-algorithm-library sibling.
+checking, continued by \texttt{Antithesis}~\cite{antithesis},
+\texttt{TigerBeetle}'s \texttt{VOPR}~\cite{tigerbeetleDST}, and
+\texttt{Madsim}~\cite{madsim}, atop the property-based seeded-random
+discipline~\cite{quickcheck,hypothesis}. Our DST inherits FDB's
+single-goroutine seeded-RNG style and the register-history checker of
+Knossos~\cite{knossos}/Porcupine~\cite{porcupine}; \texttt{etcd}'s
+robustness suite~\cite{etcdRobustness} targets the integrated server,
+ours the algorithm library.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -758,9 +777,9 @@ upstream's contract.
 
 \paragraph{Phase 3 (Delivery) and randomness.}
 The network applies drop, reorder, and duplication faults using the
-parameters of \S\ref{sec:harness-dst}. All randomness --- fault
+parameters of \S\ref{sec:harness-dst}. All randomness (fault
 choices, partition/heal events, scheduled-delivery delays, and
-upstream's own election timeout --- is sourced from a single seeded
+upstream's own election timeout) is sourced from a single seeded
 \texttt{*rand.Rand}; the latter is exposed by the four-line patch of
 \S\ref{sec:harness}, which is the only modification to the upstream
 library.
@@ -784,6 +803,89 @@ upstream \texttt{etcd-io/raft} identifier at the pinned commit.
     Owed-entries slice & \texttt{r.raftLog.entries(pr.Next, r.maxMsgSize)} \\
     Progress update    & \texttt{pr.SentEntries(\ldots)}, \texttt{pr.SentCommit(\ldots)} \\
     Snapshot fallback  & \texttt{r.raftLog.term(pr.Next-1)} error path \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Host Benchmark Calibration}
+\label{app:calibration}
+Table~\ref{tab:calibration} is the unmodified-baseline ns/op
+distribution on the evaluation host (16-vCPU \texttt{x86\_64},
+$100$~samples: $20$ cycles of \texttt{-count=5}). The gap between the
+minimum and the median is the bimodality that the in-loop
+$\min$-of-$N$ scoring exploits (\S\ref{sec:results-variants}).
+
+\begin{table}[h]
+  \caption{Baseline \texttt{BenchmarkProposal3Nodes} distribution
+    ($100$ samples, ns/op; lower is better).}
+  \label{tab:calibration}
+  \centering
+  \begin{tabular}{rrrrrrr}
+    \toprule
+    min & p10 & p25 & median & p75 & p90 & max \\
+    \midrule
+    $4905$ & $5425$ & $6502$ & $8972$ & $9329$ & $10734$ & $15153$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Planted-Bug Ablation: Full Results}
+\label{app:ablation}
+Table~\ref{tab:ablation-full} expands \S\ref{sec:results-ablation}.
+``inv'' is the invariant DST sweep (seed of first violation, or
+\texttt{--} if none); ``lin'' is the Porcupine fail-count over $12$
+seeds; ``tests'' is the upstream root-package suite. The first layer
+to reject each variant is in the final column.
+
+\begin{table}[h]
+  \caption{Planted-bug ablation, full per-layer outcomes ($N=12$
+    seeds). The control is the unmodified baseline.}
+  \label{tab:ablation-full}
+  \centering
+  \small
+  \begin{tabular}{llccll}
+    \toprule
+    Variant (broken contract) & compile & inv & lin & tests & First catch \\
+    \midrule
+    control (none)                 & ok   & --    & $1/12$  & pass & (passes) \\
+    nonexistent method call        & FAIL & --    & --      & --   & L0 compile \\
+    omit progress update           & ok   & seed~1$^\dagger$ & $0/12^*$ & FAIL & L1 invariants \\
+    advertise commit$=$lastIndex   & ok   & --    & $10/12$ & FAIL & L2 linearizability \\
+    ignore \texttt{IsPaused}       & ok   & --    & $2/12$  & FAIL & L3 upstream tests \\
+    \texttt{prevIndex} off-by-one  & ok   & --    & $0/12$  & FAIL & L3 upstream tests \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\noindent{\small $^\dagger$~Liveness/throughput collapse surfacing as a
+sweep timeout, not a safety-invariant violation. $^*$~All $12$
+linearizability seeds also timed out (reported UNKNOWN), consistent
+with the throughput collapse. The control's $1/12$ linearizability
+failure is the noise floor of \S\ref{sec:harness-lin}; only counts
+well above it (e.g.\ commit-lie's $10/12$) are real rejections.}
+
+\subsection{Min- vs.\ Median-Ranking on the Replicate}
+\label{app:reranking}
+Table~\ref{tab:reranking} re-ranks the $31$ evaluated candidates of
+the replicate run (\S\ref{sec:results-loop}) under the two scoring
+rules, scored against the calibration baselines (min $4905$, median
+$8972$~ns/op). The rules disagree both on the winner and on how many
+candidates count as improvements.
+
+\begin{table}[h]
+  \caption{Scoring-rule comparison on the replicate run's $31$
+    candidates. Speedup $>1$ is faster than baseline.}
+  \label{tab:reranking}
+  \centering
+  \small
+  \begin{tabular}{llrr}
+    \toprule
+    Selected by & Candidate & $\min$-speedup & median-speedup \\
+    \midrule
+    $\min$-of-$N$ (in-loop) & \texttt{90f41d5d} & $1.06$ & $0.98$ \\
+    median-of-$N$           & \texttt{5866c047} & $0.92$ & $1.60$ \\
+    \midrule
+    \multicolumn{2}{l}{improvements ($\ge 1.0$) under $\min$-of-$N$} & \multicolumn{2}{r}{$3/31$} \\
+    \multicolumn{2}{l}{improvements ($\ge 1.0$) under median-of-$N$} & \multicolumn{2}{r}{$11/31$} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -872,35 +974,74 @@ These categories leave room for interpretation, so we ask that the authors also 
 
     \item \textbf{Hypothesis development}: Hypothesis development includes the process by which you came to explore this research topic and research question. This can involve the background research performed by either researchers or by AI. This can also involve whether the idea was proposed by researchers or by AI.
 
-    Answer: \involvementTODO{}
+    Answer: \involvementA{}
 
-    Iteration Effort: \iterationTODO{}
+    Iteration Effort: \iterationNA{}
 
-    Explanation: \justificationTODO{}
+    Explanation: The research question originated from the authors'
+    day-to-day work with production systems, where AI-written code was
+    bottlenecked at review because no verification layer existed, and
+    using a second LLM to check LLM-generated code seemed self-defeating.
+    This motivated a deterministic harness that could serve as a source
+    of truth for iteratively improving existing systems. We chose
+    \texttt{etcd-io/raft} because it already supplies one piece of that
+    harness (a published TLA$^{+}$ specification), and built outward
+    from there. The idea and framing were human-generated; AI was not
+    used to propose the hypothesis.
 
     \item \textbf{Experimental design and implementation}: This category includes design of experiments that are used to test the hypotheses, coding and implementation of computational methods, and the execution of these experiments.
 
-    Answer: \involvementTODO{}
+    Answer: \involvementC{}
 
-    Iteration Effort: \iterationTODO{}
+    Iteration Effort: \iterationHigh{}
 
-    Explanation: \justificationTODO{}
+    Explanation: The verification strategy was designed by the authors:
+    after working with proof-based verification (e.g.\ Lean, TLA$^{+}$)
+    we judged formal specifications usable as a verification layer for
+    AI-generated code, then added deterministic simulation testing
+    (DST), which has a strong industry track record, and a Jepsen-style
+    linearizability layer. Implementation was largely AI: the agentic
+    coding assistant built the harness, the deterministic simulator, the
+    evaluator, and the regression tooling under human direction and
+    review, and a frontier LLM was the inner candidate generator inside
+    the loop. Humans set the design, the search space, and the gate; the
+    AI produced most of the code and all candidate edits.
 
     \item \textbf{Analysis of data and interpretation of results}: This category encompasses any process to organize and process data for the experiments in the paper. It also includes interpretations of the results of the study.
 
-    Answer: \involvementTODO{}
+    Answer: \involvementB{}
 
-    Iteration Effort: \iterationTODO{}
+    Iteration Effort: \iterationHigh{}
 
-    Explanation: \justificationTODO{}
+    Explanation: Data processing used AI-built tooling (the evaluator's
+    distribution logging, the min- vs.\ median re-ranking script, and the
+    planted-bug ablation harness), but interpretation was human-led and
+    corrective. The agentic assistant initially summarized results with
+    optimistic single-point statistics; the authors required paired
+    benchmark distributions, explicit noise-floor characterization, and a
+    min-of-$N$ vs.\ median-of-$N$ comparison, which materially changed the
+    reported numbers (an apparent min-of-five speedup collapsed under
+    paired-median measurement). The central interpretive conclusions, that
+    the in-loop metric misranks candidates and that the harness rather
+    than the model is load-bearing, were drawn by the authors from
+    AI-generated tables.
 
     \item \textbf{Writing}: This includes any processes for compiling results, methods, etc. into the final paper form. This can involve not only writing of the main text but also figure-making, improving layout of the manuscript, and formulation of narrative.
 
-    Answer: \involvementTODO{}
+    Answer: \involvementC{}
 
-    Iteration Effort: \iterationTODO{}
+    Iteration Effort: \iterationHigh{}
 
-    Explanation: \justificationTODO{}
+    Explanation: The manuscript was drafted with the agentic coding
+    assistant, which produced initial prose for most sections, the
+    LaTeX tables, and figure/layout scaffolding. The authors set the
+    narrative (methodology-first framing), the claims and their scope,
+    and revised extensively: tightening wording, removing over-claims,
+    and reconciling numbers against the experimental logs. Multiple rounds
+    of human review corrected optimistic or imprecise statements before
+    they reached the final text. AI produced the majority of the draft
+    text; the authors own the framing, the final claims, and verification
+    of every reported number.
 
 \end{enumerate}
 
@@ -996,7 +1137,7 @@ For items 5-6, provide a free-text description.
 \item {\bf Experiments compute resources}
     \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
     \item[] Answer: \answerYes{}
-    \item[] Justification: \S\ref{sec:setup} states the single-host commodity workstation context and the embarrassingly-parallel-by-seed nature of the harness. \S\ref{sec:results-cost} reports the per-iteration $\sim$57~s wall-clock decomposition, the $\sim$76-minute total run time, and the approximate ten-dollar inference spend.
+    \item[] Justification: \S\ref{sec:setup} states the single-host commodity workstation context and the embarrassingly-parallel-by-seed nature of the harness. \S\ref{sec:results-cost} reports the per-iteration $\sim$57~s wall-clock decomposition, the $\sim$28-minute total run time, and the approximate ten-dollar inference spend.
 
 \item {\bf Research Ethics}
     \item[] Question: Does the research conducted in the paper conform with the \href{https://neurips.cc/Conferences/2026/MainTrackHandbook}{NeurIPS Code of Ethics}, except where CAISc's AI authorship policies apply?

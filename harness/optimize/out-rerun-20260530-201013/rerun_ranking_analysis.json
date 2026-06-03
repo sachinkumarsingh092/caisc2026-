@@ -1,0 +1,28 @@
+{
+  "n_candidates": 31,
+  "n_accepted": 31,
+  "min_baseline_ns": 4905.0,
+  "median_baseline_ns": 8972.0,
+  "n_apparent_improve_min": 3,
+  "n_apparent_improve_median": 11,
+  "best_by_min": {
+    "id": "90f41d5d-16fd-4140-9155-b3c9286ec107",
+    "ns_min": 4621.0,
+    "ns_median": 9115.0,
+    "violations": 0.0,
+    "stage": "ok",
+    "min_speedup": 1.0614585587535166,
+    "median_speedup": 0.9843115743280307
+  },
+  "best_by_median": {
+    "id": "5866c047-7112-4701-9fdf-45facdb9146a",
+    "ns_min": 5347.0,
+    "ns_median": 5601.0,
+    "violations": 0.0,
+    "stage": "ok",
+    "min_speedup": 0.917336824387507,
+    "median_speedup": 1.6018568112836993
+  },
+  "median_rank_of_min_best": 18,
+  "min_rank_of_median_best": 9
+}

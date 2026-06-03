@@ -1,0 +1,294 @@
+2026-05-30 14:40:18,097 - INFO - Logging to /root/caisc2026/harness/optimize/out/logs/openevolve_20260530_144018.log
+2026-05-30 14:40:18,125 - INFO - Set random seed to 42 for reproducibility
+2026-05-30 14:40:18,184 - INFO - Initialized OpenAI LLM with model: frontier-llm
+2026-05-30 14:40:18,184 - INFO - Initialized LLM ensemble with models: frontier-llm (weight: 1.00)
+2026-05-30 14:40:18,213 - INFO - Initialized prompt sampler
+2026-05-30 14:40:18,213 - INFO - Set custom templates: system=evaluator_system_message, user=None
+2026-05-30 14:40:18,213 - INFO - Initialized program database with 0 programs
+2026-05-30 14:40:18,219 - INFO - Successfully loaded evaluation function from /root/caisc2026/harness/optimize/evaluator.py
+2026-05-30 14:40:18,219 - INFO - Initialized evaluator with /root/caisc2026/harness/optimize/evaluator.py
+2026-05-30 14:40:18,219 - INFO - Initialized OpenEvolve with /root/caisc2026/harness/optimize/initial_program.go
+2026-05-30 14:40:18,219 - INFO - Adding initial program to database
+2026-05-30 14:40:31,340 - INFO - Evaluated program 91156551-8ebf-41ad-8cab-49f2b10f1ced in 13.12s: combined_score=0.7790, speedup=0.7790, ns_op=6018.0000, ns_op_median=6488.0000, ns_op_all=[6018.0, 9608.0, 9177.0, 6488.0, 6130.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4197, stage=ok
+2026-05-30 14:40:31,340 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 5, 'diversity': 0}
+2026-05-30 14:40:31,342 - INFO - Initialized process parallel controller with 1 workers
+2026-05-30 14:40:31,342 - INFO - Set max None tasks per child
+2026-05-30 14:40:31,343 - INFO - Started process pool with 1 processes
+2026-05-30 14:40:31,343 - INFO - Using island-based evolution with 2 islands
+2026-05-30 14:40:31,343 - INFO - Island Status:
+2026-05-30 14:40:31,343 - INFO -  * Island 0: 1 programs, best=0.7790, avg=0.7790, diversity=0.00, gen=0 (best: 91156551-8ebf-41ad-8cab-49f2b10f1ced)
+2026-05-30 14:40:31,343 - INFO -    Island 1: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-30 14:40:31,343 - INFO - Starting process-based evolution from iteration 1 for 30 iterations (total: 31)
+2026-05-30 14:40:31,348 - INFO - Early stopping disabled
+2026-05-30 14:40:31,403 - INFO - Set custom templates: system=evaluator_system_message, user=None
+2026-05-30 14:40:31,405 - INFO - Successfully loaded evaluation function from /root/caisc2026/harness/optimize/evaluator.py
+2026-05-30 14:40:31,405 - INFO - Initialized evaluator with /root/caisc2026/harness/optimize/evaluator.py
+2026-05-30 14:40:31,407 - INFO - Sampled model: frontier-llm
+2026-05-30 14:41:03,099 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:41:17,257 - INFO - Evaluated program 2eb07ae1-986a-4f88-aaaf-593d19e21c53 in 14.15s: combined_score=0.5237, speedup=0.5237, ns_op=8951.0000, ns_op_median=9192.0000, ns_op_all=[9192.0, 8951.0, 11093.0, 11232.0, 9166.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.3599, stage=ok
+2026-05-30 14:41:17,261 - INFO - Sampled model: frontier-llm
+2026-05-30 14:41:17,269 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 5}
+2026-05-30 14:41:17,269 - INFO - Iteration 1: Program 2eb07ae1-986a-4f88-aaaf-593d19e21c53 (parent: 91156551-8ebf-41ad-8cab-49f2b10f1ced) completed in 45.85s
+2026-05-30 14:41:17,269 - INFO - Metrics: combined_score=0.5237, speedup=0.5237, ns_op=8951.0000, ns_op_median=9192.0000, ns_op_all=[9192.0, 8951.0, 11093.0, 11232.0, 9166.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.3599, stage=ok
+2026-05-30 14:41:49,984 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:42:06,207 - INFO - Evaluated program 0735a2cd-7ccc-4be3-b2f4-988a1258bf82 in 16.22s: combined_score=0.8143, speedup=0.8143, ns_op=5757.0000, ns_op_median=9205.0000, ns_op_all=[8899.0, 5757.0, 10362.0, 12351.0, 9205.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4107, stage=ok
+2026-05-30 14:42:06,211 - INFO - Sampled model: frontier-llm
+2026-05-30 14:42:06,219 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 9, 'diversity': 9}
+2026-05-30 14:42:06,219 - INFO - New best program 0735a2cd-7ccc-4be3-b2f4-988a1258bf82 replaces 91156551-8ebf-41ad-8cab-49f2b10f1ced (combined_score: 0.7790 → 0.8143, +0.0353)
+2026-05-30 14:42:06,220 - INFO - Iteration 2: Program 0735a2cd-7ccc-4be3-b2f4-988a1258bf82 (parent: 91156551-8ebf-41ad-8cab-49f2b10f1ced) completed in 48.95s
+2026-05-30 14:42:06,220 - INFO - Metrics: combined_score=0.8143, speedup=0.8143, ns_op=5757.0000, ns_op_median=9205.0000, ns_op_all=[8899.0, 5757.0, 10362.0, 12351.0, 9205.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4107, stage=ok
+2026-05-30 14:42:06,220 - INFO - 🌟 New best solution found at iteration 2: 0735a2cd-7ccc-4be3-b2f4-988a1258bf82
+2026-05-30 14:42:33,968 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:42:50,651 - INFO - Evaluated program 07cb819d-a346-4710-bf7a-9507b5cc6934 in 16.68s: combined_score=0.8029, speedup=0.8029, ns_op=5839.0000, ns_op_median=9077.0000, ns_op_all=[8746.0, 12731.0, 5839.0, 9077.0, 9155.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4189, stage=ok
+2026-05-30 14:42:50,654 - INFO - Sampled model: frontier-llm
+2026-05-30 14:42:50,667 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 2, 'diversity': 0}
+2026-05-30 14:42:50,668 - INFO - Iteration 3: Program 07cb819d-a346-4710-bf7a-9507b5cc6934 (parent: 91156551-8ebf-41ad-8cab-49f2b10f1ced) completed in 44.44s
+2026-05-30 14:42:50,668 - INFO - Metrics: combined_score=0.8029, speedup=0.8029, ns_op=5839.0000, ns_op_median=9077.0000, ns_op_all=[8746.0, 12731.0, 5839.0, 9077.0, 9155.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4189, stage=ok
+2026-05-30 14:43:25,016 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:43:42,205 - INFO - Evaluated program 90f41d5d-16fd-4140-9155-b3c9286ec107 in 17.18s: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 14:43:42,212 - INFO - Sampled model: frontier-llm
+2026-05-30 14:43:42,223 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 7, 'diversity': 3}
+2026-05-30 14:43:42,223 - INFO - New best program 90f41d5d-16fd-4140-9155-b3c9286ec107 replaces 0735a2cd-7ccc-4be3-b2f4-988a1258bf82 (combined_score: 0.8143 → 1.0145, +0.2002)
+2026-05-30 14:43:42,223 - INFO - Iteration 4: Program 90f41d5d-16fd-4140-9155-b3c9286ec107 (parent: 0735a2cd-7ccc-4be3-b2f4-988a1258bf82) completed in 51.55s
+2026-05-30 14:43:42,223 - INFO - Metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 14:43:42,223 - INFO - 🌟 New best solution found at iteration 4: 90f41d5d-16fd-4140-9155-b3c9286ec107
+2026-05-30 14:44:16,343 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:44:31,794 - INFO - Evaluated program 85810c1d-05a6-40c2-8492-6b497405d774 in 15.44s: combined_score=0.8581, speedup=0.8581, ns_op=5463.0000, ns_op_median=8760.0000, ns_op_all=[8815.0, 5463.0, 8917.0, 5520.0, 8760.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4263, stage=ok
+2026-05-30 14:44:31,802 - INFO - Sampled model: frontier-llm
+2026-05-30 14:44:31,812 - INFO - Island 0 MAP-Elites cell improved: {'complexity': 2, 'diversity': 0} (fitness: 0.803 -> 0.858)
+2026-05-30 14:44:31,812 - INFO - Iteration 5: Program 85810c1d-05a6-40c2-8492-6b497405d774 (parent: 07cb819d-a346-4710-bf7a-9507b5cc6934) completed in 49.58s
+2026-05-30 14:44:31,812 - INFO - Metrics: combined_score=0.8581, speedup=0.8581, ns_op=5463.0000, ns_op_median=8760.0000, ns_op_all=[8815.0, 5463.0, 8917.0, 5520.0, 8760.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4263, stage=ok
+2026-05-30 14:44:31,812 - INFO - Checkpoint interval reached at iteration 5
+2026-05-30 14:44:31,820 - INFO - Island Status:
+2026-05-30 14:44:31,820 - INFO -  * Island 0: 3 programs, best=0.8581, avg=0.7203, diversity=91.87, gen=3 (best: 85810c1d-05a6-40c2-8492-6b497405d774)
+2026-05-30 14:44:31,820 - INFO -    Island 1: 2 programs, best=1.0145, avg=0.9144, diversity=23.70, gen=2 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 14:44:31,834 - INFO - Saved database with 6 programs to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_5
+2026-05-30 14:44:31,835 - INFO - Saved best program at checkpoint 5 with metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 14:44:31,835 - INFO - Saved checkpoint at iteration 5 to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_5
+2026-05-30 14:45:05,150 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:45:20,885 - INFO - Evaluated program 4bc6038c-1af2-4669-9a7a-5f43546f7c56 in 15.73s: combined_score=0.7790, speedup=0.7790, ns_op=6018.0000, ns_op_median=9062.0000, ns_op_all=[6018.0, 9062.0, 8655.0, 10010.0, 9297.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4276, stage=ok
+2026-05-30 14:45:20,891 - INFO - Sampled model: frontier-llm
+2026-05-30 14:45:20,905 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 6, 'diversity': 1}
+2026-05-30 14:45:20,905 - INFO - Iteration 6: Program 4bc6038c-1af2-4669-9a7a-5f43546f7c56 (parent: 0735a2cd-7ccc-4be3-b2f4-988a1258bf82) completed in 49.08s
+2026-05-30 14:45:20,905 - INFO - Metrics: combined_score=0.7790, speedup=0.7790, ns_op=6018.0000, ns_op_median=9062.0000, ns_op_all=[6018.0, 9062.0, 8655.0, 10010.0, 9297.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4276, stage=ok
+2026-05-30 14:45:48,701 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:46:02,073 - INFO - Evaluated program 9d4435b5-9395-4a15-96c6-b21e6cd9ab81 in 13.36s: combined_score=0.9787, speedup=0.9787, ns_op=4790.0000, ns_op_median=8384.0000, ns_op_all=[5293.0, 4790.0, 9287.0, 8384.0, 8883.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4251, stage=ok
+2026-05-30 14:46:02,082 - INFO - Sampled model: frontier-llm
+2026-05-30 14:46:02,091 - INFO - Island 0 MAP-Elites cell improved: {'complexity': 2, 'diversity': 0} (fitness: 0.858 -> 0.979)
+2026-05-30 14:46:02,091 - INFO - Iteration 7: Program 9d4435b5-9395-4a15-96c6-b21e6cd9ab81 (parent: 85810c1d-05a6-40c2-8492-6b497405d774) completed in 41.18s
+2026-05-30 14:46:02,091 - INFO - Metrics: combined_score=0.9787, speedup=0.9787, ns_op=4790.0000, ns_op_median=8384.0000, ns_op_all=[5293.0, 4790.0, 9287.0, 8384.0, 8883.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4251, stage=ok
+2026-05-30 14:46:34,286 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:46:48,280 - INFO - Evaluated program cb90b909-8b3f-4b84-8080-358dc6b0f0a1 in 13.98s: combined_score=0.6709, speedup=0.6709, ns_op=6988.0000, ns_op_median=8247.0000, ns_op_all=[6988.0, 9438.0, 8247.0, 7110.0, 10542.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4266, stage=ok
+2026-05-30 14:46:48,290 - INFO - Sampled model: frontier-llm
+2026-05-30 14:46:48,292 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 7, 'diversity': 4}
+2026-05-30 14:46:48,292 - INFO - Iteration 8: Program cb90b909-8b3f-4b84-8080-358dc6b0f0a1 (parent: 0735a2cd-7ccc-4be3-b2f4-988a1258bf82) completed in 46.20s
+2026-05-30 14:46:48,292 - INFO - Metrics: combined_score=0.6709, speedup=0.6709, ns_op=6988.0000, ns_op_median=8247.0000, ns_op_all=[6988.0, 9438.0, 8247.0, 7110.0, 10542.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4266, stage=ok
+2026-05-30 14:47:14,880 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:47:30,618 - INFO - Evaluated program b59057e5-7a47-425c-9900-b8ea50d6776b in 15.73s: combined_score=0.7574, speedup=0.7574, ns_op=6190.0000, ns_op_median=8558.0000, ns_op_all=[6772.0, 9457.0, 6190.0, 9202.0, 8558.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4203, stage=ok
+2026-05-30 14:47:30,631 - INFO - Sampled model: frontier-llm
+2026-05-30 14:47:30,643 - INFO - Performing migration at iteration 9
+2026-05-30 14:47:30,643 - INFO - Performing migration between islands
+2026-05-30 14:47:30,643 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 2, 'diversity': 0}
+2026-05-30 14:47:30,643 - INFO - Program 4fa3ac9b migrated to island 1
+2026-05-30 14:47:30,644 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 4}
+2026-05-30 14:47:30,644 - INFO - Program 8246f9be migrated to island 0
+2026-05-30 14:47:30,644 - INFO - Migration completed at generation 5
+2026-05-30 14:47:30,668 - INFO - Island Status:
+2026-05-30 14:47:30,668 - INFO -  * Island 0: 5 programs, best=1.0145, avg=0.8107, diversity=108.37, gen=5 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 14:47:30,668 - INFO -    Island 1: 5 programs, best=1.0145, avg=0.8515, diversity=45.57, gen=4 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 14:47:30,668 - INFO - Iteration 9: Program b59057e5-7a47-425c-9900-b8ea50d6776b (parent: 9d4435b5-9395-4a15-96c6-b21e6cd9ab81) completed in 42.33s
+2026-05-30 14:47:30,668 - INFO - Metrics: combined_score=0.7574, speedup=0.7574, ns_op=6190.0000, ns_op_median=8558.0000, ns_op_all=[6772.0, 9457.0, 6190.0, 9202.0, 8558.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4203, stage=ok
+2026-05-30 14:48:05,564 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:48:21,673 - INFO - Evaluated program bb39ead9-87e8-4396-b94f-6eed74b85a3f in 16.10s: combined_score=0.9550, speedup=0.9550, ns_op=4909.0000, ns_op_median=7091.0000, ns_op_all=[6051.0, 4909.0, 7091.0, 9146.0, 9136.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4285, stage=ok
+2026-05-30 14:48:21,687 - INFO - Sampled model: frontier-llm
+2026-05-30 14:48:21,705 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 9, 'diversity': 7}
+2026-05-30 14:48:21,706 - INFO - Iteration 10: Program bb39ead9-87e8-4396-b94f-6eed74b85a3f (parent: 4bc6038c-1af2-4669-9a7a-5f43546f7c56) completed in 51.04s
+2026-05-30 14:48:21,706 - INFO - Metrics: combined_score=0.9550, speedup=0.9550, ns_op=4909.0000, ns_op_median=7091.0000, ns_op_all=[6051.0, 4909.0, 7091.0, 9146.0, 9136.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4285, stage=ok
+2026-05-30 14:48:21,706 - INFO - Checkpoint interval reached at iteration 10
+2026-05-30 14:48:21,729 - INFO - Island Status:
+2026-05-30 14:48:21,729 - INFO -  * Island 0: 5 programs, best=1.0145, avg=0.8107, diversity=108.37, gen=5 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 14:48:21,729 - INFO -    Island 1: 6 programs, best=1.0145, avg=0.8687, diversity=54.47, gen=5 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 14:48:21,760 - INFO - Saved database with 13 programs to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_10
+2026-05-30 14:48:21,761 - INFO - Saved best program at checkpoint 10 with metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 14:48:21,761 - INFO - Saved checkpoint at iteration 10 to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_10
+2026-05-30 14:48:53,584 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:49:08,702 - INFO - Evaluated program 5a3a62c1-2925-4acd-bf7d-045c9f09a23d in 15.11s: combined_score=0.7116, speedup=0.7116, ns_op=6588.0000, ns_op_median=9359.0000, ns_op_all=[7008.0, 14338.0, 9359.0, 6588.0, 9425.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4162, stage=ok
+2026-05-30 14:49:08,717 - INFO - Sampled model: frontier-llm
+2026-05-30 14:49:08,737 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 3}
+2026-05-30 14:49:08,737 - INFO - Iteration 11: Program 5a3a62c1-2925-4acd-bf7d-045c9f09a23d (parent: 9d4435b5-9395-4a15-96c6-b21e6cd9ab81) completed in 47.02s
+2026-05-30 14:49:08,738 - INFO - Metrics: combined_score=0.7116, speedup=0.7116, ns_op=6588.0000, ns_op_median=9359.0000, ns_op_all=[7008.0, 14338.0, 9359.0, 6588.0, 9425.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4162, stage=ok
+2026-05-30 14:49:41,141 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:49:59,394 - INFO - Evaluated program a68c3be3-0f50-487b-9a87-dcdb94d5d30c in 18.24s: combined_score=0.8424, speedup=0.8424, ns_op=5565.0000, ns_op_median=7061.0000, ns_op_all=[9485.0, 5565.0, 7061.0, 7019.0, 8814.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4116, stage=ok
+2026-05-30 14:49:59,409 - INFO - Sampled model: frontier-llm
+2026-05-30 14:49:59,429 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 7, 'diversity': 1}
+2026-05-30 14:49:59,429 - INFO - Iteration 12: Program a68c3be3-0f50-487b-9a87-dcdb94d5d30c (parent: bb39ead9-87e8-4396-b94f-6eed74b85a3f) completed in 50.68s
+2026-05-30 14:49:59,429 - INFO - Metrics: combined_score=0.8424, speedup=0.8424, ns_op=5565.0000, ns_op_median=7061.0000, ns_op_all=[9485.0, 5565.0, 7061.0, 7019.0, 8814.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4116, stage=ok
+2026-05-30 14:50:30,169 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:50:44,186 - INFO - Evaluated program 5866c047-7112-4701-9fdf-45facdb9146a in 14.00s: combined_score=0.8768, speedup=0.8768, ns_op=5347.0000, ns_op_median=5601.0000, ns_op_all=[5347.0, 6325.0, 11794.0, 5437.0, 5601.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4183, stage=ok
+2026-05-30 14:50:44,201 - INFO - Sampled model: frontier-llm
+2026-05-30 14:50:44,221 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 2}
+2026-05-30 14:50:44,221 - INFO - Iteration 13: Program 5866c047-7112-4701-9fdf-45facdb9146a (parent: 9d4435b5-9395-4a15-96c6-b21e6cd9ab81) completed in 44.78s
+2026-05-30 14:50:44,221 - INFO - Metrics: combined_score=0.8768, speedup=0.8768, ns_op=5347.0000, ns_op_median=5601.0000, ns_op_all=[5347.0, 6325.0, 11794.0, 5437.0, 5601.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4183, stage=ok
+2026-05-30 14:51:22,909 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:51:36,034 - INFO - Evaluated program 183a690f-e65d-4568-8f92-2a88bf41c2e5 in 13.11s: combined_score=0.8346, speedup=0.8346, ns_op=5617.0000, ns_op_median=7184.0000, ns_op_all=[6956.0, 7184.0, 5617.0, 9876.0, 10266.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4205, stage=ok
+2026-05-30 14:51:36,041 - INFO - Iteration 14: Program 183a690f-e65d-4568-8f92-2a88bf41c2e5 (parent: 0735a2cd-7ccc-4be3-b2f4-988a1258bf82) completed in 51.84s
+2026-05-30 14:51:36,041 - INFO - Metrics: combined_score=0.8346, speedup=0.8346, ns_op=5617.0000, ns_op_median=7184.0000, ns_op_all=[6956.0, 7184.0, 5617.0, 9876.0, 10266.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4205, stage=ok
+2026-05-30 14:51:36,049 - INFO - Sampled model: frontier-llm
+2026-05-30 14:52:12,706 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:52:28,302 - INFO - Evaluated program 78133ff3-a913-4341-8380-831b6d8757d1 in 15.58s: combined_score=0.7087, speedup=0.7087, ns_op=6615.0000, ns_op_median=9133.0000, ns_op_all=[8748.0, 10140.0, 6615.0, 10037.0, 9133.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4293, stage=ok
+2026-05-30 14:52:28,317 - INFO - Sampled model: frontier-llm
+2026-05-30 14:52:28,340 - INFO - Island 0 MAP-Elites cell improved: {'complexity': 9, 'diversity': 5} (fitness: 0.524 -> 0.709)
+2026-05-30 14:52:28,340 - INFO - Iteration 15: Program 78133ff3-a913-4341-8380-831b6d8757d1 (parent: 5866c047-7112-4701-9fdf-45facdb9146a) completed in 52.25s
+2026-05-30 14:52:28,340 - INFO - Metrics: combined_score=0.7087, speedup=0.7087, ns_op=6615.0000, ns_op_median=9133.0000, ns_op_all=[8748.0, 10140.0, 6615.0, 10037.0, 9133.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4293, stage=ok
+2026-05-30 14:52:28,340 - INFO - Checkpoint interval reached at iteration 15
+2026-05-30 14:52:28,363 - INFO - Island Status:
+2026-05-30 14:52:28,363 - INFO -  * Island 0: 7 programs, best=1.0145, avg=0.8324, diversity=75.87, gen=8 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 14:52:28,363 - INFO -    Island 1: 8 programs, best=1.0145, avg=0.8612, diversity=55.80, gen=7 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 14:52:28,421 - INFO - Saved database with 18 programs to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_15
+2026-05-30 14:52:28,421 - INFO - Saved best program at checkpoint 15 with metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 14:52:28,421 - INFO - Saved checkpoint at iteration 15 to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_15
+2026-05-30 14:52:54,026 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:53:11,867 - INFO - Evaluated program b536d130-45d7-4e9f-ab4a-5b8dd0b15939 in 17.83s: combined_score=0.6846, speedup=0.6846, ns_op=6848.0000, ns_op_median=9511.0000, ns_op_all=[6848.0, 9511.0, 8749.0, 9636.0, 10660.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4280, stage=ok
+2026-05-30 14:53:11,872 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 6, 'diversity': 4}
+2026-05-30 14:53:11,872 - INFO - Iteration 16: Program b536d130-45d7-4e9f-ab4a-5b8dd0b15939 (parent: 183a690f-e65d-4568-8f92-2a88bf41c2e5) completed in 43.55s
+2026-05-30 14:53:11,873 - INFO - Metrics: combined_score=0.6846, speedup=0.6846, ns_op=6848.0000, ns_op_median=9511.0000, ns_op_all=[6848.0, 9511.0, 8749.0, 9636.0, 10660.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4280, stage=ok
+2026-05-30 14:53:11,881 - INFO - Sampled model: frontier-llm
+2026-05-30 14:53:55,126 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:54:08,679 - INFO - Evaluated program dd88e010-b7b9-466f-9897-66844e1ddcfa in 13.54s: combined_score=0.8776, speedup=0.8776, ns_op=5342.0000, ns_op_median=9280.0000, ns_op_all=[5342.0, 6181.0, 9415.0, 9280.0, 9567.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4299, stage=ok
+2026-05-30 14:54:08,696 - INFO - Sampled model: frontier-llm
+2026-05-30 14:54:08,732 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 1}
+2026-05-30 14:54:08,733 - INFO - Iteration 17: Program dd88e010-b7b9-466f-9897-66844e1ddcfa (parent: 5866c047-7112-4701-9fdf-45facdb9146a) completed in 56.80s
+2026-05-30 14:54:08,733 - INFO - Metrics: combined_score=0.8776, speedup=0.8776, ns_op=5342.0000, ns_op_median=9280.0000, ns_op_all=[5342.0, 6181.0, 9415.0, 9280.0, 9567.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4299, stage=ok
+2026-05-30 14:54:45,085 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:55:01,089 - INFO - Evaluated program 99ea57f8-d386-4456-9edd-b69691333d07 in 15.99s: combined_score=0.6360, speedup=0.6360, ns_op=7371.0000, ns_op_median=8387.0000, ns_op_all=[8387.0, 7371.0, 7534.0, 9245.0, 11466.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4172, stage=ok
+2026-05-30 14:55:01,109 - INFO - Sampled model: frontier-llm
+2026-05-30 14:55:01,141 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 9, 'diversity': 6}
+2026-05-30 14:55:01,142 - INFO - Iteration 18: Program 99ea57f8-d386-4456-9edd-b69691333d07 (parent: a68c3be3-0f50-487b-9a87-dcdb94d5d30c) completed in 52.39s
+2026-05-30 14:55:01,142 - INFO - Metrics: combined_score=0.6360, speedup=0.6360, ns_op=7371.0000, ns_op_median=8387.0000, ns_op_all=[8387.0, 7371.0, 7534.0, 9245.0, 11466.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4172, stage=ok
+2026-05-30 14:55:37,736 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:55:50,702 - INFO - Evaluated program bb45e0bf-17da-4238-ada3-1f7a4c806485 in 12.95s: combined_score=0.8376, speedup=0.8376, ns_op=5597.0000, ns_op_median=9102.0000, ns_op_all=[10789.0, 9102.0, 10865.0, 9069.0, 5597.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4231, stage=ok
+2026-05-30 14:55:50,717 - INFO - Sampled model: frontier-llm
+2026-05-30 14:55:50,745 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 0}
+2026-05-30 14:55:50,745 - INFO - Performing migration at iteration 19
+2026-05-30 14:55:50,745 - INFO - Performing migration between islands
+2026-05-30 14:55:50,745 - INFO - Migration completed at generation 10
+2026-05-30 14:55:50,768 - INFO - Island Status:
+2026-05-30 14:55:50,768 - INFO -  * Island 0: 9 programs, best=1.0145, avg=0.8380, diversity=75.87, gen=10 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 14:55:50,769 - INFO -    Island 1: 10 programs, best=1.0145, avg=0.8210, diversity=55.80, gen=9 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 14:55:50,769 - INFO - Iteration 19: Program bb45e0bf-17da-4238-ada3-1f7a4c806485 (parent: 8246f9be-16d0-4f19-8648-288455881cc4) completed in 49.59s
+2026-05-30 14:55:50,769 - INFO - Metrics: combined_score=0.8376, speedup=0.8376, ns_op=5597.0000, ns_op_median=9102.0000, ns_op_all=[10789.0, 9102.0, 10865.0, 9069.0, 5597.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4231, stage=ok
+2026-05-30 14:56:27,570 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:56:38,942 - INFO - Evaluated program 5085db78-4ab3-43e3-94d8-e5dc49e77260 in 11.36s: combined_score=0.9038, speedup=0.9038, ns_op=5187.0000, ns_op_median=9152.0000, ns_op_all=[9504.0, 9152.0, 12997.0, 5187.0, 7572.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4219, stage=ok
+2026-05-30 14:56:38,954 - INFO - Island 1 MAP-Elites cell improved: {'complexity': 6, 'diversity': 1} (fitness: 0.779 -> 0.904)
+2026-05-30 14:56:38,954 - INFO - Iteration 20: Program 5085db78-4ab3-43e3-94d8-e5dc49e77260 (parent: a68c3be3-0f50-487b-9a87-dcdb94d5d30c) completed in 48.23s
+2026-05-30 14:56:38,954 - INFO - Metrics: combined_score=0.9038, speedup=0.9038, ns_op=5187.0000, ns_op_median=9152.0000, ns_op_all=[9504.0, 9152.0, 12997.0, 5187.0, 7572.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4219, stage=ok
+2026-05-30 14:56:38,954 - INFO - Checkpoint interval reached at iteration 20
+2026-05-30 14:56:38,958 - INFO - Sampled model: frontier-llm
+2026-05-30 14:56:38,976 - INFO - Island Status:
+2026-05-30 14:56:38,976 - INFO -  * Island 0: 9 programs, best=1.0145, avg=0.8380, diversity=75.87, gen=10 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 14:56:38,976 - INFO -    Island 1: 10 programs, best=1.0145, avg=0.8335, diversity=48.67, gen=10 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 14:56:39,056 - INFO - Saved database with 23 programs to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_20
+2026-05-30 14:56:39,056 - INFO - Saved best program at checkpoint 20 with metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 14:56:39,056 - INFO - Saved checkpoint at iteration 20 to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_20
+2026-05-30 14:57:11,554 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:57:25,063 - INFO - Evaluated program 21fcf7e9-d8a7-42e2-873f-9640659fc6a1 in 13.50s: combined_score=0.6003, speedup=0.6003, ns_op=7810.0000, ns_op_median=9271.0000, ns_op_all=[10063.0, 9822.0, 9271.0, 8868.0, 7810.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4133, stage=ok
+2026-05-30 14:57:25,079 - INFO - Sampled model: frontier-llm
+2026-05-30 14:57:25,114 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 3}
+2026-05-30 14:57:25,115 - INFO - Iteration 21: Program 21fcf7e9-d8a7-42e2-873f-9640659fc6a1 (parent: 8246f9be-16d0-4f19-8648-288455881cc4) completed in 46.11s
+2026-05-30 14:57:25,115 - INFO - Metrics: combined_score=0.6003, speedup=0.6003, ns_op=7810.0000, ns_op_median=9271.0000, ns_op_all=[10063.0, 9822.0, 9271.0, 8868.0, 7810.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4133, stage=ok
+2026-05-30 14:58:00,920 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:58:17,555 - INFO - Evaluated program f49fd05c-2bb3-43e9-b555-786728dc08a5 in 16.62s: combined_score=0.8397, speedup=0.8397, ns_op=5583.0000, ns_op_median=9109.0000, ns_op_all=[6244.0, 12078.0, 11638.0, 5583.0, 9109.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4198, stage=ok
+2026-05-30 14:58:17,572 - INFO - Sampled model: frontier-llm
+2026-05-30 14:58:17,601 - INFO - Island 1 MAP-Elites cell improved: {'complexity': 9, 'diversity': 9} (fitness: 0.814 -> 0.840)
+2026-05-30 14:58:17,601 - INFO - Iteration 22: Program f49fd05c-2bb3-43e9-b555-786728dc08a5 (parent: 90f41d5d-16fd-4140-9155-b3c9286ec107) completed in 52.48s
+2026-05-30 14:58:17,601 - INFO - Metrics: combined_score=0.8397, speedup=0.8397, ns_op=5583.0000, ns_op_median=9109.0000, ns_op_all=[6244.0, 12078.0, 11638.0, 5583.0, 9109.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4198, stage=ok
+2026-05-30 14:58:52,265 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 14:59:08,391 - INFO - Evaluated program 3100ccd6-472b-4222-8b13-88d0ae421877 in 16.11s: combined_score=0.9534, speedup=0.9534, ns_op=4917.0000, ns_op_median=9432.0000, ns_op_all=[9432.0, 4917.0, 9292.0, 9545.0, 13136.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4145, stage=ok
+2026-05-30 14:59:08,407 - INFO - Sampled model: frontier-llm
+2026-05-30 14:59:08,443 - INFO - Island 0 MAP-Elites cell improved: {'complexity': 5, 'diversity': 0} (fitness: 0.779 -> 0.953)
+2026-05-30 14:59:08,443 - INFO - Iteration 23: Program 3100ccd6-472b-4222-8b13-88d0ae421877 (parent: 8246f9be-16d0-4f19-8648-288455881cc4) completed in 50.82s
+2026-05-30 14:59:08,443 - INFO - Metrics: combined_score=0.9534, speedup=0.9534, ns_op=4917.0000, ns_op_median=9432.0000, ns_op_all=[9432.0, 4917.0, 9292.0, 9545.0, 13136.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4145, stage=ok
+2026-05-30 14:59:45,401 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 15:00:02,128 - INFO - Evaluated program 6550a27a-2d07-4f44-ae6f-f0b1913040ed in 16.71s: combined_score=1.0041, speedup=1.0041, ns_op=4669.0000, ns_op_median=9096.0000, ns_op_all=[9747.0, 9096.0, 7015.0, 4669.0, 9464.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4280, stage=ok
+2026-05-30 15:00:02,145 - INFO - Sampled model: frontier-llm
+2026-05-30 15:00:02,176 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 4, 'diversity': 0}
+2026-05-30 15:00:02,176 - INFO - Island 1 MAP-Elites coverage reached 10.0% (10/100 cells)
+2026-05-30 15:00:02,176 - INFO - Iteration 24: Program 6550a27a-2d07-4f44-ae6f-f0b1913040ed (parent: bb39ead9-87e8-4396-b94f-6eed74b85a3f) completed in 53.72s
+2026-05-30 15:00:02,176 - INFO - Metrics: combined_score=1.0041, speedup=1.0041, ns_op=4669.0000, ns_op_median=9096.0000, ns_op_all=[9747.0, 9096.0, 7015.0, 4669.0, 9464.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4280, stage=ok
+2026-05-30 15:00:34,796 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 15:00:50,372 - INFO - Evaluated program ca475b49-652d-476d-92a9-cf14aa63ebc4 in 15.56s: combined_score=0.8952, speedup=0.8952, ns_op=5237.0000, ns_op_median=7591.0000, ns_op_all=[12031.0, 7591.0, 7119.0, 5237.0, 9434.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4208, stage=ok
+2026-05-30 15:00:50,377 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 4, 'diversity': 3}
+2026-05-30 15:00:50,377 - INFO - Island 0 MAP-Elites coverage reached 10.0% (10/100 cells)
+2026-05-30 15:00:50,377 - INFO - Iteration 25: Program ca475b49-652d-476d-92a9-cf14aa63ebc4 (parent: 3100ccd6-472b-4222-8b13-88d0ae421877) completed in 48.23s
+2026-05-30 15:00:50,377 - INFO - Metrics: combined_score=0.8952, speedup=0.8952, ns_op=5237.0000, ns_op_median=7591.0000, ns_op_all=[12031.0, 7591.0, 7119.0, 5237.0, 9434.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4208, stage=ok
+2026-05-30 15:00:50,377 - INFO - Checkpoint interval reached at iteration 25
+2026-05-30 15:00:50,389 - INFO - Sampled model: frontier-llm
+2026-05-30 15:00:50,402 - INFO - Island Status:
+2026-05-30 15:00:50,403 - INFO -  * Island 0: 11 programs, best=1.0145, avg=0.8374, diversity=25.58, gen=13 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 15:00:50,403 - INFO -    Island 1: 11 programs, best=1.0145, avg=0.8513, diversity=53.30, gen=12 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 15:00:50,507 - INFO - Saved database with 28 programs to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_25
+2026-05-30 15:00:50,508 - INFO - Saved best program at checkpoint 25 with metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 15:00:50,508 - INFO - Saved checkpoint at iteration 25 to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_25
+2026-05-30 15:01:23,536 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 15:01:41,432 - INFO - Evaluated program 56d91712-a113-4e0f-858b-44966035d806 in 17.88s: combined_score=0.6203, speedup=0.6203, ns_op=7558.0000, ns_op_median=9242.0000, ns_op_all=[9567.0, 12439.0, 9085.0, 9242.0, 7558.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4268, stage=ok
+2026-05-30 15:01:41,448 - INFO - Sampled model: frontier-llm
+2026-05-30 15:01:41,484 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 6, 'diversity': 2}
+2026-05-30 15:01:41,484 - INFO - Iteration 26: Program 56d91712-a113-4e0f-858b-44966035d806 (parent: 4fa3ac9b-0a71-42b9-af9a-992c3a8e298f) completed in 51.04s
+2026-05-30 15:01:41,484 - INFO - Metrics: combined_score=0.6203, speedup=0.6203, ns_op=7558.0000, ns_op_median=9242.0000, ns_op_all=[9567.0, 12439.0, 9085.0, 9242.0, 7558.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4268, stage=ok
+2026-05-30 15:02:14,220 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 15:02:28,480 - INFO - Evaluated program b463798b-73ae-45bf-b57d-a98868df8e84 in 14.25s: combined_score=0.8090, speedup=0.8090, ns_op=5795.0000, ns_op_median=9346.0000, ns_op_all=[6063.0, 9346.0, 5795.0, 11093.0, 9513.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4236, stage=ok
+2026-05-30 15:02:28,498 - INFO - Sampled model: frontier-llm
+2026-05-30 15:02:28,526 - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 5, 'diversity': 1}
+2026-05-30 15:02:28,526 - INFO - Iteration 27: Program b463798b-73ae-45bf-b57d-a98868df8e84 (parent: 8246f9be-16d0-4f19-8648-288455881cc4) completed in 47.03s
+2026-05-30 15:02:28,526 - INFO - Metrics: combined_score=0.8090, speedup=0.8090, ns_op=5795.0000, ns_op_median=9346.0000, ns_op_all=[6063.0, 9346.0, 5795.0, 11093.0, 9513.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4236, stage=ok
+2026-05-30 15:03:05,455 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 15:03:23,699 - INFO - Evaluated program a8ad91c9-806a-4708-ae62-7f86130795fd in 18.23s: combined_score=0.8394, speedup=0.8394, ns_op=5585.0000, ns_op_median=9166.0000, ns_op_all=[10079.0, 9499.0, 5995.0, 9166.0, 5585.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4314, stage=ok
+2026-05-30 15:03:23,716 - INFO - Sampled model: frontier-llm
+2026-05-30 15:03:23,748 - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 7, 'diversity': 5}
+2026-05-30 15:03:23,748 - INFO - Iteration 28: Program a8ad91c9-806a-4708-ae62-7f86130795fd (parent: 90f41d5d-16fd-4140-9155-b3c9286ec107) completed in 55.20s
+2026-05-30 15:03:23,748 - INFO - Metrics: combined_score=0.8394, speedup=0.8394, ns_op=5585.0000, ns_op_median=9166.0000, ns_op_all=[10079.0, 9499.0, 5995.0, 9166.0, 5585.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4314, stage=ok
+2026-05-30 15:03:57,520 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 15:04:11,108 - INFO - Evaluated program 15dd7025-71e1-406f-a991-52562f8a0ce0 in 13.58s: combined_score=0.6735, speedup=0.6735, ns_op=6961.0000, ns_op_median=9148.0000, ns_op_all=[6961.0, 9148.0, 9315.0, 9055.0, 9154.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4355, stage=ok
+2026-05-30 15:04:11,112 - INFO - Performing migration at iteration 29
+2026-05-30 15:04:11,113 - INFO - Performing migration between islands
+2026-05-30 15:04:11,113 - INFO - Migration completed at generation 15
+2026-05-30 15:04:11,124 - INFO - Sampled model: frontier-llm
+2026-05-30 15:04:11,134 - INFO - Island Status:
+2026-05-30 15:04:11,134 - INFO -  * Island 0: 13 programs, best=1.0145, avg=0.8226, diversity=46.57, gen=15 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 15:04:11,134 - INFO -    Island 1: 13 programs, best=1.0145, avg=0.8326, diversity=73.18, gen=14 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 15:04:11,134 - INFO - Iteration 29: Program 15dd7025-71e1-406f-a991-52562f8a0ce0 (parent: 3100ccd6-472b-4222-8b13-88d0ae421877) completed in 47.39s
+2026-05-30 15:04:11,135 - INFO - Metrics: combined_score=0.6735, speedup=0.6735, ns_op=6961.0000, ns_op_median=9148.0000, ns_op_all=[6961.0, 9148.0, 9315.0, 9055.0, 9154.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4355, stage=ok
+2026-05-30 15:04:41,108 - INFO - HTTP Request: POST https://REDACTED-ENDPOINT/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-30 15:04:55,329 - INFO - Evaluated program 665b5973-b2c5-43c7-acec-d375abc79999 in 14.21s: combined_score=0.8490, speedup=0.8490, ns_op=5522.0000, ns_op_median=9067.0000, ns_op_all=[9128.0, 9361.0, 9067.0, 5778.0, 5522.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4121, stage=ok
+2026-05-30 15:04:55,377 - INFO - Iteration 30: Program 665b5973-b2c5-43c7-acec-d375abc79999 (parent: 4fa3ac9b-0a71-42b9-af9a-992c3a8e298f) completed in 44.21s
+2026-05-30 15:04:55,377 - INFO - Metrics: combined_score=0.8490, speedup=0.8490, ns_op=5522.0000, ns_op_median=9067.0000, ns_op_all=[9128.0, 9361.0, 9067.0, 5778.0, 5522.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4121, stage=ok
+2026-05-30 15:04:55,377 - INFO - Checkpoint interval reached at iteration 30
+2026-05-30 15:04:55,398 - INFO - Island Status:
+2026-05-30 15:04:55,399 - INFO -  * Island 0: 13 programs, best=1.0145, avg=0.8226, diversity=46.57, gen=15 (best: 8246f9be-16d0-4f19-8648-288455881cc4)
+2026-05-30 15:04:55,399 - INFO -    Island 1: 14 programs, best=1.0145, avg=0.8338, diversity=73.18, gen=15 (best: 90f41d5d-16fd-4140-9155-b3c9286ec107)
+2026-05-30 15:04:55,528 - INFO - Saved database with 33 programs to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-30 15:04:55,528 - INFO - Saved best program at checkpoint 30 with metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 15:04:55,528 - INFO - Saved checkpoint at iteration 30 to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-30 15:04:55,529 - INFO - ✅ Evolution completed - Maximum iterations reached
+2026-05-30 15:04:55,666 - INFO - Saved database with 33 programs to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-30 15:04:55,667 - INFO - Saved best program at checkpoint 30 with metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 15:04:55,667 - INFO - Saved checkpoint at iteration 30 to /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+2026-05-30 15:04:55,675 - INFO - Stopped process pool
+2026-05-30 15:04:55,675 - INFO - Using tracked best program: 90f41d5d-16fd-4140-9155-b3c9286ec107
+2026-05-30 15:04:55,675 - INFO - Evolution complete. Best program has metrics: combined_score=1.0145, speedup=1.0145, ns_op=4621.0000, ns_op_median=9115.0000, ns_op_all=[4621.0, 9271.0, 9115.0, 9403.0, 6557.0], baseline_ns_op=4688.0000, violations=0.0000, sweep_secs=0.4243, stage=ok
+2026-05-30 15:04:55,676 - INFO - Saved best program to /root/caisc2026/harness/optimize/out/best/best_program.go with program info to /root/caisc2026/harness/optimize/out/best/best_program_info.json
+
+Evolution complete!
+Best program metrics:
+  combined_score: 1.0145
+  speedup: 1.0145
+  ns_op: 4621.0000
+  ns_op_median: 9115.0000
+  ns_op_all: [4621.0, 9271.0, 9115.0, 9403.0, 6557.0]
+  baseline_ns_op: 4688.0000
+  violations: 0.0000
+  sweep_secs: 0.4243
+  stage: ok
+
+Latest checkpoint saved at: /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_30
+To resume, use: --checkpoint /root/caisc2026/harness/optimize/out/checkpoints/checkpoint_30

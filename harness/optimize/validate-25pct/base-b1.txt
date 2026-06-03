@@ -1,0 +1,180 @@
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	   99267	     10717 ns/op	    2879 B/op	      52 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  173998	      8426 ns/op	    2347 B/op	      46 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  156711	     12018 ns/op	    3502 B/op	      70 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  214340	     10134 ns/op	    3218 B/op	      67 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  219374	      5161 ns/op	    1672 B/op	      30 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  133748	      9829 ns/op	    4733 B/op	     105 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  214461	      6082 ns/op	    2118 B/op	      42 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  161292	     10074 ns/op	    3718 B/op	      78 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  154491	      8070 ns/op	    2502 B/op	      46 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  137116	      9417 ns/op	    4609 B/op	     103 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  195000	      9528 ns/op	    4622 B/op	     103 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  225044	      9718 ns/op	    4742 B/op	     105 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  130021	     11393 ns/op	    5132 B/op	     111 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  152403	     10394 ns/op	    4061 B/op	      83 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  173914	      6702 ns/op	    2326 B/op	      41 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  151473	      7100 ns/op	    2163 B/op	      42 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  104286	     10303 ns/op	    4811 B/op	     107 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  155709	      8348 ns/op	    2946 B/op	      55 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  187296	      9511 ns/op	    4596 B/op	     102 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  150129	      7127 ns/op	    2211 B/op	      36 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  178609	      9264 ns/op	    4519 B/op	     100 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  224306	      6080 ns/op	    1949 B/op	      33 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  188899	      5495 ns/op	    1922 B/op	      35 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  148170	      9673 ns/op	    4724 B/op	     105 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  125026	     11072 ns/op	    4133 B/op	      86 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  115548	      9225 ns/op	    4406 B/op	      98 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  162728	     10022 ns/op	    4906 B/op	     109 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  109284	      9903 ns/op	    3640 B/op	      73 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  223420	      5255 ns/op	    1782 B/op	      33 allocs/op
+PASS
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+BenchmarkProposal3Nodes-16    	  213278	      5050 ns/op	    1737 B/op	      32 allocs/op
+PASS

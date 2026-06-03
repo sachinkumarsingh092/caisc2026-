@@ -1,0 +1,16 @@
+############ POOLED (90 vs 90) ############
+goos: linux
+goarch: amd64
+pkg: go.etcd.io/raft/v3/rafttest
+cpu: Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+                  │ base-all.txt │         cand-all.txt          │
+                  │    sec/op    │   sec/op     vs base          │
+Proposal3Nodes-16    9.520µ ± 3%   9.425µ ± 4%  ~ (p=0.970 n=90)
+
+                  │ base-all.txt  │          cand-all.txt           │
+                  │     B/op      │     B/op       vs base          │
+Proposal3Nodes-16   4.169Ki ± 25%   4.317Ki ± 35%  ~ (p=0.928 n=90)
+
+                  │ base-all.txt │         cand-all.txt          │
+                  │  allocs/op   │  allocs/op   vs base          │
+Proposal3Nodes-16    89.00 ± 28%   97.50 ± 43%  ~ (p=0.936 n=90)

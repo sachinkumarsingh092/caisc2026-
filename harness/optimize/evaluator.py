@@ -23,6 +23,7 @@ from __future__ import annotations
 import os
 import re
 import shutil
+import statistics
 import subprocess
 import time
 from pathlib import Path
@@ -100,6 +101,19 @@ def _parse_ns_op(stdout: str):
     return min(float(m) for m in matches)
 
 
+def _parse_ns_op_list(stdout: str):
+    """Return every BenchmarkProposal3Nodes ns/op sample, in run order.
+
+    Recorded alongside the min so that min- vs median-ranking can be
+    compared post hoc on identical candidates (the in-loop selection
+    metric below is left unchanged at min-of-N).
+    """
+    matches = BENCH_LINE_RE.findall(stdout)
+    if not matches:
+        matches = _BENCH_ANY_LINE_RE.findall(stdout)
+    return [float(m) for m in matches]
+
+
 def evaluate(program_path: str) -> dict:
     CACHE.mkdir(parents=True, exist_ok=True)
     base = {"combined_score": 0.0, "stage": "init"}
@@ -170,11 +184,20 @@ def evaluate(program_path: str) -> dict:
         if ns_op is None or ns_op <= 0:
             return {**base, "stage": "bench_parse", "raw": r.stdout[-400:]}
 
+        ns_op_all = _parse_ns_op_list(r.stdout)
+        ns_op_median = statistics.median(ns_op_all) if ns_op_all else ns_op
+
+        # combined_score stays min-based so this run is a faithful
+        # reproducibility replicate. The full distribution + median are
+        # recorded only for post-hoc paired analysis; they do not steer
+        # selection.
         speedup = BASELINE_NS_OP / ns_op
         return {
             "combined_score": float(speedup),
             "speedup": float(speedup),
             "ns_op": float(ns_op),
+            "ns_op_median": float(ns_op_median),
+            "ns_op_all": [float(x) for x in ns_op_all],
             "baseline_ns_op": float(BASELINE_NS_OP),
             "violations": 0,
             "sweep_secs": float(sweep_secs),
